@@ -103,27 +103,7 @@ async function main() {
         return;
     }
 
-    const onRefreshRepliesButtonClick = async () => {
-
-        const savedReplies = await getSavedReplies(false);
-
-        const updatedRepliesDiv = createParticularRepliesDiv(savedReplies);
-
-        const existingRepliesDivs = document.querySelectorAll(".particular-replies");
-
-        if (existingRepliesDivs) {
-
-            for (let repliesDiv of existingRepliesDivs) {
-                repliesDiv.replaceWith(updatedRepliesDiv);
-                console.log(`replaced!`)
-            }
-        }
-        else {
-            return;
-        }
-    }
-
-    const createParticularRepliesDiv = (savedReplies) => {
+    const createParticularRepliesDivider = () => {
 
         const refershImage = createElement("img",{
             children: [],
@@ -144,17 +124,20 @@ async function main() {
             onRefreshRepliesButtonClick
         );
 
-        const repliesDiv = createElement("div", {
-            children: [],
-            className: "particular-replies"
-        });
-
         const repliesDivider = createElement("div", {
             children: ["Particular replies", refreshRepliesButton],
             className: "select-menu-divider js-divider",
         })
 
-        repliesDiv.appendChild(repliesDivider);
+        return repliesDivider;
+    }
+
+    const createParticularRepliesDiv = (savedReplies) => {
+
+        const repliesDiv = createElement("div", {
+            children: [],
+            className: "particular-replies"
+        });     
 
         for (const reply of savedReplies) {
             const button = createElement("button", {
@@ -203,86 +186,77 @@ async function main() {
         return repliesDiv;
     }
 
+    const notifyOfParticularRepliesUpdated = ()=>{
+        chrome.runtime.sendMessage('', {
+            type: 'notification',
+            options: {
+                title: 'Particular replies updated',
+                message: 'The Particular Saved Replies were updated',
+                iconUrl: chrome.runtime.getURL('icons/original/icon16.png'),
+                type: 'basic'
+          }
+        });    
+    }
+
+    const onRefreshRepliesButtonClick = async (event) => {
+
+        event.preventDefault();
+            
+        const refreshImages = document.querySelectorAll(".particular-refresh-image");
+
+        if(refreshImages){
+
+            for (let refreshImage of refreshImages) {                
+                const refreshImageSrc = chrome.runtime.getURL("images/refresh-particular-replies-2.png");
+                refreshImage.src = refreshImageSrc;
+
+            }
+        }
+
+        const existingRepliesDivs = document.querySelectorAll(".particular-replies");
+
+        const savedReplies = await getSavedReplies(false);
+
+        const updatedRepliesDiv = createParticularRepliesDiv(savedReplies);
+
+        if (existingRepliesDivs) {
+
+            for (let repliesDiv of existingRepliesDivs) {
+                repliesDiv.replaceWith(updatedRepliesDiv);
+                console.log(`replaced!`)
+            }
+        }    
+        
+        if(refreshImages){
+
+            for (let refreshImage of refreshImages) {                
+                const refreshImageSrc = chrome.runtime.getURL("images/refresh-particular-replies.png");
+                refreshImage.src = refreshImageSrc;
+
+            }
+        }
+
+        notifyOfParticularRepliesUpdated();
+    }
 
     const onOpenSavedRepliesButtonClick = async () => {
 
         const replyCategoriesDetailsMenus = document.querySelectorAll(
             `markdown-toolbar details-menu[src^="/settings/replies?context="]`
-        );
+        );        
 
         const replies = await getSavedReplies();
 
+        const repliesDivider = createParticularRepliesDivider();
+
         const repliesDiv = createParticularRepliesDiv(replies)
 
-        for (const replyCategoriesDetailsMenu of replyCategoriesDetailsMenus) {
+        for (const replyCategoriesDetailsMenu of replyCategoriesDetailsMenus) {            
 
-            replyCategoriesDetailsMenu.appendChild(repliesDiv);
+            replyCategoriesDetailsMenu.appendChild(repliesDivider);
 
+            repliesDivider.insertAdjacentElement("afterend",repliesDiv);
 
-            // for (const replyCategoriesDetailsMenu of replyCategoriesDetailsMenus) {
-
-            //     const refreshRepliesButton = createElement("button", {
-            //         children: ["refresh"],
-            //         className: "refresh-particular-replies"
-            //     })
-
-            //     refreshRepliesButton.addEventListener(
-            //         "click",
-
-            //     );
-
-            //     replyCategoriesDetailsMenu.appendChild(
-            //         createElement("div", {
-            //             children: ["Particular replies", refreshButton],
-            //             className: "select-menu-divider js-divider",
-            //         })
-            //     );
-
-            //     for (const reply of replies) {
-
-            //         const button = createElement("button", {
-            //             children: [
-            //                 createElement("div", {
-            //                     children: [
-            //                         createElement("div", {
-            //                             children: [
-            //                                 createElement("span", {
-            //                                     children: [reply.name],
-            //                                     className:
-            //                                         "select-menu-item-heading css-truncate css-truncate-target",
-            //                                 }),
-            //                                 createElement("span", {
-            //                                     children: [reply.body],
-            //                                     className:
-            //                                         "description css-truncate css-truncate-target js-saved-reply-body",
-            //                                 }),
-            //                             ],
-            //                             className: "flex-auto col-9",
-            //                         }),
-            //                     ],
-            //                     className: "select-menu-item-text d-flex flex-items-center",
-            //                 }),
-            //             ],
-            //             className: "select-menu-item width-full",
-            //             role: "menuitem",
-            //             type: "button",
-            //         });
-
-            //         // It looks like GitHub's built-in clicking logic already sets up this listener.
-            //         button.addEventListener("click", (event) => {
-            //             event.preventDefault();
-            //         });
-
-            //         replyCategoriesDetailsMenu.appendChild(
-            //             createElement("ul", {
-            //                 children: [
-            //                     createElement("li", { children: [button], role: "none" }),
-            //                 ],
-            //                 role: "none",
-            //             })
-            //         );
-            //     }
-            // }
         }
 
         openSavedRepliesButton.removeEventListener(

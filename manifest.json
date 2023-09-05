@@ -14,6 +14,10 @@
             ]
         }
     ],
+    "background": {
+        "service_worker": "scripts/background.js",
+        "type": "module"
+    },
     "icons": {
 		"16": "icons/original/icon16.png",
 		"32": "icons/original/icon32.png",
@@ -22,11 +26,16 @@
 		"128": "icons/original/icon128.png"
 	},
     "permissions": [
-        "storage"
+        "storage",
+        "notifications"
       ],
     "web_accessible_resources": [
         {
-            "resources": ["images/refresh-particular-replies.png","css/particular-replies.css"],
+            "resources": [
+                "images/refresh-particular-replies.png",
+                "images/refresh-particular-replies-2.png",
+                "css/particular-replies.css"
+        ],
             "matches": ["https://github.com/*"]
         }
     ]
