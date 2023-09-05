@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="../../css/toggle.css">
+    <link rel="stylesheet" href="../../css/themes.css">
+    <link rel="stylesheet" href="../../css/dialog.css">
+    <link rel="stylesheet" href="options.css">
+</head>
+
+<body>
+    <div id="siteDialog" class="dialog" role="dialog" style="display: block; max-height: 743.334px;">
+        <div class="options dialogHeader icon dialogHeaderButtonsEnabled titleEnabled">
+            <div class="dialogHeaderInner">
+                <span id="title" class="dialogHeaderTitle">Default Settings</span>
+            </div>
+            <div class="dialogHeaderButtons">
+                <button id="close" title="close" class="dialogCloseButton dialogHeaderButton"></button>
+            </div>
+        </div>
+        <div class="dialogContent dialogContentFixed" style="bottom: 6.6667px; top: 50px;">
+            <div class="mainView">
+                <div>
+                    <label class="label" for="theme">Theme:</label>
+                    <select class="dropdownMenu dialogInput" id="theme">
+                    </select>
+                </div>
+                <div>
+                    <h2>Saved Replies Defaults:</h2>
+                </div>
+                <div>
+                    <label class="label">Use with all GitHub repositories:</label>
+                    <label class="toggle">
+                        <input id="allowEverywhere" class="dialogInput toggle-checkbox" type="checkbox" checked>
+                        <div class="toggle-switch"></div>
+                    </label>
+                </div>
+                <div>
+                    <label class="label">Limit to this GitHub organization or user:</label>
+                    <input id="limitToGitHubOwner" minlength="3" class="dialogInput" type="text"
+                        data-errorMessage="Please enter a GitHub organziation name or user name." disabled />
+                </div>
+                <div>
+                    <label class="label">Applies to Issues:</label>
+                    <label class="toggle">
+                        <input id="includeIssues" class="dialogInput toggle-checkbox" type="checkbox" checked>
+                        <div class="toggle-switch"></div>
+                    </label>
+                </div>
+                <div>
+                    <label class="label">Applies to Pull Requests:</label>
+                    <label class="toggle">
+                        <input id="includePullRequests" class="dialogInput toggle-checkbox" type="checkbox" checked>
+                        <div class="toggle-switch"></div>
+                    </label>
+                </div>
+                <div class="twoColumn leftColumn">
+                    <label class="label">Refresh rate in minutes:</label>
+                    <input id="refreshRateInMinutes" class="dialogInput" type="number" min="1" max="60" value="1"
+                        data-errorMessage="Please enter a number." required />
+                </div>
+            </div>
+        </div>
+        <div class="buttons buttonsFixed rightButtons">
+            <button id="cancel" class="nbtn btn_midi wbtn">Cancel</button>
+            <button id="save" class="nbtn btn_midi rbtn">Save</button>
+        </div>
+    </div>
+    <script type="module" src="options.js"></script>
+</body>
+
+</html>

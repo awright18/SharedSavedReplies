@@ -1,0 +1,50 @@
+{
+  "manifest_version": 3,
+  "name": "Shared Saved Replies",
+  "description": "Adds saved replies to GitHub's saved replies list when commenting on issues or pull requests.",
+  "version": "0.0.1",
+  "action":{
+    "default_popup": "pages/popup/popup.html"
+  },
+  "background": {
+    "service_worker": "pages/service-worker/service-worker.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://github.com/*/pull/*",
+        "https://github.com/*/issues/*",
+        "https://*:*/*",
+        "http://*:*/*"
+      ],
+      "js": [
+        "js/time.js",
+        "js/null.js",
+        "pages/content-script/content-script-urls.js",
+        "pages/content-script/content-script-storage.js",
+        "pages/content-script/content-script-elements.js",
+        "pages/content-script/content-script.js"
+      ],
+      "all_frames": false,
+      "runat": "document_start"
+    }
+  ], 
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "64": "icons/icon64.png",
+    "128": "icons/icon128.png"
+  },
+  "key":"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArGi8r21wWmiQLmrqIEf+MHVXwGCE0hF/3MdAbRlDAYka4rDFIZAp+fPu5R79jgm5/WQsMfBtluGl3hELB4xWVoXQEOUEp1jEHIEsDWyh61zlDT92+KS5z+73R1sdJA0V5uEvcBuTl6B/zSqCfLNrycu+9VDZkFYSZzsMfX+ClJYbqJ89ZRS48Jh8cqlGWZ49Ukjjt+VdZAl8PqQMg2IC2KSSQxKssWaGMKX0AVVfymKxT+eC4TFs9HyP82FRBNsq/c46yKP2q+vfx/9iNQra/CpZ46k4nq4SDZ1pJJ5LZIAn1+Et4qMklU0/Yqe8VPGqRCqivfxEJPmkcntFwfC3qQIDAQAB",
+  "options_ui":{
+    "page":"pages/options/options.html",
+    "open_in_tab":true
+  },
+  "permissions": [
+    "activeTab",
+    "alarms",
+    "storage",
+    "offscreen"
+  ]
+}
