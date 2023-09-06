@@ -84,6 +84,15 @@ async function main () {
         return repliesDivider;
     }
 
+    const isParticularGitHubIssueUrl = () => {
+         
+        let url = window.location.href;    
+        
+        let pattern = /^(https?:\/\/)github\.com\/[Pp]articular\/[\dA-z\.-]+\/issues\/\d+$/g;
+        
+        return pattern.test(url);
+    }
+
     const appendSavedReplies = async () => {
 
         const replyCategoriesDetailsMenus = document.querySelectorAll(
@@ -103,8 +112,10 @@ async function main () {
             repliesDivider.insertAdjacentElement("afterend", repliesDiv);
         }
     }
-
-    await appendSavedReplies();
+   
+    if(isParticularGitHubIssueUrl()){
+        await appendSavedReplies();
+    }
 }
 
 main().catch((error) => {
