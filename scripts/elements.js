@@ -128,7 +128,7 @@ const createParticularRepliesDiv = (savedReplies) => {
                                     children: [
                                         createElement("span", {
                                             children: [
-                                                `ctrl ${i}`
+                                                `ctrl ${i+1}`
                                             ],
                                             className: "border rounded-2 p-1 no-wrap"
                                         })

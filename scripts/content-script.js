@@ -2,6 +2,8 @@ document.addEventListener("soft-nav:end", main);
 
 async function main() {
 
+
+    
     const openSavedRepliesButton = document.getElementById(
         "saved-reply-new_comment_field"
     );
@@ -44,35 +46,47 @@ async function main() {
         );
 
         if (replyCategoriesDetailsMenus.length === 0) {
-            console.log("couldn't find spot!");
+            console.log("Element to attach to not found!");
         }
 
         for (const replyCategoriesDetailsMenu of replyCategoriesDetailsMenus) {
 
+            //TODO:check to see if replies exist before adding them.
+            
             replyCategoriesDetailsMenu.insertAdjacentElement("afterend", repliesDiv);
+            
+            observer.disconnect();
         }
     }
 
-    // if (isParticularGitHubIssueUrl()) {
-    //     await appendSavedReplies();
-    // }
+    const savedReplyContainer =
+        document.querySelectorAll(`details.details-overlay.js-saved-reply-container`)[1];
 
-    const onOpenSavedRepliesButtonClick = async () => {
+    const appendSavedRepliesOnOpen = async (list, observer) => {
 
-        if (isParticularGitHubIssueUrl()) {
-            await appendSavedReplies();
+        if (savedReplyContainer.hasAttribute("open")) {
+
+            //TODO:check the filter criteria against the replies
+
+            if (isParticularGitHubIssueUrl()) {
+                await appendSavedReplies();            
+            }
         }
-
-        openSavedRepliesButton.removeEventListener(
-            "click",
-            onOpenSavedRepliesButtonClick
-        )
     }
 
-    openSavedRepliesButton.addEventListener(
-        "click",
-        onOpenSavedRepliesButtonClick
-    );
+    const startObservingDetailsMenu = (targetElement,onMutation) => {
+
+        const observer = new MutationObserver(onMutation);
+
+        const config = { attributes: true, childList: true, subtree: true };
+
+        observer.observe(targetElement, config);
+
+        return observer;
+    }
+
+    const observer = 
+        startObservingDetailsMenu(savedReplyContainer,appendSavedRepliesOnOpen);
 }
 
 main().catch((error) => {
