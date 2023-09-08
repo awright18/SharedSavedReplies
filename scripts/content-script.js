@@ -1,9 +1,22 @@
 document.addEventListener("soft-nav:end", main);
 
+const isParticularGitHubIssueUrl = () => {
+
+    let url = window.location.href;
+
+    let pattern = /^(https?:\/\/)github\.com\/particular\/[\dA-z\.-]+\/issues\/\d+/i;
+
+    return pattern.test(url);
+}
+
 async function main() {
 
+    if(!isParticularGitHubIssueUrl){
+        return;
+    }
 
-    
+    await updateSavedReplies();
+
     const openSavedRepliesButton = document.getElementById(
         "saved-reply-new_comment_field"
     );
@@ -17,16 +30,7 @@ async function main() {
     if (!newCommentField) {
         console.error("Couldn't find comment field");
         return;
-    }
-
-    const isParticularGitHubIssueUrl = () => {
-
-        let url = window.location.href;
-
-        let pattern = /^(https?:\/\/)github\.com\/[Pp]articular\/[\dA-z\.-]+\/issues\/\d+$/g;
-
-        return pattern.test(url);
-    }
+    }   
 
     const createSavedRepliesDiv = async () => {
 
@@ -41,40 +45,41 @@ async function main() {
 
     const appendSavedReplies = async () => {
 
-        const replyCategoriesDetailsMenus = document.querySelectorAll(
+        const replyDetailsMenus =
+         document.querySelectorAll(
             `markdown-toolbar details-menu[src^="/settings/replies?context="] fuzzy-list div.select-menu-filters`// .select-menu-list
         );
 
-        if (replyCategoriesDetailsMenus.length === 0) {
+        if (replyDetailsMenus.length === 0) {
             console.log("Element to attach to not found!");
         }
 
-        for (const replyCategoriesDetailsMenu of replyCategoriesDetailsMenus) {
+        for (const replyDetailsMenus of replyCategoriesDetailsMenus) {
 
             //TODO:check to see if replies exist before adding them.
-            
-            replyCategoriesDetailsMenu.insertAdjacentElement("afterend", repliesDiv);
-            
+
+            replyDetailsMenus.insertAdjacentElement("afterend", repliesDiv);
+
             observer.disconnect();
         }
     }
 
     const savedReplyContainer =
-        document.querySelectorAll(`details.details-overlay.js-saved-reply-container`)[1];
+        document.querySelector(`.js-saved-reply-menu.hx_rsm-modal`);
 
-    const appendSavedRepliesOnOpen = async (list, observer) => {
-
-        if (savedReplyContainer.hasAttribute("open")) {
-
-            //TODO:check the filter criteria against the replies
-
-            if (isParticularGitHubIssueUrl()) {
-                await appendSavedReplies();            
+    const appendSavedRepliesOnOpen = async (mutationList, observer) => {          
+        for (const mutation of mutationList) {            
+            if (mutation.addedNodes.length > 0) {            
+                mutation.addedNodes.forEach(async node => {
+                    if(node.nodeName === "FUZZY-LIST"){
+                        await appendSavedReplies();
+                    }
+                })
             }
         }
     }
 
-    const startObservingDetailsMenu = (targetElement,onMutation) => {
+    const startObservingDetailsMenu = (targetElement, onMutation) => {
 
         const observer = new MutationObserver(onMutation);
 
@@ -85,8 +90,8 @@ async function main() {
         return observer;
     }
 
-    const observer = 
-        startObservingDetailsMenu(savedReplyContainer,appendSavedRepliesOnOpen);
+    const observer =
+        startObservingDetailsMenu(savedReplyContainer, appendSavedRepliesOnOpen);
 }
 
 main().catch((error) => {

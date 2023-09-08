@@ -76,3 +76,17 @@ const getSavedRepliesFromGitHub = async () => {
 
     return replies;
 }
+
+const updateSavedReplies = async () => {
+    
+    try{
+        const savedReplies = await getSavedRepliesFromGitHub();
+    
+        await addSavedRepliesToLocalStorage(savedReplies);
+
+        console.log("saved replies updated");
+    }
+    catch(error){
+        console.log("Error caching saved replies",error);
+    }
+}
