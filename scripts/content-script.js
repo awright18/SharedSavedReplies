@@ -54,11 +54,11 @@ async function main() {
             console.log("Element to attach to not found!");
         }
 
-        for (const replyDetailsMenus of replyCategoriesDetailsMenus) {
+        for (const replyDetailsMenu of replyDetailsMenus) {
 
             //TODO:check to see if replies exist before adding them.
 
-            replyDetailsMenus.insertAdjacentElement("afterend", repliesDiv);
+            replyDetailsMenu.insertAdjacentElement("afterend", repliesDiv);
 
             observer.disconnect();
         }
