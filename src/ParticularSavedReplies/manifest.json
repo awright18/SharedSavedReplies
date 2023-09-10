@@ -6,7 +6,7 @@
     "content_scripts": [
         {
             "matches": [
-                "https://github.com/*"
+                "https://github.com/particular/*/issues/*"
             ],
             "css": [
                 "css/particular-replies.css"
@@ -16,7 +16,8 @@
                 "scripts/elements.js",
                 "scripts/content-script.js"
             ],
-            "runat":"start"
+            "all_frames": false,
+            "runat":"document_start"
         }
     ],
     "icons": {

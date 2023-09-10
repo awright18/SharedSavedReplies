@@ -1,0 +1,87 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
+    <PackageReference Include="Microsoft.Playwright.NUnit" Version="1.37.1" />
+    <PackageReference Include="NUnit" Version="3.13.3" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
+    <PackageReference Include="NUnit.Analyzers" Version="3.6.1" />
+    <PackageReference Include="coverlet.collector" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Label="Particular Saved Replies Chrome extension">
+    <None Include="..\..\ParticularSavedReplies\css\particular-replies.css">
+      <Link>ParticularSavedReplies\css\particular-replies.css</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\ParticularSavedReplies\icons\icon128.png">
+      <Link>ParticularSavedReplies\icons\icon128.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\ParticularSavedReplies\icons\icon16.png">
+      <Link>ParticularSavedReplies\icons\icon16.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\ParticularSavedReplies\icons\icon32.png">
+      <Link>ParticularSavedReplies\icons\icon32.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\ParticularSavedReplies\icons\icon48.png">
+      <Link>ParticularSavedReplies\icons\icon48.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\ParticularSavedReplies\icons\icon64.png">
+      <Link>ParticularSavedReplies\icons\icon64.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\ParticularSavedReplies\images\refresh-particular-replies-2.png">
+      <Link>ParticularSavedReplies\images\refresh-particular-replies-2.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\ParticularSavedReplies\images\refresh-particular-replies.png">
+      <Link>ParticularSavedReplies\images\refresh-particular-replies.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\ParticularSavedReplies\manifest.json">
+      <Link>ParticularSavedReplies\manifest.json</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\ParticularSavedReplies\screenshots\screenshot.png">
+      <Link>ParticularSavedReplies\screenshots\screenshot.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\ParticularSavedReplies\scripts\content-script.js">
+      <Link>ParticularSavedReplies\scripts\content-script.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\ParticularSavedReplies\scripts\elements.js">
+      <Link>ParticularSavedReplies\scripts\elements.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\ParticularSavedReplies\scripts\storage.js">
+      <Link>ParticularSavedReplies\scripts\storage.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include=".auth\credentials.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".auth\state.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  
+</Project>
