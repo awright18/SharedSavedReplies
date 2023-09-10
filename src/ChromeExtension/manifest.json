@@ -1,0 +1,46 @@
+{
+  "manifest_version": 3,
+  "name": "Particular Saved Replies",
+  "description": "Adds Particular's saved replies to GitHub's saved replies list",
+  "version": "0.0.0-alpha.0.11",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://github.com/particular/*/issues/*"
+      ],
+      "css": [
+        "css/particular-replies.css"
+      ],
+      "js": [
+        "scripts/storage.js",
+        "scripts/elements.js",
+        "scripts/content-script.js"
+      ],
+      "all_frames": false,
+      "runat": "document_start"
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "64": "icons/icon64.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": [
+    "storage",
+    "tabs"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "images/refresh-particular-replies.png",
+        "images/refresh-particular-replies-2.png",
+        "css/particular-replies.css"
+      ],
+      "matches": [
+        "https://github.com/*"
+      ]
+    }
+  ]
+}

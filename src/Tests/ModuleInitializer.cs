@@ -9,6 +9,6 @@ public class ModuleInitializer
         VerifyPlaywright.Initialize();
 
     [ModuleInitializer]
-    public static void InitVerifier() => Verifier.UseProjectRelativeDirectory("approvals");
+    public static void InitVerifier() => Verifier.UseProjectRelativeDirectory("ApprovalFiles");
     
 }

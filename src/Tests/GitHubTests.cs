@@ -10,7 +10,7 @@ public class GitHubTests : ChromeExtensionPageTest
 {
     public GitHubTests()
     {
-        PathToExtension = Path.GetFullPath(@".\ParticularSavedReplies");
+        PathToExtension = Path.GetFullPath(@".\ChromeExtension");
     }
     
     [SetUp]

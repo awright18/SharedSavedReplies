@@ -24,15 +24,15 @@
     <PackageReference Include="Verify.Playwright" Version="2.3.0" />
   </ItemGroup>
 
-  <ItemGroup Label="Particular Saved Replies Chrome Extension">
-    <None Include="..\..\ParticularSavedReplies\**\*.*">
-      <Link>ParticularSavedReplies\%(RecursiveDir)%(Filename)%(Extension)</Link>
+  <ItemGroup Label="Chrome Extension">
+    <None Include="..\ChromeExtension\**\*.*">
+      <Link>ChromeExtension\%(RecursiveDir)%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="approvals\" />
+  <ItemGroup Label="Verify files">
+    <Folder Update="..\Tests" />
   </ItemGroup>
   
 </Project>
