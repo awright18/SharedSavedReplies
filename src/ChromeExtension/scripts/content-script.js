@@ -1,17 +1,8 @@
-const isParticularGitHubIssueUrl = () => {
-
-    let url = window.location.href;
-
-    let pattern = /^(https?:\/\/)github\.com\/particular\/[\dA-z\.-]+\/issues\/\d+/i;
-
-    return pattern.test(url);
-}
-
 const main = async () => {
    
     console.log("main called");
 
-    if (!isParticularGitHubIssueUrl()) {
+    if (!isValidIssueUrl()) {
         return;
     }
 
@@ -22,7 +13,7 @@ const main = async () => {
     const prepareRepliesDiv = async() =>{
 
         if(!replies){
-            replies = await getSavedReplies(true);
+            replies = await getSavedReplies(false);
         }
 
         if (!repliesDiv) {

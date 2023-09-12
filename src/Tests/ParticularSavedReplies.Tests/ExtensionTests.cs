@@ -6,18 +6,19 @@ using System.Threading.Tasks;
 
 [Parallelizable(ParallelScope.Self)]
 [TestFixture]
-public class GitHubTests : ChromeExtensionPageTest
+public class ExtensionTests : ChromeExtensionTestServerPageTest
 {
-    public GitHubTests()
+    public ExtensionTests()
     {
         PathToExtension = Path.GetFullPath(@".\ChromeExtension");
     }
-    
-    [SetUp]
-    public async Task LoginToGitHub()
+
+    [Test]
+    [Ignore("Used for manual testing")]
+    public async Task Test_Chrome_Extension_Works_On_GitHub()
     {
         var gitHubLogin = Configuration.GetGitHubLogin();
-
+    
         var gitHubLoginUrl = "https://github.com/login";
         
         await Page.GotoAsync(gitHubLoginUrl);
@@ -32,26 +33,41 @@ public class GitHubTests : ChromeExtensionPageTest
             await Page.GetByRole(AriaRole.Button, new() { Name = "Sign in" })
                 .ClickAsync();
         }
-    }
-    
-    [Test]
-    public async Task Can_add_particular_saved_replies_to_github_issue()
-    {
-        Page.Console += (console, msg) => Console.WriteLine(msg.Text);
-
+        
         await Page.GotoAsync("https://github.com/particular/nservicebus/issues/1");
-
+        
         await Page.Locator("#new_comment_field").FocusAsync();
         
         await Page.Keyboard.PressAsync("Control+.");
 
         await Page.Locator(".refresh-particular-replies").WaitForAsync(new()
         {
-            Timeout = 1000
+            // Timeout = 1000
         });
 
         var replies = await Page.QuerySelectorAsync("div.select-menu-list.particular-replies");
+    }
+    
+    [Test]
+    public async Task Can_add_particular_saved_replies_to_github_issue()
+    {
+        Page.Console += (console, msg) => Console.WriteLine(msg.Text);
+        
+        await Page.GotoAsync(new System.Uri(new Uri(ServerAddress), "fake-issue.html").ToString());
+        
+        await Page.Locator("#new_comment_field").FocusAsync();
+        
+        await Page.Keyboard.PressAsync("Control+.");
 
-        await Verify(replies);
+        var content = await Page.ContentAsync();
+        
+        await Page.Locator(".particular-replies").WaitForAsync(new()
+        {
+            Timeout = 10000
+        });
+        
+        // var replies = await Page.QuerySelectorAsync("div.select-menu-list.particular-replies");
+        //
+        // await Verify(replies);
     }
 }

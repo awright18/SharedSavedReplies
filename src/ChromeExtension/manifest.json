@@ -2,16 +2,18 @@
   "manifest_version": 3,
   "name": "Particular Saved Replies",
   "description": "Adds Particular's saved replies to GitHub's saved replies list",
-  "version": "0.0.0-alpha.0.11",
+  "version": "0.0.0.11",
   "content_scripts": [
     {
       "matches": [
-        "https://github.com/particular/*/issues/*"
+        "https://github.com/particular/*/issues/*",
+        "http://*:*/*"
       ],
       "css": [
         "css/particular-replies.css"
       ],
       "js": [
+        "scripts/urls.js",
         "scripts/storage.js",
         "scripts/elements.js",
         "scripts/content-script.js"
@@ -39,7 +41,8 @@
         "css/particular-replies.css"
       ],
       "matches": [
-        "https://github.com/*"
+        "https://github.com/*",
+        "http://*:*/*"
       ]
     }
   ]

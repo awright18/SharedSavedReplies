@@ -7,8 +7,8 @@ public class ModuleInitializer
     [ModuleInitializer]
     public static void InitPlaywright() =>
         VerifyPlaywright.Initialize();
-
+    
     [ModuleInitializer]
-    public static void InitVerifier() => Verifier.UseProjectRelativeDirectory("ApprovalFiles");
+    public static void InitVerifier() => UseProjectRelativeDirectory("ApprovalFiles");
     
 }

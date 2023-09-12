@@ -32,13 +32,16 @@ const getSavedRepliesFromLocalStorage = async () => {
 const getSavedReplies = async (useCache = false) => {
     try {
 
-        const cachedSavedReplies = await getSavedRepliesFromLocalStorage();
+        if(useCache === true) {
 
-        if (cachedSavedReplies && useCache === true) {    
+            const cachedSavedReplies = await getSavedRepliesFromLocalStorage();
+            
+            if (cachedSavedReplies) {
 
-            return cachedSavedReplies;
+                return cachedSavedReplies;
+            }
         }
-
+        
         return await updateSavedReplies();
     }
     catch (error) {
@@ -53,7 +56,7 @@ const getSavedRepliesFromGitHub = async () => {
     try {
         // const savedReplyTemplatesUrl = "https://github.com/Particular/StaffSuccess/blob/master/github/saved-reply-templates.md";
 
-        const savedReplyTemplatesUrl = "https://github.com/awright18/ParticularSavedReplies/blob/main/saved-replies.md";
+        const savedReplyTemplatesUrl = getTemplateDataUrl();
 
         const response = await fetch(savedReplyTemplatesUrl);
 

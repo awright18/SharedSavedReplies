@@ -44,7 +44,9 @@ public class ChromeExtensionPageTest : BrowserTest
                 Args = new[]
                 {
                     $"--disable-extensions-except={PathToExtension}",
-                    $"--load-extension={PathToExtension}"
+                    $"--load-extension={PathToExtension}",
+                    $"--javaScriptEnabled=true",
+                    "--ignoreCertificateErrors"
                 }
             });
 

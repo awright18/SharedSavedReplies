@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Hello world</title>
+</head>
+<body>
+
+<h1>Fake Page</h1>
+<textarea id="new_comment_field">
+      
+</textarea>
+<details-menu class="js-saved-reply-menu hx_rsm-modal">
+</details-menu>
+<script type="text/javascript">
+    document.addEventListener('keypress', (event) => {
+        console.log("key pressed");
+        let replyModal = document.querySelector(".js-saved-reply-menu.hx_rsm-modal");
+        let fuzzyList = document.createElement("fuzzy-list");
+        let selectMenuFilter = document.createElement("div");
+        selectMenuFilter.className = "select-menu-filters";
+        fuzzyList.appendChild(selectMenuFilter);
+        replyModal.appendChild(fuzzyList);
+    });
+</script>
+</body>
+</html>
