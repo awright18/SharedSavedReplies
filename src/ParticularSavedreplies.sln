@@ -25,7 +25,4 @@ Global
 		{BF14C839-9E6F-42B2-A324-7D37A85640C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF14C839-9E6F-42B2-A324-7D37A85640C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{9A161508-3F51-42D9-B425-870B4B963C89} = {2BC7DE88-7A0F-4731-8E05-3C17A2B49C6B}
-	EndGlobalSection
 EndGlobal
