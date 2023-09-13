@@ -7,7 +7,7 @@
     {
       "matches": [
         "https://github.com/particular/*/issues/*",
-        "http://*:*/*"
+        "https://*:*/*"
       ],
       "css": [
         "css/particular-replies.css"
@@ -42,7 +42,7 @@
       ],
       "matches": [
         "https://github.com/*",
-        "http://*:*/*"
+        "https://*:*/*"
       ]
     }
   ]

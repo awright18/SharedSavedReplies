@@ -53,17 +53,17 @@ public class ExtensionTests : ChromeExtensionTestServerPageTest
     {
         Page.Console += (console, msg) => Console.WriteLine(msg.Text);
         
+        Page.PageError += (sender, error) => Console.WriteLine(error);
+        
         await Page.GotoAsync(new System.Uri(new Uri(ServerAddress), "fake-issue.html").ToString());
         
         await Page.Locator("#new_comment_field").FocusAsync();
         
         await Page.Keyboard.PressAsync("Control+.");
 
-        var content = await Page.ContentAsync();
-        
         await Page.Locator(".particular-replies").WaitForAsync(new()
         {
-            Timeout = 10000
+            Timeout = 1000
         });
         
         // var replies = await Page.QuerySelectorAsync("div.select-menu-list.particular-replies");

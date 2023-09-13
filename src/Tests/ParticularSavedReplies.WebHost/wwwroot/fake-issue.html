@@ -12,8 +12,14 @@
 <details-menu class="js-saved-reply-menu hx_rsm-modal">
 </details-menu>
 <script type="text/javascript">
-    document.addEventListener('keypress', (event) => {
-        console.log("key pressed");
+    document.addEventListener('keydown', (event) => {
+        
+        let controlDotPressed = event.ctrlKey === true && event.key === ".";
+        
+        if(!controlDotPressed){
+            return;
+        }
+        
         let replyModal = document.querySelector(".js-saved-reply-menu.hx_rsm-modal");
         let fuzzyList = document.createElement("fuzzy-list");
         let selectMenuFilter = document.createElement("div");
