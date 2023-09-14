@@ -10,15 +10,9 @@ env:
   DOTNET_NOLOGO: true
 jobs:
   build:
-    name: ${{ matrix.name }}
-    runs-on: ${{ matrix.os }}
+    name: Linux
+    runs-on: ubuntu-latest
     strategy:
-      matrix:
-        include:
-          - os: windows-2022
-            name: Windows
-          - os: ubuntu-22.04
-            name: Linux
       fail-fast: false
     steps:
       - name: Checkout
@@ -37,6 +31,6 @@ jobs:
       - name: Run tests
         env:
           DEBUG: pw:browser
-          github:username: ${{secrets.GITHUB_USERNAME}} 
-          github:password: ${{ secrets.GITHUB_PASSWORD}}
-        uses: Particular/run-tests-action@v1.6.0
+        uses: coactions/setup-xvfb@v1
+        with:
+            run: dotnet test
