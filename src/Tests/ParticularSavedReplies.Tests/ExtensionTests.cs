@@ -10,7 +10,7 @@ public class ExtensionTests : ChromeExtensionTestServerPageTest
 {
     public ExtensionTests()
     {
-        PathToExtension = Path.GetFullPath(@".\ChromeExtension");
+        PathToExtension = Path.GetFullPath(@"./ChromeExtension");
     }
 
     [Test]
