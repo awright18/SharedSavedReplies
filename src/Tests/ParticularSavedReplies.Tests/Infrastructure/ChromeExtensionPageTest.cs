@@ -57,9 +57,9 @@ public class ChromeExtensionPageTest : BrowserTest
     //     // await SocketWaiter.Wait(port: 80);
     // }
 
-    [OneTimeTearDown]
-    public async Task TearDown()
-    {
-        await context.DisposeAsync();
-    }
+    // [OneTimeTearDown]
+    // public async Task TearDown()
+    // {
+    //     await context.DisposeAsync();
+    // }
 }
