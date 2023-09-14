@@ -33,7 +33,7 @@ jobs:
       - name: Build
         run: dotnet build src --configuration Release 
       - name: Install Playwright
-        run: ./src/Tests/ParticularSavedReplies.Tests/bin/Debug/net6.0/playwright.ps1 install
+        run: ./install.ps1
         shell: pwsh   
       - name: Run tests
         env:
