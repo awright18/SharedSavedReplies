@@ -55,7 +55,13 @@ public class ExtensionTests : ChromeExtensionTestServerPageTest
         
         Page.PageError += (sender, error) => Console.WriteLine(error);
         
-        await Page.GotoAsync(new System.Uri(new Uri(ServerAddress), "fake-issue.html").ToString());
+        Console.WriteLine($"ServerAddress:{ServerAddress}");
+
+        var fakeIssueUrl = new System.Uri(new Uri(ServerAddress), "fake-issue.html").ToString();
+        
+        await Page.GotoAsync(fakeIssueUrl);
+        
+        Console.WriteLine($"FakeIssueUrl:{fakeIssueUrl}");
         
         await Page.Locator("#new_comment_field").FocusAsync();
         
