@@ -62,11 +62,7 @@ public class ExtensionTests : ChromeExtensionTestServerPageTest
         await Page.GotoAsync(fakeIssueUrl);
         
         Console.WriteLine($"FakeIssueUrl:{fakeIssueUrl}");
-
-        var content = await Page.ContentAsync();
         
-        Console.Write(content);
-
         await Page.Locator("#new_comment_field").FocusAsync();
         
         await Page.Keyboard.PressAsync("Control+.");
