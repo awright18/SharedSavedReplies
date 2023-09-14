@@ -33,7 +33,7 @@ jobs:
         uses: actions/upload-artifact@v3.1.3
         with:
           name: ${{ env.EXTENSION}}
-          path: extension/${{ env.EXTENSION_ZIP}}
+          path: ${{ env.EXTENSION_ZIP}}
   # api usage reference:
   # * <https://developer.chrome.com/docs/webstore/using_webstore_api/>
   # * <https://github.com/fregante/chrome-webstore-upload/blob/main/How%20to%20generate%20Google%20API%20keys.md>

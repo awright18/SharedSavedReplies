@@ -19,5 +19,7 @@ $extensionZip = "$versionedExtension.zip"
 New-Item -ItemType Directory -Force "extension"
 Compress-Archive -Force -Path $extensionPath -Destination "./extension/$extensionZip"
 
-$env:EXTENSION = $versionedExtension
-$env:EXTENSION_ZIP = $extensionZip
+# Write the variables out to the GitHub actions environment for use in the next step
+echo "EXTENSION=$versionedExtension" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 
+echo "EXTENSION_ZIP= ./extension$extensionZip" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 
+
