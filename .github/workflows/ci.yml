@@ -36,6 +36,7 @@ jobs:
         shell: pwsh   
       - name: Run tests
         env:
+          DEBUG: pw:browser
           github:username: ${{secrets.GITHUB_USERNAME}} 
           github:password: ${{ secrets.GITHUB_PASSWORD}}
         uses: Particular/run-tests-action@v1.6.0
