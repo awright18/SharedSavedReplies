@@ -31,4 +31,4 @@ jobs:
       - name: Run tests
         env:
           DEBUG: pw:browser    
-        run: xvfb dotnet test ./src/Tests/ParticularSavedReplies.Tests
+        run: xvfb-run dotnet test ./src/Tests/ParticularSavedReplies.Tests
