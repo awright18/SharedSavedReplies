@@ -71,12 +71,5 @@ public class ExtensionTests : ChromeExtensionTestServerPageTest
         {
             Timeout = 1000
         });
-<<<<<<< HEAD
-        
-        var replies = await Page.QuerySelectorAsync("div.select-menu-list.particular-replies");
-        
-        await Verify(replies);
-=======
->>>>>>> 85e9040 (removing verify again)
     }
 }

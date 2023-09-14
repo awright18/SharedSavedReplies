@@ -53,19 +53,4 @@ public class ChromeExtensionPageTest : BrowserTest
 
         Page = await context.NewPageAsync();
     }
-<<<<<<< HEAD
-
-    [OneTimeSetUp]
-    public async Task Initialize()
-    {
-        await SocketWaiter.Wait(port: 80);
-    }
-    
-    [OneTimeTearDown]
-    public async Task TearDown()
-    {
-        await context.DisposeAsync();
-    }
-=======
->>>>>>> 85e9040 (removing verify again)
 }
