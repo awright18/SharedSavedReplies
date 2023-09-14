@@ -30,5 +30,8 @@ jobs:
         shell: pwsh   
       - name: Run tests
         env:
-          DEBUG: pw:browser    
-        run: xvfb-run dotnet test ./src/Tests/ParticularSavedReplies.Tests
+          DEBUG: pw:browser
+        uses: GabrielBB/xvfb-action@v1
+        with: 
+          run: dotnet test
+          working-directory: ./src/Tests/ParticularSavedReplies.Tests
