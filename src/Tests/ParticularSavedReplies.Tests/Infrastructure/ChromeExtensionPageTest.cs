@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Playwright;
 using Microsoft.Playwright.NUnit;
+using VerifyTests.Playwright;
 
 namespace ParticularSavedReplies.Tests;
 
@@ -54,15 +55,15 @@ public class ChromeExtensionPageTest : BrowserTest
         Page = await context.NewPageAsync();
     }
 
-    // [OneTimeSetUp]
-    // public async Task Initialize()
-    // {
-    //     // await SocketWaiter.Wait(port: 80);
-    // }
-
-    // [OneTimeTearDown]
-    // public async Task TearDown()
-    // {
-    //     await context.DisposeAsync();
-    // }
+    [OneTimeSetUp]
+    public async Task Initialize()
+    {
+        await SocketWaiter.Wait(port: 80);
+    }
+    
+    [OneTimeTearDown]
+    public async Task TearDown()
+    {
+        await context.DisposeAsync();
+    }
 }

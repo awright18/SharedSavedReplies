@@ -76,8 +76,8 @@ public class ExtensionTests : ChromeExtensionTestServerPageTest
             Timeout = 1000
         });
         
-        // var replies = await Page.QuerySelectorAsync("div.select-menu-list.particular-replies");
-        //
-        // await Verify(replies);
+        var replies = await Page.QuerySelectorAsync("div.select-menu-list.particular-replies");
+        
+        await Verify(replies);
     }
 }
