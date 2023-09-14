@@ -1,7 +1,14 @@
 ﻿$extensionName = "ParticularSavedReplies"
 $extensionPath = "./src/ChromeExtension"
 
-$version = $env:MINVER_VERSION
+$minverVersion = $env:MINVER_VERSION
+
+$regEx = "(?<version>\d\.\d\.\d)(\.\d)?-([A-z]+)"
+
+$minverVersion -match $regEx
+
+$version = $Matches.version
+
 $manifest = Get-Content $extensionPath/manifest.json | ConvertFrom-Json
 $manifest.version = $version
 $manifest | ConvertTo-Json -Depth 32 | Set-Content $extensionPath/manifest.json
