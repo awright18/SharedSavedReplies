@@ -46,7 +46,8 @@ public class ChromeExtensionPageTest : BrowserTest
                     "--remote-allow-origins=*",
                     $"--disable-extensions-except={PathToExtension}",
                     $"--load-extension={PathToExtension}",
-                    "--ignoreCertificateErrors"
+                    "--ignoreCertificateErrors",
+                    "--allow-insecure-localhost"
                 }
             });
 
