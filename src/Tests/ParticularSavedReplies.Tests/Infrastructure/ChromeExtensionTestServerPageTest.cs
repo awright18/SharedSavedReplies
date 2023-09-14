@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.TestHost;
-
-namespace ParticularSavedReplies.Tests;
+﻿namespace ParticularSavedReplies.Tests;
 
 public class ChromeExtensionTestServerPageTest : ChromeExtensionPageTest
 {

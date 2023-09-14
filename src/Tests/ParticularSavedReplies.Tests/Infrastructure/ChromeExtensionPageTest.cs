@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Playwright;
 using Microsoft.Playwright.NUnit;
 using VerifyTests.Playwright;
@@ -54,6 +53,7 @@ public class ChromeExtensionPageTest : BrowserTest
 
         Page = await context.NewPageAsync();
     }
+<<<<<<< HEAD
 
     [OneTimeSetUp]
     public async Task Initialize()
@@ -66,4 +66,6 @@ public class ChromeExtensionPageTest : BrowserTest
     {
         await context.DisposeAsync();
     }
+=======
+>>>>>>> 85e9040 (removing verify again)
 }

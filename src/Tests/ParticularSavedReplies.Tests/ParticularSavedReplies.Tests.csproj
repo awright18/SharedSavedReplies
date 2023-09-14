@@ -29,15 +29,15 @@
       <Link>ChromeExtension\%(RecursiveDir)%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Remove="ApprovalFiles\ExtensionTests.Can_add_particular_saved_replies_to_github_issue.verified.png" />
   </ItemGroup>
-
-  <ItemGroup Label="Verify files">
-    <Folder Update="..\Tests" />
-    <Folder Include="ApprovalFiles\" />
-  </ItemGroup>
-
+  
   <ItemGroup>
     <ProjectReference Include="..\ParticularSavedReplies.WebHost\ParticularSavedReplies.WebHost.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="ApprovalFiles\" />
   </ItemGroup>
   
 </Project>
