@@ -42,6 +42,8 @@ public class ChromeExtensionPageTest : BrowserTest
                 Headless = false,
                 Args = new[]
                 {
+                    "-headless=new",
+                    "--remote-allow-origins=*",
                     $"--disable-extensions-except={PathToExtension}",
                     $"--load-extension={PathToExtension}",
                     "--ignoreCertificateErrors"
