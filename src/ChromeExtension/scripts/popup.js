@@ -1,12 +1,10 @@
-﻿const updatePopupContent = async () => {
-
-    let savedReliesUrl = await getSavedRepliesFromLocalStorage();
-
+﻿const updatePopupContent = async (savedRepliesUrl) => {
+    
     let needsUrl = document.querySelector(".needs-url");
 
     let hasUrl = document.querySelector(".has-url");
 
-    if (savedReliesUrl) {
+    if (savedRepliesUrl) {
         needsUrl.classList.remove("hidden")
         hasUrl.classList.add("hidden");
     } else {
@@ -15,12 +13,21 @@
     }
 }
 
+chrome.runtime.onMessage.addListener(async (message) => {
+    
+    await handleSavedRepliesUrlChangedEvent(
+        message,
+        updatePopupContent);
+});
+
 document.getElementById(`save`)
     .addEventListener(`click`, async () => {
         let savedRepliesUrl =
             document.getElementById(`saved-replies-url`).value;
 
-        await sendUpdateSavedRepliesUrlMessage(savedRepliesUrl);
+        await sendUpdateSavedRepliesUrlCommand(savedRepliesUrl);
+        
+        console.log("update url message sent");
         
         await updatePopupContent();
     });

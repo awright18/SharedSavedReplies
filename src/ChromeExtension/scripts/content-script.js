@@ -11,14 +11,10 @@ const main = async () => {
     let replies;
     
     const prepareRepliesDiv = async() =>{
-
-        if(!replies){
-            replies = await getSavedReplies(false);
-        }
-
-        if (!repliesDiv) {
-            repliesDiv = await createSavedRepliesDiv(replies);
-        }
+        
+        replies = await getSavedRepliesFromLocalStorage();
+        
+        repliesDiv = await createSavedRepliesDiv(replies);
     }
     
     const addSavedRepliesToFuzzyList = async (node) =>{

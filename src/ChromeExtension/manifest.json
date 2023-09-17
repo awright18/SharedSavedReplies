@@ -21,7 +21,7 @@
       "js": [
         "scripts/urls.js",
         "scripts/storage.js",
-        "scripts/saved-replies.js",
+        "scripts/fetch-saved-replies.js",
         "scripts/elements.js",
         "scripts/content-script.js"
       ],
@@ -41,8 +41,9 @@
     "open_in_tab": false
   },
   "permissions": [
+    "activeTab",
     "storage",
-    "activeTab"
+    "offscreen"
   ],
   "web_accessible_resources": [
     {

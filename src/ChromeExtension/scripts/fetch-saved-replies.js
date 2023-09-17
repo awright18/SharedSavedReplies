@@ -22,13 +22,32 @@ const getSavedReplyBody = (h2) =>{
     return null;
 }
 
-const getSavedRepliesFromUrl = async (savedRepliesUrl) => {
+const tryParseReplies = async (response) => {
+
+    if(!response){
+        return false;
+    }
+
+    const json = await response.json();
+
+    if(response.ok && json){
+        return json.payload.blob.richText;
+    }
+
+    throw new Error("Problem parsing response");
+}
+
+const fetchSavedRepliesFromUrl = async (savedRepliesUrl) => {
+    
+    const url = new URL(savedRepliesUrl);
+
+    if(!url){
+        throw new Error("savedRepliesUrl does not exist");
+    }
         
     const response = await fetch(savedRepliesUrl);
 
-    const json = await response.json();
-    
-    const html = json.payload.blob.richText;
+    const html = await tryParseReplies(response);
 
     var parser = new DOMParser();
 
@@ -53,28 +72,3 @@ const getSavedRepliesFromUrl = async (savedRepliesUrl) => {
     return savedReplies;
 }
 
-const updateSavedReplies = async () => {
-
-    const savedReplies = await getSavedRepliesFromGitHub();
-
-    if(savedReplies) {
-        await addSavedRepliesToLocalStorage(savedReplies);
-    }
-
-    return savedReplies;
-}
-
-const getSavedReplies = async (useCache = false) => {
-
-    if (useCache === true) {
-
-        const cachedSavedReplies = await getSavedRepliesFromLocalStorage();
-
-        if (cachedSavedReplies) {
-
-            return cachedSavedReplies;
-        }
-    }
-
-    return await updateSavedReplies();
-}

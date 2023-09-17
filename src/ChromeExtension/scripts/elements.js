@@ -31,7 +31,7 @@ const onRefreshRepliesButtonClick = async (event) => {
     if (refreshImages) {
 
         for (let refreshImage of refreshImages) {
-            const refreshImageSrc = chrome.runtime.getURL("images/refresh-replies-2.png");
+            const refreshImageSrc = chrome.runtime.getURL("images/refresh-saved-replies-2.png");
             refreshImage.src = refreshImageSrc;
 
         }
@@ -39,7 +39,7 @@ const onRefreshRepliesButtonClick = async (event) => {
 
     const existingRepliesDivs = document.querySelectorAll(".saved-replies");
 
-    const savedReplies = await getSavedReplies(false);
+    const savedReplies = await getSavedRepliesFromLocalStorage();
 
     const updatedRepliesDiv = createSavedRepliesDiv(savedReplies);
 
@@ -53,7 +53,7 @@ const onRefreshRepliesButtonClick = async (event) => {
     if (refreshImages) {
 
         for (let refreshImage of refreshImages) {
-            const refreshImageSrc = chrome.runtime.getURL("images/refresh-replies.png");
+            const refreshImageSrc = chrome.runtime.getURL("images/refresh-saved-replies.png");
             refreshImage.src = refreshImageSrc;
         }
     }
@@ -66,7 +66,7 @@ const createSavedRepliesDivider = () => {
         className: "refresh-image"
     });
 
-    const refreshImageSrc = chrome.runtime.getURL("images/refresh-replies.png");
+    const refreshImageSrc = chrome.runtime.getURL("images/refresh-saved-replies.png");
 
     refershImage.src = refreshImageSrc;
 
