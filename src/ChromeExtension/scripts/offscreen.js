@@ -11,6 +11,8 @@
                 const savedReplies2 = await fetchSavedRepliesFromUrl(savedRepliesUrl2);
     
                 await sendStoreSavedRepliesCommand(savedReplies2);
+
+                await closeOffscreenDocument();
             }
             catch (error){                
                 

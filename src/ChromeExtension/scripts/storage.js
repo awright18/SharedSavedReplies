@@ -17,6 +17,7 @@ const getSavedRepliesUrlFromLocalStorage = async () => {
 }
 
 const addSavedRepliesToLocalStorage = async (savedReplies) => {
+    
     await chrome.storage.local.set({"saved-replies": savedReplies});
 
     console.log("saved replies local storage updated");
@@ -31,6 +32,20 @@ const getSavedRepliesFromLocalStorage = async () => {
     }
 
     return replies["saved-replies"];
+}
+
+const addSavedRepliesLastUpdatedAtToLocalStorage = async () => {
+    
+    await chrome.storage.local.set({"saved-replies-last-updated-at": utcNowTicks()});   
+}
+
+const getSavedRepliesLastUpdatedAtFromLocalStorage = async () => {
+    
+    const data = await chrome.storage.local.get(["saved-replies-last-updated-at"]);   
+    
+    let lastUpdatedAt = data[`saved-replies-last-updated-at`];
+
+    return lastUpdatedAt;
 }
 
 const handleSavedRepliesUrlStorageChangedEvent =

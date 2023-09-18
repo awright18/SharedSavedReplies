@@ -1,4 +1,5 @@
 ﻿importScripts(["messaging.js"]);
+importScripts(["time.js"]);
 importScripts(["storage.js"]);
 importScripts(["offscreen-document.js"]);
 
@@ -32,7 +33,10 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     await handleStoreSavedRepliesCommand(
         request,
         SERVICE_WORKER,
-        addSavedRepliesToLocalStorage);
+        async (savedReplies) => {
+            await addSavedRepliesToLocalStorage(savedReplies);
+            await addSavedRepliesLastUpdatedAtToLocalStorage();
+        });
 
     await handleSavedRepliesUrlChangedEvent(
         request,
@@ -42,6 +46,3 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
         request,
         (error) => console.log(error));
 });
-
-
-

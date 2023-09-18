@@ -81,7 +81,9 @@ const send = async (command) => {
 
         console.log(`sent`, command);
         
-        return await chrome.runtime.sendMessage(command);
+         await chrome.runtime.sendMessage(command);
+
+         return true;
     }
     else {
         throw new Error(`message: ${command.messageName} is not a command.`);
@@ -111,7 +113,9 @@ const publish = async (event) => {
         
         console.log(`published`, event);
 
-        return await chrome.runtime.sendMessage(event);
+        await chrome.runtime.sendMessage(event);
+
+        return true;
     }
     else {
 

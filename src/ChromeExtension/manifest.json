@@ -23,6 +23,7 @@
         "scripts/storage.js",
         "scripts/fetch-saved-replies.js",
         "scripts/elements.js",
+        "scripts/time.js",
         "scripts/content-script.js"
       ],
       "all_frames": false,
