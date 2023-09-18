@@ -10,63 +10,63 @@ const isCommand = (message) => message.messageType = COMMAND;
 const isEvent = (message) => message.messageType = EVENT;
 
 const canHandleCommand = async = (message, target, messageName) => {
-  
-    if(!message){
+
+    if (!message) {
         throw new Error(`message is required when calling canHandleCommand`)
     }
 
-    if(!target){
+    if (!target) {
         throw new Error(`target is required when calling canHandleCommand`)
     }
 
 
-    if(!messageName){
+    if (!messageName) {
         throw new Error(`messageName is required when calling canHandleCommand`)
     }
-    
 
-    if(isCommand(message)
+
+    if (isCommand(message)
         && message.target === target
-        && message.messageName == messageName){
-            console.log(`handling command`, {message});
+        && message.messageName == messageName) {
+        console.log(`handling command`, { message });
 
-            return true;
-        }
+        return true;
+    }
 
-        return false;
+    return false;
 }
 
 const canHandleEvent = async (message, messageName) => {
-    
-    if(!message){
+
+    if (!message) {
         throw new Error(`message is required when calling canHandleEvent`)
     }
 
-    if(!messageName){
+    if (!messageName) {
         throw new Error(`messageName is required when calling canHandleEvent`)
     }
-    
-    if(isEvent(message)
-        && message.messageName === messageName){
+
+    if (isEvent(message)
+        && message.messageName === messageName) {
         console.log(`handling event`, message);
     }
 }
 
 const createCommand = (messageName, target, data) => {
 
-    if(!messageName){
+    if (!messageName) {
         throw new Error(`messageName is required when calling createCommand`)
     }
 
-    if(!target){
+    if (!target) {
         throw new Error(`target is required when calling createCommand`)
     }
 
 
-    if(!data){
+    if (!data) {
         throw new Error(`data is required when calling createCommand`)
     }
-    
+
     return {
         messageType: COMMAND,
         messageName: messageName,
@@ -80,10 +80,10 @@ const send = async (command) => {
     if (isCommand(command)) {
 
         console.log(`sent`, command);
-        
-         await chrome.runtime.sendMessage(command);
 
-         return true;
+        await chrome.runtime.sendMessage(command);
+
+        return true;
     }
     else {
         throw new Error(`message: ${command.messageName} is not a command.`);
@@ -92,11 +92,11 @@ const send = async (command) => {
 
 const createEvent = (messageName, data) => {
 
-    if(!messageName){
+    if (!messageName) {
         throw new Error(`messageName is required when calling createEvent`)
     }
 
-    if(!data){
+    if (!data) {
         throw new Error(`data is required when calling createEvent`)
     }
 
@@ -110,7 +110,7 @@ const createEvent = (messageName, data) => {
 const publish = async (event) => {
 
     if (isEvent(event)) {
-        
+
         console.log(`published`, event);
 
         await chrome.runtime.sendMessage(event);
@@ -128,6 +128,8 @@ const sendUpdateSavedRepliesUrlCommand = async (savedRepliesUrl) => {
     const updateSavedRepliesUrlCommand = createCommand(`updateSavedRepliesUrl`, SERVICE_WORKER, savedRepliesUrl);
 
     await send(updateSavedRepliesUrlCommand);
+
+    return true;
 }
 
 const handleUpdateSavedRepliesUrlCommand = async (message, target, handleUpdateSavedRepliesUrl) => {
@@ -136,7 +138,9 @@ const handleUpdateSavedRepliesUrlCommand = async (message, target, handleUpdateS
         return;
     }
 
-    return await handleUpdateSavedRepliesUrl(message.data);
+    await handleUpdateSavedRepliesUrl(message.data);
+
+    return true;
 }
 
 const publishSavedRepliesUrlChangedEvent = async (savedRepliesUrl) => {
@@ -145,14 +149,18 @@ const publishSavedRepliesUrlChangedEvent = async (savedRepliesUrl) => {
         createEvent(`savedRepliesUrlChanged`, savedRepliesUrl);
 
     await publish(savedRepliesUrlChangedEvent);
+
+    return true;
 }
 
-const handleSavedRepliesUrlChangedEvent = async (message,handleSavedRepliesUrlChanged) =>{
-    if(!canHandleEvent(message, `savedRepliesUrlChanged`)){
+const handleSavedRepliesUrlChangedEvent = async (message, handleSavedRepliesUrlChanged) => {
+    if (!canHandleEvent(message, `savedRepliesUrlChanged`)) {
         return;
     }
 
-    return await handleSavedRepliesUrlChanged(message.data);
+    await handleSavedRepliesUrlChanged(message.data);
+
+    return true;
 }
 
 const sendFetchSavedRepliesFromUrlCommand = async (savedRepliesUrl) => {
@@ -170,6 +178,8 @@ const handleFetchSavedRepliesFromUrlCommand = async (message, handleFetchSavedRe
     }
 
     await handleFetchSavedRepliesFromUrl(message.data);
+
+    return true;
 }
 
 const sendStoreSavedRepliesCommand = async (savedReplies) => {
@@ -178,6 +188,8 @@ const sendStoreSavedRepliesCommand = async (savedReplies) => {
         createCommand(`storeSavedReplies`, SERVICE_WORKER, savedReplies)
 
     await send(storeSavedRepliesCommand);
+
+    return true;
 }
 
 const handleStoreSavedRepliesCommand = async (message, target, handleStoreSavedReplies) => {
@@ -187,26 +199,31 @@ const handleStoreSavedRepliesCommand = async (message, target, handleStoreSavedR
     }
 
     await handleStoreSavedReplies(message.data);
+
+    return true;
 }
 
 const publishFailedToFetchSavedRepliesEvent = async (error) => {
-    
-    const failedToFetchSavedRepliesFromUrlEvent = 
+
+    const failedToFetchSavedRepliesFromUrlEvent =
         createEvent(`failed-to-create-saved-replies-from-url`, error.message);
 
     await publish(failedToFetchSavedRepliesFromUrlEvent);
+
+    return true;
 }
 
 const handleFailedToFetchSavedRepliesEvent = async (message, handleFailedToFetchSavedReplies) => {
-    
-    if(!canHandleEvent(message, `failed-to-create-saved-replies-from-url`)){
-        return 
+
+    if (!canHandleEvent(message, `failed-to-create-saved-replies-from-url`)) {
+        return
     }
 
-    try{
-    await handleFailedToFetchSavedReplies(message.data);
+    try {
+        await handleFailedToFetchSavedReplies(message.data);
+        return true;
     }
-    catch(error){
-        console.log(`swallowing error` );
+    catch (error) {
+        console.log(`swallowing error`);
     }
 }

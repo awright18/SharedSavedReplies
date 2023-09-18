@@ -1,5 +1,5 @@
-﻿const updatePopupContent = async (savedRepliesUrl) => {
-    
+﻿const updatePopupContent = (savedRepliesUrl) => {
+
     let needsUrl = document.querySelector(".needs-url");
 
     let hasUrl = document.querySelector(".has-url");
@@ -13,23 +13,20 @@
     }
 }
 
-chrome.runtime.onMessage.addListener(async (message) => {
-    
-    await handleSavedRepliesUrlChangedEvent(
-        message,
-        updatePopupContent);
-});
-
 document.getElementById(`save`)
-    .addEventListener(`click`, async () => {
+    .addEventListener(`click`, async (event) => {
+
         let savedRepliesUrl =
             document.getElementById(`saved-replies-url`).value;
 
-        await sendUpdateSavedRepliesUrlCommand(savedRepliesUrl);
-        
-        console.log("update url message sent");
-        
-        await updatePopupContent();
+        if (savedRepliesUrl) {
+
+            await sendUpdateSavedRepliesUrlCommand(savedRepliesUrl);
+
+            console.log("update url message sent");           
+        }
+
+        // updatePopupContent(savedRepliesUrl);       
     });
 
 document.getElementById(`options-link`)

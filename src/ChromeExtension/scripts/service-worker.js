@@ -9,6 +9,8 @@ const sendFetchSavedRepliesFromUrlMessageToOffScreen = async (savedRepliesUrl) =
             await sendFetchSavedRepliesFromUrlCommand(savedRepliesUrl);
         }
     );
+    
+    await closeOffscreenDocument();
 }
 
 chrome.runtime.onInstalled.addListener(async (details) => {

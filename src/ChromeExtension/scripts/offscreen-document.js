@@ -35,4 +35,6 @@ const sendMessageToOffscreenDocument = async (sendMessage) => {
     
     await sendMessage();
 
+    return true;
+
 }

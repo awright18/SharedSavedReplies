@@ -1,6 +1,5 @@
 ﻿chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
 
-
     await handleFetchSavedRepliesFromUrlCommand(
         request,       
         async (savedRepliesUrl2) => {
@@ -10,15 +9,16 @@
 
                 const savedReplies2 = await fetchSavedRepliesFromUrl(savedRepliesUrl2);
     
-                await sendStoreSavedRepliesCommand(savedReplies2);
-
-                await closeOffscreenDocument();
+                await sendStoreSavedRepliesCommand(savedReplies2);             
             }
             catch (error){                
                 
                 console.log("offscreen",error);
-                // await publishFailedToFetchSavedRepliesEvent(error);
-                sendResponse(error);
+                // await publishFailedToFetchSavedRepliesEvent(error);            
             }
-    });    
+
+            return true;
+    }); 
+    
+    return true;
 });
