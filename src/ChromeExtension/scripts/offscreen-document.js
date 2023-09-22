@@ -5,6 +5,9 @@ const closeOffscreenDocument = async () => {
     if (!(await hasDocument())) {
         return;
     }
+    
+    console.log("closing offscreen document");
+    
     await chrome.offscreen.closeDocument();
 }
 
