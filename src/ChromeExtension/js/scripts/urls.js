@@ -8,6 +8,16 @@ const isGitHubIssueUrl = () => {
     return pattern.test(url);
 }
 
+
+const isGitHubPullRequestUrl = () => {
+
+    let url = window.location.href;
+
+    let pattern = /^(https?:\/\/)github\.com\/.+\/.+\/pull\/\d+/i;
+
+    return pattern.test(url);
+}
+
 const isLocalhostUrl = () => {
     let url = window.location.href;
 

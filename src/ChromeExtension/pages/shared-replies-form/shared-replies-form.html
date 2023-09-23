@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Update - Shared Saved Replies</title>
+    <link rel="stylesheet" href="../../css/reset.css" />
+    <link rel="stylesheet" href="../../css/toggle.css" />
+    <link rel="stylesheet" href="shared-replies-form.css" />
+</head>
+
+<body>
+    <div id="siteDialog" class="dialog" role="dialog" style="display: block; max-height: 743.334px;">
+        <div class="shared-saved-replies dialogHeader icon dialogHeaderButtonsEnabled titleEnabled">
+            <div class="dialogHeaderInner">
+                <span id="title" class="dialogHeaderTitle">Share Replies Template</span>
+            </div>
+            <div class="dialogHeaderButtons">
+                <button id="close" title="close" class="dialogCloseButton dialogHeaderButton"></button>
+            </div>
+        </div>
+        <div class="dialogContent dialogContentFixed" style="bottom: 6.6667px; top: 50px;">
+            <div class="mainView">
+                <div>
+                    <label class="label">Url:</label>
+                    <input type="url"
+                           id="url"                            
+                           minlength="7" 
+                           maxlength="2000" 
+                           class="dialogInput" 
+                           pattern="^https:\/\/github.com\/.*\/(.*)?\.md$" 
+                           placeholder="https://github.com/path_to_template.md"
+                           data-errormessage="Please enter the url of a saved replies template file. 
+                                             See https://github.com/awright18/sharedsavedreplies/docs/template-file.md for details."
+                           required />
+                </div>
+                <div>
+                    <label class="label">Name:</label>
+                    <input id="name" 
+                           minlength="3" 
+                           maxlength="100" 
+                           class="dialogInput" 
+                           type="text"
+                           data-errormessage="A template name is required."
+                           required />
+                </div>
+                <div>
+                    <label class="label">Use with all GitHub repositories:</label>
+                    <label class="toggle">
+                        <input 
+                            id="allowEverywhere" 
+                            class="dialogInput toggle-checkbox" 
+                            type="checkbox"                          
+                            checked>
+                        <div class="toggle-switch"></div>                
+                    </label>
+                </div>
+                <div>
+                    <label class="label">Limit to this GitHub organization or user:</label>
+                    <input id="limitToGitHubOwner" 
+                           minlength="3" 
+                           class="dialogInput" 
+                           type="text"
+                           data-errorMessage="Please enter a GitHub organziation name or user name." disabled />
+                </div>       
+                <div>
+                    <label class="label">Applies to Issues:</label>
+                    <label class="toggle">
+                        <input id="includeIssues" class="dialogInput toggle-checkbox" type="checkbox" checked>
+                        <div class="toggle-switch"></div>                    
+                    </label>
+                </div>
+                <div>
+                    <label class="label">Applies to Pull Requests:</label>
+                    <label class="toggle">
+                        <input id="includePullRequests" class="dialogInput toggle-checkbox" type="checkbox" checked>
+                        <div class="toggle-switch"></div>                
+                    </label>
+                </div>
+                <div class="twoColumn leftColumn">
+                    <label class="label">Refresh rate:</label>
+                    <input id="refreshRate" 
+                           class="dialogInput" 
+                           type="number" 
+                           min="1" 
+                           max="60" 
+                           value="1"                        
+                           data-errorMessage="Please enter a number."
+                           required />
+                </div>
+                <div class="twoColumn rightColumn">
+                    <label class="label">Interval:</label>
+                    <select id="refreshRateInterval" class="dropdownMenu selectDropdownList dialogInput required">
+                        <option value="Seconds">Seconds</option>
+                        <option value="Mintues">Minutes</option>
+                        <option value="Hours" selected>Hours</option>
+                        <option value="Days" >Days</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="buttons buttonsFixed rightButtons">
+            <button id="cancel" class="nbtn btn_midi wbtn">Cancel</button>
+            <button id="save" class="nbtn btn_midi rbtn">Save</button>
+        </div>
+    </div>
+    <script src="shared-replies-form.js" type="module"></script>
+</body>
+
+</html>

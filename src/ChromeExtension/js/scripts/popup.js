@@ -13,6 +13,13 @@
     }
 }
 
+document.getElementById(`add`)
+    .addEventListener(`click`, async (event) => {
+        chrome.tabs.create({
+            url: "pages/shared-replies-form/shared-replies-form.html"
+          });
+    });
+
 document.getElementById(`save`)
     .addEventListener(`click`, async (event) => {
 
@@ -34,3 +41,6 @@ document.getElementById(`options-link`)
         await chrome.runtime.openOptionsPage();
     })
 
+
+
+ 

@@ -1,0 +1,344 @@
+body,
+input,
+textarea,
+button {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+}
+
+
+input:disabled{
+    background-color: #ccc;
+}
+
+div {
+    display: block;
+}
+
+button {
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    box-sizing: content-box;
+    vertical-align: top;
+    padding: 0;
+    font-size: inherit;
+    cursor: pointer;
+}
+
+.buttons {
+    padding: 10px 16px 10px 16px;
+}
+
+.relative {
+    position:relative;
+}
+
+#siteDialog {
+    min-height: 215px;
+    max-width: 800px;
+    min-width: 485px;
+}
+
+.dialog {
+    z-index: 1
+}
+
+.dialog {
+    width: calc(100% - 40px);
+    position: absolute;
+    top: 20px;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    margin: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    background-color: #F2F4F5;
+}
+
+.dialogHeader {
+    background-color: #00a3c4;
+    color: #FFF;
+    font-weight: 600;
+    position: relative;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+.shared-saved-replies.dialogHeader.dialogHeaderButtonsEnabled.icon.titleEnabled>.dialogHeaderInner {
+    text-align: center;
+}
+
+.dialogHeader.dialogHeaderButtonsEnabled.icon.titleEnabled>.dialogHeaderInner {
+    background-position: center center;
+    position: relative;
+    text-align: left;
+}
+
+.dialogHeader.icon>.dialogHeaderInner {
+    background-image: none;
+}
+
+
+.dialogHeader.icon>.dialogHeaderInner {
+    background-repeat: no-repeat;
+    background-position: right center;
+}
+
+.dialogHeaderInner {
+    line-height: 50px;
+    height: 50px;
+}
+
+.dialogHeaderButtons {
+    position: absolute;
+    height: 25px;
+    top: 0;
+    bottom: 0;
+    right: 15px;
+    margin: auto;
+}
+
+.dialogCloseButton {
+    background-image: url('close-dialog.png');
+}
+
+.dialogHeaderButton {
+    width: 25px;
+    height: 100%;
+    display: inline-block;
+    vertical-align: top;
+    background-position: center center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+#siteDialog .dialogContent {
+    padding-bottom: 0;
+}
+
+.dialogContent {
+    padding: 20px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}
+
+.mainView {
+    height: 100%;
+}
+
+.twoColumn.leftColumn {
+    padding-right: 10px;
+}
+
+.twoColumn.rightColumn {
+    padding-left: 10px;
+}
+
+.twoColumn {
+    width: 50%;
+    float: left;
+    box-sizing: border-box;
+}
+
+.oneColumn {
+    width: 100%;
+    float: left;
+}
+
+.clear {
+    clear: both;
+}
+
+.label {
+    font-weight: 600;
+    margin: 20px 0 5px 0;
+    display: block;
+}
+
+.dialogInput {
+    font-size: 16px;
+    height: 30px;
+    padding: 0 5px 0 5px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #A7AFBA;
+    box-sizing: border-box;
+    width: 100%;
+    color: #000;
+    background-color: #FFF;
+}
+
+input[type="text" i] {
+    padding-block: 1px;
+    padding-inline: 2px;
+}
+
+.dropdownMenu {
+    z-index: 90;
+}
+
+.selectDropdownList {
+    left: 0;
+    right: 0;
+    border-color: #AAB2BD;
+    border-style: solid;
+    border-width: 0 1px 1px 1px;
+    overflow: auto;
+    max-height: 171px;
+    width: 100%;
+}
+
+.dropdownMenu option {
+    background-color: #FFF;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    cursor: default;
+}
+
+.buttons .nbtn {
+    vertical-align: top;
+    min-width: 0;
+}
+
+.buttons .nbtn {
+    vertical-align: top;
+    min-width: 0;
+}
+
+.wbtn {
+    background-color: #ffffff;
+    color: #3b352a !important;
+}
+
+
+.rightButtons {
+    text-align: right;
+}
+
+.buttonsFixed {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-top: 1px solid #B7B7B7;
+}
+
+.buttons .nbtn {
+    vertical-align: top;
+    min-width: 0;
+}
+
+.btn_midi {
+    font-size: 15px;
+    width: 140px;
+    min-width: 140px;
+    line-height: 19px !important;
+    border-bottom-width: 2px;
+    padding: 4px 4px 3px 4px;
+}
+
+.wbtn {
+    background-color: #ffffff;
+    color: #3b352a !important;
+}
+
+.nbtn {
+    background: white;
+    border: none;
+    box-shadow: 0px 1px 2px RGBA(0, 0, 0, .2);
+    text-align: center;
+    margin: 10px 4px;
+    padding: 10px 8px 9px 8px;
+    width: 200px;
+    cursor: pointer;
+    font-size: 21px;
+    line-height: 21px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border-bottom-width: 3px;
+    overflow: hidden;
+}
+
+.rbtn {
+    background-color: #00a3c4;
+    color: #FFF !important;
+    border-color: #af0806;
+}
+
+.wbtn {
+    background-color: #ffffff;
+    color: #3b352a !important;
+}
+
+.dialogErrorContainer {
+    position: absolute;
+    top: 100%;
+    margin: 5px 0;
+    left: 0;
+    right: 0;
+    display: none;
+    z-index: 1;
+    background-color: #474747;
+    color: #FFF;
+    border-radius: 4px;
+    font-size: 14px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+    padding: 10px 10px 0 10px;
+}
+
+
+.error:not(.focus):not(.staticError) .dialogInput:not([disabled]) {
+    border-color: #D83F3F;
+    background-color: #FFF6F6;
+    background-image: url(input-error.png);
+    background-position: 5px center;
+    background-repeat: no-repeat;
+    padding-left: 23px;
+}
+
+.error.focus .dialogErrorContainer {
+    display: block;
+}
+
+.dialogErrorContainer:before,
+.dialogErrorContainer.alignTop:after {
+    content: "";
+    display: block;
+    border: 5px solid transparent;
+    width: 0;
+    height: 0;
+    left: 20px;
+    position: absolute;
+}
+
+.dialogErrorContainer.alignTop:before {
+    content: none;
+}
+
+.dialogErrorContainer:before {
+    border-bottom-color: #474747;
+    bottom: 100%;
+}
+
+.dialogErrorContainer.alignTop:after {
+    border-top-color: #474747;
+    top: 100%;
+}
+
+.dialogErrorContainer.alignTop {
+    top: auto;
+    bottom: 100%;
+}
+
+.error.staticError .dialogErrorContainer {
+    position: relative;
+    display: block;
+}
+
+.dialogError {
+    padding-bottom: 10px;
+}
