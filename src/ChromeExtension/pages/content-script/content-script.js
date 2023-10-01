@@ -25,7 +25,10 @@ const main = async () => {
         if(replies){
             repliesDiv = await createSavedRepliesDiv(replies);
         }else{
-            repliesDiv = document.createElement(`div`);
+            repliesDiv = createElement(`div`,{
+                children:[],
+                className:`saved-replies`
+            });
         }
     }
 

@@ -28,7 +28,7 @@ const isLocalhostUrl = () => {
 const getGitHubOwner = () => {
     const url = window.location.href;
 
-    const expression = /https:\/\/github.com\/(?<owner>.+)\//
+    const expression = /https:\/\/github.com\/(?<owner>[^\/]+)?(.*)/
 
     const matches = url.match(expression);
 
@@ -41,7 +41,7 @@ const canLoadRepliesForUrl = (config) => {
 
     const gitHubOwner = getGitHubOwner();
 
-    const validOwner = config.allowEverywhere || gitHubOwner === config.owner ? true : false;
+    const validOwner = config.allowEverywhere || gitHubOwner === config.limitToGitHubOwner ? true : false;
 
     const validForIssue = (isGitHubIssueUrl() && config.includeIssues);
 
