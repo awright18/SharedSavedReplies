@@ -15,7 +15,8 @@ const createElement = (tagName, { children, className, ...attributes } = {}) => 
     for (const [key, value] of Object.entries(attributes)) {
 
         if (value) {
-            element.setAttribute(key, value)
+
+            element.setAttribute([key], value)
         }
     }
 

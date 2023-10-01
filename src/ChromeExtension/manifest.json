@@ -1,13 +1,13 @@
 {
   "manifest_version": 3,
   "name": "Shared Saved Replies",
-  "description": "Adds saved replies to GitHub's saved replies list when commenting on issues.",
+  "description": "Adds saved replies to GitHub's saved replies list when commenting on issues or pull requests.",
   "version": "0.0.1",
   "action":{
-    "default_popup": "popup.html"
+    "default_popup": "pages/popup/popup.html"
   },
   "background": {
-    "service_worker": "js/scripts/service-worker.js"
+    "service_worker": "pages/service-worker/service-worker.js"
   },
   "content_scripts": [
     {
@@ -15,17 +15,12 @@
         "https://github.com/*",
         "https://*:*/*"
       ],
-      "css": [
-        "css/saved-replies.css"
-      ],
       "js": [
         
-        "js/scripts/urls.js",
-        "js/scripts/storage.js",
-        "js/scripts/fetch-saved-replies.js",
-        "js/scripts/elements.js",
-        "js/scripts/time.js",
-        "js/scripts/content-script.js"
+        "pages/content-script/content-script-urls.js",
+        "pages/content-script/content-script-storage.js",
+        "pages/content-script/content-script-elements.js",
+        "pages/content-script/content-script.js"
       ],
       "all_frames": false,
       "runat": "document_start"
@@ -38,28 +33,9 @@
     "64": "icons/icon64.png",
     "128": "icons/icon128.png"
   },
-  "options_ui": {
-    "page": "options.html",
-    "open_in_tab": false
-  },
   "permissions": [
     "activeTab",
     "storage",
     "offscreen"
-  ],
-  "web_accessible_resources": [
-    {
-      "resources": [
-        "css/saved-replies.css",
-        "css/popup.css",
-        "js/scripts/popup.js",
-        "js/scripts/saved-replies.js",
-        "js/scripts/storage.js"
-      ],
-      "matches": [
-        "https://github.com/*",
-        "https://*:*/*"
-      ]
-    }
   ]
 }

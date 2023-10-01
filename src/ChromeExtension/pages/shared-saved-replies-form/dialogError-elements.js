@@ -19,7 +19,10 @@ const createDialogErrorElement = (element) => {
                                             children: [`ERROR:`],
                                             className: `errorLabel`
                                         }),
-                                        errorMessage
+                                        createElement(`span`, {
+                                            children: [],
+                                            className: ``
+                                        }),
                                     ],
                                     className: `validation-mg warning`
                                 })

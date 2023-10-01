@@ -3,9 +3,9 @@
 
 <head>
     <title>Update - Shared Saved Replies</title>
-    <link rel="stylesheet" href="../../css/reset.css" />
-    <link rel="stylesheet" href="../../css/toggle.css" />
-    <link rel="stylesheet" href="shared-replies-form.css" />
+    <link rel="stylesheet" href="reset.css" />
+    <link rel="stylesheet" href="toggle.css" />
+    <link rel="stylesheet" href="shared-saved-replies-form.css" />
 </head>
 
 <body>
@@ -21,14 +21,14 @@
         <div class="dialogContent dialogContentFixed" style="bottom: 6.6667px; top: 50px;">
             <div class="mainView">
                 <div>
-                    <label class="label">Url:</label>
+                    <label class="label">Saved Replies Url:</label>
                     <input type="url"
                            id="url"                            
                            minlength="7" 
                            maxlength="2000" 
                            class="dialogInput" 
                            pattern="^https:\/\/github.com\/.*\/(.*)?\.md$" 
-                           placeholder="https://github.com/path_to_template.md"
+                           placeholder="https://github.com/path_to_saved_replies_template.md"
                            data-errormessage="Please enter the url of a saved replies template file. 
                                              See https://github.com/awright18/sharedsavedreplies/docs/template-file.md for details."
                            required />
@@ -40,7 +40,7 @@
                            maxlength="100" 
                            class="dialogInput" 
                            type="text"
-                           data-errormessage="A template name is required."
+                           data-errormessage="Please enter a name."
                            required />
                 </div>
                 <div>
@@ -103,7 +103,7 @@
             <button id="save" class="nbtn btn_midi rbtn">Save</button>
         </div>
     </div>
-    <script src="shared-replies-form.js" type="module"></script>
+    <script src="shared-saved-replies-form.js" type="module"></script>
 </body>
 
 </html>

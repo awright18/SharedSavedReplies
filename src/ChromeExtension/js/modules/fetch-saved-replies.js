@@ -72,3 +72,4 @@ const fetchSavedRepliesFromUrl = async (savedRepliesUrl) => {
     return savedReplies;
 }
 
+export {fetchSavedRepliesFromUrl}
