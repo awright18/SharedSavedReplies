@@ -38,13 +38,13 @@ const getFromLocalStorage = async (name) => {
 
 const saveToLocalStorage = async (values) => {
 
-    if (!values || isEmpty(values)) {
+    if (!values || isEmpty(values) || !values.name) {
         throw new Error("Cannot save null or empty shared saved replies.");
     }
 
-    const configKey = `${values.name}-config`;
+    const configKey = `${values.name}-config`;    
 
-    await chrome.storage.local.set({ [configKey]: values });
+    await chrome.storage.local.set({ [configKey]: values, });
 }
 
 const getFormValues = () => {

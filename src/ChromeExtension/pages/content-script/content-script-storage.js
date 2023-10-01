@@ -52,7 +52,8 @@ const getSavedRepliesLastUpdatedAtFromLocalStorage = async () => {
 
     let currentLastUpdatedAt = utcStartTicks();
 
-    const lastUpdatedAt = resultsArray.reduce(async (updates, result) => {
+    for(let result of resultsArray)
+    {
 
         if (configExpression.test(result[0])) {
 
@@ -66,8 +67,7 @@ const getSavedRepliesLastUpdatedAtFromLocalStorage = async () => {
                 }
             }
         }
-        return currentLastUpdatedAt;
-    }, currentLastUpdatedAt);
+    }
 
-    return lastUpdatedAt;
+    return currentLastUpdatedAt;
 }

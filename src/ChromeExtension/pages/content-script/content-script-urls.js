@@ -28,7 +28,7 @@ const isLocalhostUrl = () => {
 const getGitHubOwner = () => {
     const url = window.location.href;
 
-    const expression = /https:\/\/github.com\/(?<owner>[^\/]+)?(.*)/
+    const expression = /https:\/\/github.com\/(?<owner>[^\/]+)?(.*)/i
 
     const matches = url.match(expression);
 
@@ -37,11 +37,13 @@ const getGitHubOwner = () => {
     return owner;
 }
 
+
+
 const canLoadRepliesForUrl = (config) => {
 
     const gitHubOwner = getGitHubOwner();
 
-    const validOwner = config.allowEverywhere || gitHubOwner === config.limitToGitHubOwner ? true : false;
+    const validOwner = config.allowEverywhere || gitHubOwner.localeCompare(config.limitToGitHubOwner,undefined,{ sensitivity : `base`}) === 0 ? true : false;
 
     const validForIssue = (isGitHubIssueUrl() && config.includeIssues);
 
@@ -59,11 +61,7 @@ const canLoadRepliesForUrl = (config) => {
 
 const isValidIssueUrl = () => {
 
-    if (isLocalhostUrl()) {
-        return true;
-    }
-
-    if (isGitHubIssueUrl()) {
+    if (isLocalhostUrl() || isGitHubIssueUrl() || isGitHubPullRequestUrl()) {
         return true;
     }
 

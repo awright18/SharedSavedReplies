@@ -1,3 +1,12 @@
+const arrayIsNotEmpty = (array) => {
+        
+    if(Array.isArray(array) && array.length){
+        return true; 
+    }
+
+    return false;
+}
+
 const main = async () => {
 
     console.log("main called");
@@ -9,65 +18,90 @@ const main = async () => {
     let observer;
     let repliesDiv;
     let replies;
-    let initialUpdatedAt = await getSavedRepliesLastUpdatedAtFromLocalStorage();
-
-    const haveSavedRepliesBeenUpdated = async () => {
-
-        const currentUpdatedAt = await getSavedRepliesLastUpdatedAtFromLocalStorage();
-
-        return dateIsBefore(initialUpdatedAt, currentUpdatedAt);
-    }
 
     const prepareRepliesDiv = async () => {
 
         replies = await getMatchingSavedReplyConfigsFromLocalStorage();
 
-        if(replies){
-            repliesDiv = await createSavedRepliesDiv(replies);
-        }else{
-            repliesDiv = createElement(`div`,{
-                children:[],
-                className:`saved-replies`
-            });
+        const repliesExist = arrayIsNotEmpty(replies);
+
+        if (repliesExist) {
+
+            repliesDiv = await createSavedRepliesDiv(replies);           
         }
     }
 
-    const addSavedRepliesToFuzzyList = async (node) => {
+    const tryUpdateSavedRepliesDiv = () => {
 
         let savedRepliesDiv = document.querySelector(`.saved-replies`);
+        
+        const repliesExist = arrayIsNotEmpty(replies);
 
-        if (savedRepliesDiv) {
+        if (repliesExist && savedRepliesDiv) {
 
-            // const savedRepliesWereUpdated =
-            //     await haveSavedRepliesBeenUpdated();
+            savedRepliesDiv.replaceWith(repliesDiv);
 
-            // if (savedRepliesWereUpdated) {
+            return true; 
 
-                await prepareRepliesDiv();
+        } else if (savedRepliesDiv) {
 
-                savedRepliesDiv.replaceWith(repliesDiv);
-            // }
+            savedRepliesDiv.remove();
 
-            return;
-        }
-        else {
-
-            if (node.nodeName === "FUZZY-LIST") {
-
-                let fuzzyList = node;
-
-                await prepareRepliesDiv();
-
-                const savedReplyMenuFilterSelector =
-                    `div.select-menu-filters`;
-
-                const savedReplyFilter =
-                    fuzzyList.querySelector(savedReplyMenuFilterSelector);
-
-                savedReplyFilter.insertAdjacentElement("afterend", repliesDiv);
-            }
+            return true;
         }
     }
+
+    const tryUpdateFuzzyList = (node) => {
+
+        let isFuzzyList = node.nodeName === "FUZZY-LIST";
+
+        let savedReplyFilter;
+
+        let savedRepliesDiv;
+
+        const repliesExist = arrayIsNotEmpty(replies);
+
+        if (isFuzzyList) {
+            let fuzzyList = node;
+
+            const savedReplyMenuFilterSelector =
+                `div.select-menu-filters`;
+
+            savedReplyFilter =
+                fuzzyList.querySelector(savedReplyMenuFilterSelector);
+
+            savedRepliesDiv = savedReplyFilter.querySelector(`.saved-replies`);;
+        }
+
+        if (repliesExist && savedReplyFilter) {
+
+            savedReplyFilter.insertAdjacentElement("afterend", repliesDiv);
+
+            return true; 
+
+        } else if (savedRepliesDiv) {
+        
+            savedRepliesDiv.remove();
+
+            return true; 
+        }
+
+        return false; 
+    }
+
+    const onSavedRepliesOpened = async (node) => {
+
+        await prepareRepliesDiv();
+
+        if(tryUpdateSavedRepliesDiv()){
+            return; 
+        }
+
+        if(tryUpdateFuzzyList(node)){
+            return;
+        }
+    }
+
 
     observer = new MutationObserver(
         async (mutationList, obs) => {
@@ -76,18 +110,18 @@ const main = async () => {
 
                 if (mutation.type === "attributes" && mutation.attributeName == "open") {
 
-                    let replyContainer =  document.querySelector(`#saved-reply-new_comment_field`).closest(`.js-saved-reply-container`);
+                    let replyContainer = document.querySelector(`#saved-reply-new_comment_field`).closest(`.js-saved-reply-container`);
 
                     if (replyContainer.attributes.open) {
                         console.log(`open`);
 
                         let node = replyContainer.querySelector('FUZZY-LIST');
 
-                        await addSavedRepliesToFuzzyList(node);
+                        await onSavedRepliesOpened(node);
 
                     }
                 }
-            }   
+            }
         });
 
     let savedReplyContainer = document.querySelector(`#saved-reply-new_comment_field`).closest(`.js-saved-reply-container`);
