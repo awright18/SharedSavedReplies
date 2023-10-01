@@ -17,13 +17,25 @@ const showNoRepliesIfNoConfigs = () =>{
     
     const noRepliesElement = document.querySelector(`.no-replies`);
 
-    if(arrayIsEmpty(configs)){
-                
+    const footerContainerElement = document.querySelector(`.footer-container`);
+
+    const savedRepliesListElement = document.querySelector(`.saved-replies-list`);
+
+    if(arrayIsEmpty(configs)){                   
+
         noRepliesElement.classList.remove(`hide`);
+        
+        footerContainerElement.classList.add(`hide`);
+
+        savedRepliesListElement.classList.add(`hide`);
 
     }else{
 
         noRepliesElement.classList.add(`hide`);
+        
+        footerContainerElement.classList.remove(`hide`);
+
+        savedRepliesListElement.classList.remove(`hide`);
     }
 }
 
@@ -161,10 +173,13 @@ const loadItems = async () => {
 }
 
 const initialize = async () => {
-    const addButton = document.querySelector(`.add-button`);
+    const addButtons = document.querySelectorAll(`.add-button`);
 
-    addButton.addEventListener(`click`, () => openAddItemPage())
+    for(var addButton of addButtons){
 
+        addButton.addEventListener(`click`, () => openAddItemPage())
+    }
+   
     const searchBox = document.querySelector(`.search`);
 
     searchBox.addEventListener(`keyup`, (event) => filterItems(event.target.value));

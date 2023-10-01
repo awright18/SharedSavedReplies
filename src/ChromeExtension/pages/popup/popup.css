@@ -418,7 +418,7 @@ body {
     background: rgba(27, 40, 60, 0.1);
 }
 
-footer {
+.footer-container {
     height: 50px;
     border-top: solid 1px gray;
     display: flex;
@@ -429,6 +429,10 @@ footer {
     line-height: 1;
     font-weight: 600;
     font-family: 'Open Sans', sans-serif;
+}
+
+.footer-container.hide{
+    height:0px;
 }
 
 .inner-footer {
