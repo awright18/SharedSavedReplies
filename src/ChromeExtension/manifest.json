@@ -16,7 +16,7 @@
         "https://*:*/*"
       ],
       "js": [
-        
+        "js/time.js",
         "pages/content-script/content-script-urls.js",
         "pages/content-script/content-script-storage.js",
         "pages/content-script/content-script-elements.js",

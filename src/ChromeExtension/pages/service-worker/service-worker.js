@@ -1,6 +1,6 @@
 ﻿importScripts(["../../js/messaging.js"]);
 importScripts(["offscreen-document.js"]);
-importScripts(["time.js"]);
+importScripts(["../../js/time.js"]);
 importScripts(["service-worker-messaging.js"]);
 importScripts(["service-worker-storage.js"]);
 

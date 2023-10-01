@@ -8,7 +8,6 @@ const isGitHubIssueUrl = () => {
     return pattern.test(url);
 }
 
-
 const isGitHubPullRequestUrl = () => {
 
     let url = window.location.href;
@@ -26,15 +25,47 @@ const isLocalhostUrl = () => {
     return pattern.test(url);
 }
 
-const isValidIssueUrl = () => {
+const getGitHubOwner = () => {
+    const url = window.location.href;
 
-    if(isLocalhostUrl()){
+    const expression = /https:\/\/github.com\/(?<owner>.+)\//
+
+    const matches = url.match(expression);
+
+    const owner = matches?.groups['owner'];
+
+    return owner;
+}
+
+const canLoadRepliesForUrl = (config) => {
+
+    const gitHubOwner = getGitHubOwner();
+
+    const validOwner = config.allowEverywhere || gitHubOwner === config.owner ? true : false;
+
+    const validForIssue = (isGitHubIssueUrl() && config.includeIssues);
+
+    const validForPullRequest = (isGitHubPullRequestUrl() && config.includePullRequests);
+
+    if (validOwner
+        && (validForIssue || validForPullRequest)) {
+
         return true;
     }
-    
-    if(isGitHubIssueUrl()){
-        return true; 
+
+    return false;
+}
+
+
+const isValidIssueUrl = () => {
+
+    if (isLocalhostUrl()) {
+        return true;
     }
-    
+
+    if (isGitHubIssueUrl()) {
+        return true;
+    }
+
     return false;
 }

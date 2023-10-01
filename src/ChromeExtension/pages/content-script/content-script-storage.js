@@ -1,29 +1,73 @@
-const getSavedRepliesUrlFromLocalStorage = async () => {
-    const data = await chrome.storage.local.get(["saved-replies-url"]);
 
-    let savedReplyUrl = data[`saved-replies-url`];
+const getMatchingSavedReplyConfigsFromLocalStorage = async () => {
 
-    console.log(`got url ${savedReplyUrl} from local storage`);
+    const results = await chrome.storage.local.get();
 
-    return savedReplyUrl;
-}
+    const resultsArray = Object.entries(results);
 
-const getSavedRepliesFromLocalStorage = async () => {
+    let configExpression = new RegExp(".+-config")
 
-    const replies = await chrome.storage.local.get(["saved-replies"]);
+    let replies = [];
 
-    if (replies) {
-        console.log("got replies from local storage");
+    for(let result of resultsArray)
+    {
+        if (configExpression.test(result[0])) {
+
+            const config = result[1];
+
+            if (canLoadRepliesForUrl(config)) {
+
+                const configKey = `${config.name}-replies`;
+
+                const repliesResult = await chrome.storage.local.get([configKey]);
+
+                let configReplies = repliesResult[configKey];
+
+                replies = replies.concat(configReplies)
+            }
+        }
     }
 
-    return replies["saved-replies"];
+    return replies;
+}
+
+const getSavedRepliesLastUpdatedAt = async (name) => {
+
+    const lastUpdatedAtKey = `${name}-lastUpdatedAt`;
+
+    const results = await chrome.storage.local.get([lastUpdatedAtKey]);
+
+    const lastUpdateAt = results[lastUpdatedAtKey];
+
+    return lastUpdateAt;
 }
 
 const getSavedRepliesLastUpdatedAtFromLocalStorage = async () => {
-    
-    const data = await chrome.storage.local.get(["saved-replies-last-updated-at"]);   
-    
-    let lastUpdatedAt = data[`saved-replies-last-updated-at`];
+
+    const results = await chrome.storage.local.get();
+
+    const resultsArray = Object.entries(results);
+
+    let configExpression = new RegExp(".+-config")
+
+    let currentLastUpdatedAt = utcStartTicks();
+
+    const lastUpdatedAt = resultsArray.reduce(async (updates, result) => {
+
+        if (configExpression.test(result[0])) {
+
+            let config = result[1];
+            if (canLoadRepliesForUrl(config)) {
+
+                let nextLastUpdatedAt = await getSavedRepliesLastUpdatedAt(config.name);
+
+                if (dateIsBefore(currentLastUpdatedAt, nextLastUpdatedAt)) {
+                    currentLastUpdatedAt = nextLastUpdatedAt;
+                }
+            }
+        }
+        return currentLastUpdatedAt;
+    }, currentLastUpdatedAt);
 
     return lastUpdatedAt;
 }

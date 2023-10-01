@@ -20,9 +20,13 @@ const main = async () => {
 
     const prepareRepliesDiv = async () => {
 
-        replies = await getSavedRepliesFromLocalStorage();
+        replies = await getMatchingSavedReplyConfigsFromLocalStorage();
 
-        repliesDiv = await createSavedRepliesDiv(replies);
+        if(replies){
+            repliesDiv = await createSavedRepliesDiv(replies);
+        }else{
+            repliesDiv = document.createElement(`div`);
+        }
     }
 
     const addSavedRepliesToFuzzyList = async (node) => {
@@ -31,15 +35,15 @@ const main = async () => {
 
         if (savedRepliesDiv) {
 
-            const savedRepliesWereUpdated =
-                await haveSavedRepliesBeenUpdated();
+            // const savedRepliesWereUpdated =
+            //     await haveSavedRepliesBeenUpdated();
 
-            if (savedRepliesWereUpdated) {
+            // if (savedRepliesWereUpdated) {
 
                 await prepareRepliesDiv();
 
                 savedRepliesDiv.replaceWith(repliesDiv);
-            }
+            // }
 
             return;
         }
@@ -52,7 +56,7 @@ const main = async () => {
                 await prepareRepliesDiv();
 
                 const savedReplyMenuFilterSelector =
-                    `details-menu.js-saved-reply-menu.hx_rsm-modal fuzzy-list div.select-menu-filters`;
+                    `div.select-menu-filters`;
 
                 const savedReplyFilter =
                     fuzzyList.querySelector(savedReplyMenuFilterSelector);
@@ -69,7 +73,7 @@ const main = async () => {
 
                 if (mutation.type === "attributes" && mutation.attributeName == "open") {
 
-                    let replyContainer = document.querySelector(`.js-saved-reply-container.hx_rsm`);
+                    let replyContainer =  document.querySelector(`#saved-reply-new_comment_field`).closest(`.js-saved-reply-container`);
 
                     if (replyContainer.attributes.open) {
                         console.log(`open`);
@@ -80,12 +84,10 @@ const main = async () => {
 
                     }
                 }
-            }
-
-            // observer.disconnect();         
+            }   
         });
 
-    let savedReplyContainer = document.querySelector(`.js-saved-reply-container.hx_rsm`);
+    let savedReplyContainer = document.querySelector(`#saved-reply-new_comment_field`).closest(`.js-saved-reply-container`);
 
     observer.observe(savedReplyContainer, {
         attributes: true,

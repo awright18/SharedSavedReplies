@@ -26,6 +26,8 @@ const toUTCDate = (date) => {
 
 }
 
+const utcStartTicks = () => dateToTicks(toUTCDate(new Date(0,0,0,0,0,0,0)));
+
 const utcNowTicks = () => dateToTicks(toUTCDate(new Date()));
 
 const dateIsInThePast = (date) => nowTicks > dateToTicks(date);
