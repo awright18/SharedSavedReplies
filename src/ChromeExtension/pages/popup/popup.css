@@ -340,7 +340,7 @@ body {
     align-items: center;
 }
 
-.saved-reples-delete-button,
+.saved-replies-delete-button,
 .saved-replies-edit-button {
     border: none;
     outline: none;
@@ -359,7 +359,7 @@ body {
     background: rgba(255, 255, 255, 0);
 }
 
-.saved-reples-delete-button:hover,
+.saved-replies-delete-button:hover,
 .saved-replies-edit-button:hover{
     background:rgba(27, 40, 60, 0.1);
 }

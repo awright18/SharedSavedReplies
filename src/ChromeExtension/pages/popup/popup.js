@@ -2,6 +2,43 @@
 import { createConfigButton } from "./saved-replies-button-element.js";
 import { getSharedSavedReplyConfigurationsFromLocalStorage } from "./popup-storage.js";
 
+let configs;
+
+const arrayIsEmpty = (array) => {
+
+    if (Array.isArray(array) && !array.length) {
+        return true;
+    }
+
+    return false;
+}
+
+const filterItems = (searchValue) => {
+
+    if (arrayIsEmpty(configs)) {
+        return;
+    }
+
+    for (let config of configs) {
+
+        let matchesSearchValue =
+            config.name.includes(searchValue)
+            || config.url.includes(searchValue)
+            || config.limitToGitHubOwner.includes(searchValue)
+            || searchValue === ``;
+
+        let configElement = document.querySelector(`[data-saved-replies-name=${config.name}]`);
+
+        if (matchesSearchValue) {
+
+            configElement.style.display = `block`;
+
+        } else {
+            configElement.style.display = `none`;
+        }
+    }
+}
+
 const openEditItemPage = (name) => {
 
     chrome.tabs.create({
@@ -20,7 +57,7 @@ const openAddItemPage = async () => {
 const deleteItem = async (name) => {
     let confirmation = window.confirm(`Do you want to delete the ${name} save replies?`);
 
-    if(confirmation === false){
+    if (confirmation === false) {
         return;
     }
 
@@ -29,18 +66,18 @@ const deleteItem = async (name) => {
     let lastUpdatedKey = `${name}-lastupdated`;
 
     let indexKey = `replies-index`;
-       
+
     let indexResult = await chrome.storage.local.get(indexKey);
 
     let repliesIndex = indexResult[indexKey];
-        
-    if(repliesIndex){
-        repliesIndex = repliesIndex.filter((value) => value !== name );
-        
-        await chrome.storage.local.set({[indexKey] : repliesIndex});
-    }     
-    
-    await chrome.storage.local.remove([configKey,repliesKey,lastUpdatedKey]);
+
+    if (repliesIndex) {
+        repliesIndex = repliesIndex.filter((value) => value !== name);
+
+        await chrome.storage.local.set({ [indexKey]: repliesIndex });
+    }
+
+    await chrome.storage.local.remove([configKey, repliesKey, lastUpdatedKey]);
 
     await loadItems();
 }
@@ -54,15 +91,11 @@ const navigateToSharedSavedReplies = async (url) => {
 
 const loadItems = async () => {
 
-    const addButton = document.querySelector(`.add-button`);
-
-    addButton.addEventListener(`click`, () => openAddItemPage())
-
-    const configs = await getSharedSavedReplyConfigurationsFromLocalStorage();
+    configs = await getSharedSavedReplyConfigurationsFromLocalStorage();
 
     const configButtonsContainer = document.querySelector(`.saved-replies-list > div`);
 
-    if (configs) {
+    if (!arrayIsEmpty(configs)) {
 
         for (const config of configs) {
 
@@ -70,15 +103,15 @@ const loadItems = async () => {
 
             const openSavedRepliesButtonElement = configButtonElement.querySelector(`.saved-replies-button`);
 
-            openSavedRepliesButtonElement.addEventListener(`click`, 
+            openSavedRepliesButtonElement.addEventListener(`click`,
                 async () => await navigateToSharedSavedReplies(config.url));
-            
+
             const editItemButton = configButtonElement.querySelector(`.saved-replies-edit-button`);
 
             editItemButton.addEventListener(`click`,
                 async () => await openEditItemPage(config.name));
 
-            const deleteItemButton = configButtonElement.querySelector(`.saved-replies-delete-button`); 
+            const deleteItemButton = configButtonElement.querySelector(`.saved-replies-delete-button`);
 
             deleteItemButton.addEventListener(`click`,
                 async () => await deleteItem(config.name));
@@ -88,4 +121,16 @@ const loadItems = async () => {
     }
 }
 
-loadItems();
+const initialize = async () => {
+    const addButton = document.querySelector(`.add-button`);
+
+    addButton.addEventListener(`click`, () => openAddItemPage())
+
+    const searchBox = document.querySelector(`.search`);
+
+    searchBox.addEventListener(`keyup`, (event) => filterItems(event.target.value));
+
+    await loadItems();
+}
+
+initialize();

@@ -73,6 +73,10 @@ const setValues = (values) => {
     document.getElementById('refreshRateInterval').value = values.refreshRateInterval;
 }
 
+const filterResults = async () => {
+    document.getElementById
+}
+
 const close = async () => {
 
     window.close();

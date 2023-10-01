@@ -158,7 +158,8 @@ const createConfigButton = (config) => {
                     className: `saved-replies-container`
                 })
             ],
-            className: ``
+            className: ``,
+            "data-saved-replies-name": config.name
         });
     return configButtonElement;
 }
