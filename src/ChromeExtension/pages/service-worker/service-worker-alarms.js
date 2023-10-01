@@ -1,6 +1,15 @@
 
 const createAlarm = async (name, periodInMinutes) => {
 
+    const existingAlarm = await chrome.alarms.get(name);
+
+    if(existingAlarm.periodInMinutes == Number(periodInMinutes)){
+        
+        console.log(`alarm for ${name} for ${periodInMinutes} minutes already exists`);
+
+        return; 
+    }
+
     await chrome.alarms.create(
         name,
         { periodInMinutes: Number(periodInMinutes) }
@@ -21,7 +30,7 @@ const onAlarm = async (handleAlarm) => {
     await chrome.alarms.onAlarm.addListener(
         async (alarm) => {
 
-            console.log(`alarm ${alarm} fired`)
+            console.log(`alarm ${alarm.name} fired`)
 
             await handleAlarm(alarm.name)
         });
