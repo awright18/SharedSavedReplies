@@ -124,8 +124,12 @@ const loadForm = async () => {
     document.getElementById(`close`)
         .addEventListener(`click`, close);
 
+    document.getElementById(`cancel`)
+        .addEventListener(`click`, async () => close());
+
     document.getElementById(`save`)
         .addEventListener(`click`, async () => await save());
+
 }
 
 await loadForm();
