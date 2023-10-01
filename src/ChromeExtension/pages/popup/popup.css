@@ -117,6 +117,10 @@ body {
     background-color: white;
 }
 
+.hide{
+    display:none !important;
+}
+
 .container {
     display: flex;
 }
@@ -201,6 +205,56 @@ body {
     background-color: rgba(27, 40, 60, 0.1);
 }
 
+.no-replies {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0px;
+    justify-content: center;
+}
+
+.no-replies-inner {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    justify-content: space-evenly;
+    align-items: center;
+    padding:5%;
+    gap:15px;
+    height: 450px;
+}
+
+.no-replies-header{
+    height:25px;
+    font-weight: 600;
+    font-size: 1.175em;
+}
+
+.no-replies-add-button {
+
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    background-color: #00a3c4;
+    color: #FFF !important;
+    border: none;
+    border-radius: 5px;
+    border-bottom-width: 3px;
+    box-shadow: 0px 1px 2px RGBA(0, 0, 0, .2);
+    text-align: center;
+    margin: 10px 4px;
+    padding: 10px 8px 9px 8px;
+    min-width: 0;
+    width: 200px;
+    cursor: pointer;
+    overflow: hidden;
+    line-height: 19px !important;
+    vertical-align: top;   
+}
+
+.no-replies-add-button:hover{
+    
+    background-color: #00729c;
+}
+
 .saved-replies-list {
     display: flex;
     flex-direction: column;
@@ -239,8 +293,8 @@ body {
     align-items: center;
 }
 
-.saved-replies-button:hover{
-    background:rgb(27,40,60,0.1);
+.saved-replies-button:hover {
+    background: rgb(27, 40, 60, 0.1);
 }
 
 .saved-replies-button-icon-container {
@@ -360,39 +414,32 @@ body {
 }
 
 .saved-replies-delete-button:hover,
-.saved-replies-edit-button:hover{
-    background:rgba(27, 40, 60, 0.1);
+.saved-replies-edit-button:hover {
+    background: rgba(27, 40, 60, 0.1);
 }
 
-footer{
-    height:50px;
+footer {
+    height: 50px;
     border-top: solid 1px gray;
-    display:flex;
-    align-items:center;
+    display: flex;
+    align-items: center;
     justify-content: center;
     background: #00a3c4;
-    color:white;
+    color: white;
     line-height: 1;
     font-weight: 600;
     font-family: 'Open Sans', sans-serif;
 }
 
-.inner-footer{
-    padding:20px;
-    display:flex;
+.inner-footer {
+    padding: 20px;
+    display: flex;
     align-items: center;
     justify-content: center;
-    gap:10px
+    gap: 10px
 }
 
-.logo{
-    width:24px;
-    height:24px;
+.logo {
+    width: 24px;
+    height: 24px;
 }
-/* .link{
-    width:150px;
-}
-
-.bottom-button{
-    width: 100px;
-} */

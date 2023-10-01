@@ -2,7 +2,7 @@
 import { createConfigButton } from "./saved-replies-button-element.js";
 import { getSharedSavedReplyConfigurationsFromLocalStorage } from "./popup-storage.js";
 
-let configs;
+let configs = [];
 
 const arrayIsEmpty = (array) => {
 
@@ -11,6 +11,45 @@ const arrayIsEmpty = (array) => {
     }
 
     return false;
+}
+
+const showNoRepliesIfNoConfigs = () =>{
+    
+    const noRepliesElement = document.querySelector(`.no-replies`);
+
+    if(arrayIsEmpty(configs)){
+                
+        noRepliesElement.classList.remove(`hide`);
+
+    }else{
+
+        noRepliesElement.classList.add(`hide`);
+    }
+}
+
+const hideConfig = (config) => {
+    
+    let configElement = document.querySelector(`[data-saved-replies-name="${config.name}"]`);
+
+    configElement.style.display = `none`;
+}
+
+const showConfig = () => {
+
+    let configElement = document.querySelector(`[data-saved-replies-name="${config.name}"]`);
+
+    configElement.style.display = `block`;
+}
+
+const setConfigDisplay = (shouldDisplay,config) => {
+
+    if (shouldDisplay) {
+
+       showConfig(config);
+
+    } else {
+       hideConfig(config);
+    }
 }
 
 const filterItems = (searchValue) => {
@@ -26,16 +65,8 @@ const filterItems = (searchValue) => {
             || config.url.includes(searchValue)
             || config.limitToGitHubOwner.includes(searchValue)
             || searchValue === ``;
-
-        let configElement = document.querySelector(`[data-saved-replies-name=${config.name}]`);
-
-        if (matchesSearchValue) {
-
-            configElement.style.display = `block`;
-
-        } else {
-            configElement.style.display = `none`;
-        }
+        
+        setConfigDisplay(matchesSearchValue,config);
     }
 }
 
@@ -79,7 +110,13 @@ const deleteItem = async (name) => {
 
     await chrome.storage.local.remove([configKey, repliesKey, lastUpdatedKey]);
 
-    await loadItems();
+    let config = configs.find((config) => config.name === name);
+
+    hideConfig(config);
+
+    configs = configs.filter((config) => config.name !== name);
+
+    showNoRepliesIfNoConfigs();
 }
 
 const navigateToSharedSavedReplies = async (url) => {
@@ -119,6 +156,8 @@ const loadItems = async () => {
             configButtonsContainer.appendChild(configButtonElement);
         }
     }
+
+    showNoRepliesIfNoConfigs();
 }
 
 const initialize = async () => {
@@ -131,6 +170,8 @@ const initialize = async () => {
     searchBox.addEventListener(`keyup`, (event) => filterItems(event.target.value));
 
     await loadItems();
+
+    console.log("loaded popup");
 }
 
 initialize();

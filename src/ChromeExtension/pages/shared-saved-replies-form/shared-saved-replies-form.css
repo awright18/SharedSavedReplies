@@ -266,12 +266,19 @@ input[type="text" i] {
 .rbtn {
     background-color: #00a3c4;
     color: #FFF !important;
-    border-color: #af0806;
+}
+
+.rbtn:hover{
+    background-color: #00729c;
 }
 
 .wbtn {
     background-color: #ffffff;
     color: #3b352a !important;
+}
+
+.wbtn:hover{
+    background:#f8f8f8;
 }
 
 .dialogErrorContainer {
