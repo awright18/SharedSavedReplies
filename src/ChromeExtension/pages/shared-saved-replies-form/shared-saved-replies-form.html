@@ -77,8 +77,8 @@
                     </label>
                 </div>
                 <div class="twoColumn leftColumn">
-                    <label class="label">Refresh rate:</label>
-                    <input id="refreshRate" 
+                    <label class="label">Refresh rate in minutes:</label>
+                    <input id="refreshRateInMinutes" 
                            class="dialogInput" 
                            type="number" 
                            min="1" 
@@ -86,15 +86,6 @@
                            value="1"                        
                            data-errorMessage="Please enter a number."
                            required />
-                </div>
-                <div class="twoColumn rightColumn">
-                    <label class="label">Interval:</label>
-                    <select id="refreshRateInterval" class="dropdownMenu selectDropdownList dialogInput required">
-                        <option value="Seconds">Seconds</option>
-                        <option value="Mintues">Minutes</option>
-                        <option value="Hours" selected>Hours</option>
-                        <option value="Days" >Days</option>
-                    </select>
                 </div>
             </div>
         </div>

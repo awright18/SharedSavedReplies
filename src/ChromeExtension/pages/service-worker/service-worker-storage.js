@@ -1,14 +1,25 @@
 const isNullOrEmpty = (obj) => {
-    
-    if(!obj){
+
+    if (!obj) {
         return true;
     }
-    
-    for(var i in obj){
+
+    for (var i in obj) {
         return false;
     }
 
-    return true; 
+    return true;
+}
+
+const getConfigFromLocalStorage = async (name) => {
+    
+    const configKey = `${name}-config`;
+
+    const result = await chrome.storage.local.get([configKey]);
+
+    const config = result[configKey];
+
+    return config;
 }
 
 const getUrlForShareSavedRepliesName = async (name) => {
@@ -29,25 +40,25 @@ const updateRepliesIndex = async (name) => {
 
     let result = await chrome.storage.local.get([repliesIndexKey]);
 
-    let repliesIndex = [];  
+    let repliesIndex = [];
 
-    if(!isNullOrEmpty(result)){
+    if (!isNullOrEmpty(result)) {
         repliesIndex = result[repliesIndexKey];
     }
 
-    if(!repliesIndex.includes(name)){
+    if (!repliesIndex.includes(name)) {
         repliesIndex.push(name)
     }
 
-    await chrome.storage.local.set({[repliesIndexKey] : repliesIndex });
+    await chrome.storage.local.set({ [repliesIndexKey]: repliesIndex });
 }
 
-const saveSharedSavedReplies = async (name,sharedSavedReplies) => {
+const saveRepliesInLocalStorage = async (name, sharedSavedReplies) => {
 
-    if(isNullOrEmpty(sharedSavedReplies)){
+    if (isNullOrEmpty(sharedSavedReplies)) {
         return;
     }
-   
+
     await updateRepliesIndex(name);
 
     const repliesKey = `${name}-replies`;
@@ -59,6 +70,28 @@ const saveSharedSavedReplies = async (name,sharedSavedReplies) => {
     //update the last updated time for shared saved replies
 
     await chrome.storage.local.set({
-        [repliesKey] : sharedSavedReplies,
-        [lastUpdatedKey] : lastUpdatedAt });
+        [repliesKey]: sharedSavedReplies,
+        [lastUpdatedKey]: lastUpdatedAt
+    });
+}
+
+const removeDataFromLocalStorage = async (name) => {
+
+    let repliesKey = `${name}-replies`;
+
+    let lastUpdatedKey = `${name}-lastupdated`;
+
+    let indexKey = `replies-index`;
+
+    let indexResult = await chrome.storage.local.get(indexKey);
+
+    let repliesIndex = indexResult[indexKey];
+
+    if (repliesIndex) {
+        repliesIndex = repliesIndex.filter((value) => value !== name);
+
+        await chrome.storage.local.set({ [indexKey]: repliesIndex });
+    }
+
+    await chrome.storage.local.remove([repliesKey, lastUpdatedKey]);
 }

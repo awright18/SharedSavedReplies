@@ -105,22 +105,8 @@ const deleteItem = async (name) => {
     }
 
     let configKey = `${name}-config`;
-    let repliesKey = `${name}-replies`;
-    let lastUpdatedKey = `${name}-lastupdated`;
 
-    let indexKey = `replies-index`;
-
-    let indexResult = await chrome.storage.local.get(indexKey);
-
-    let repliesIndex = indexResult[indexKey];
-
-    if (repliesIndex) {
-        repliesIndex = repliesIndex.filter((value) => value !== name);
-
-        await chrome.storage.local.set({ [indexKey]: repliesIndex });
-    }
-
-    await chrome.storage.local.remove([configKey, repliesKey, lastUpdatedKey]);
+    await chrome.storage.local.remove([configKey]);
 
     let config = configs.find((config) => config.name === name);
 

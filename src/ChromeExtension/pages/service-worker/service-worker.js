@@ -1,8 +1,9 @@
 ﻿importScripts(["../../js/messaging.js"]);
-importScripts(["offscreen-document.js"]);
 importScripts(["../../js/time.js"]);
+importScripts(["offscreen-document.js"]);
 importScripts(["service-worker-messaging.js"]);
 importScripts(["service-worker-storage.js"]);
+importScripts(["service-worker-alarms.js"]);
 
 
 const OFFSCREEN = "offscreen";
@@ -52,9 +53,19 @@ chrome.storage.onChanged.addListener(async (changes, area) => {
         if(name && !isNullOrEmpty(newValue)){
 
             await sendUpdateSharedSavedRepliesMessageToOffScreen(name);
-            
+
             return;
-        }                   
+        } 
+
+        //config removed 
+        if(name && !isNullOrEmpty(oldValue) && isNullOrEmpty(newValue)){
+            
+            console.log(`config removed for ${name}`);
+
+            await removeDataFromLocalStorage(name);
+            
+            await clearAlarm(name)
+        }            
       }   
 });
 
@@ -64,6 +75,13 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
         
         console.log(`saving replies for ${name}.`);
 
-        await saveSharedSavedReplies(name,replies);
+        await saveRepliesInLocalStorage(name,replies);
+
+        const config = await getConfigFromLocalStorage(name);
+
+        await createAlarm(name, config.refreshRateInMinutes);
     });
 });
+
+onAlarm ( async (name) => 
+    await sendUpdateSharedSavedRepliesMessageToOffScreen(name));

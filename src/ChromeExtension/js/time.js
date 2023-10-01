@@ -33,3 +33,28 @@ const utcNowTicks = () => dateToTicks(toUTCDate(new Date()));
 const dateIsInThePast = (date) => nowTicks > dateToTicks(date);
 
 const dateIsBefore = (fisrtDate,secondDate) => fisrtDate < secondDate;
+
+const calculateMinutes = (count, interval) => {
+    
+    let multiplier; 
+
+    switch(interval){
+        case "minutes":
+            multiplier = 1
+            break;
+        case "hours":
+            multiplier = 60;
+            break;
+        case "days":
+            multiplier = 60 * 24;
+            break;
+        default: 
+            multiplier = 1;
+    }
+
+    minutes =  Math.floor(count * multiplier);
+
+    if(minutes < 1){
+        return 1;
+    }
+}

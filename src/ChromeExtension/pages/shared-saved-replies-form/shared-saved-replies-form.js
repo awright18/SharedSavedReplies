@@ -16,8 +16,7 @@ const createDefaultValues = () => {
         limitToGitHubOwner: ``,
         includeIssues: true,
         includePullRequests: true,
-        refreshRate: 1,
-        refreshRateInterval: `Hours`
+        refreshRateInMinutes: 30,
     }
 }
 
@@ -56,8 +55,7 @@ const getFormValues = () => {
         limitToGitHubOwner: document.getElementById('limitToGitHubOwner').value,
         includeIssues: document.getElementById(`includeIssues`).checked,
         includePullRequests: document.getElementById(`includePullRequests`).checked,
-        refreshRate: document.getElementById(`refreshRate`).value,
-        refreshRateInterval: document.getElementById('refreshRateInterval').value
+        refreshRateInMinutes: document.getElementById(`refreshRateInMinutes`).value,       
     };
 }
 
@@ -69,8 +67,7 @@ const setValues = (values) => {
     document.getElementById('limitToGitHubOwner').value = values.limitToGitHubOwner;
     document.getElementById(`includeIssues`).checked = values.includeIssues;
     document.getElementById(`includePullRequests`).checked = values.includePullRequests;
-    document.getElementById(`refreshRate`).value = Number(values.refreshRate);
-    document.getElementById('refreshRateInterval').value = values.refreshRateInterval;
+    document.getElementById(`refreshRateInMinutes`).value = Number(values.refreshRateInMinutes);
 }
 
 const filterResults = async () => {
