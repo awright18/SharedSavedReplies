@@ -15,7 +15,7 @@ body {
 
 .toggle-switch {
   display: inline-block;
-  background: #ccc;
+  background: var(--background-secondary);
   border-radius: 16px;
   width: 58px;
   height: 32px;
@@ -43,7 +43,7 @@ body {
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
 }
 .toggle-checkbox:checked + .toggle-switch {
-  background: #00a3c4;
+  background: var(--color-main);
 }
 .toggle-checkbox:checked + .toggle-switch:before {
   left: 30px;

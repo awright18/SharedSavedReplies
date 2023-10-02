@@ -233,7 +233,7 @@ body {
 
     font-family: 'Open Sans', sans-serif;
     font-size: 20px;
-    background-color: #00a3c4;
+    background-color: var(--color-main);
     color: #FFF !important;
     border: none;
     border-radius: 5px;
@@ -252,7 +252,7 @@ body {
 
 .no-replies-add-button:hover{
     
-    background-color: #00729c;
+    background-color: var(--color-secondary);
 }
 
 .saved-replies-list {
@@ -260,6 +260,7 @@ body {
     flex-direction: column;
     overflow: auto;
     flex: 1 1 0px;
+    background:var(--background-main);
 }
 
 .saved-replies-container {
@@ -268,6 +269,7 @@ body {
     align-items: center;
     height: 64px;
     border-radius: 4px;
+    background: #ffffff;
 }
 
 .saved-replies-button-container {
@@ -424,7 +426,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #00a3c4;
+    background: var(--color-main);
     color: white;
     line-height: 1;
     font-weight: 600;

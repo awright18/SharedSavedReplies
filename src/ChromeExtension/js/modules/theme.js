@@ -1,0 +1,84 @@
+
+console.log(`themes loaded`);
+
+const isNullOrEmpty = (obj) => {
+
+    if (!obj) {
+        return true;
+    }
+
+    for (var i in obj) {
+        return false;
+    }
+
+    return true;
+}
+
+const arrayIsEmpty = (array) => {
+        
+    if(Array.isArray(array) && !array.length){
+        return true; 
+    }
+
+    return false;
+}
+
+const defautTheme = `peach`;
+
+const themes = [`default`,`peach`,`green`,`lilac`,`skeletor`,`retro`,`brown`];
+
+const isValidTheme = (theme) =>{
+    
+    return themes.includes(theme);
+}
+
+const getCurrentTheme = async () => {
+
+    console.log(`get current theme`);
+
+    const result = await chrome.storage.local.get([`applied-theme`]);
+
+    const appliedTheme = result[`applied-theme`];
+
+    if(isNullOrEmpty(appliedTheme)){
+        return defautTheme;
+    }
+
+    return appliedTheme;
+}
+
+const applyTheme = async (theme) => {
+    
+    console.log(`apply theme ${theme}`);
+
+    if(!isValidTheme(theme)){
+        
+        console.log(`Cannot apply theme. ${theme} is not a valid theme.`);
+    }
+
+    await chrome.storage.local.set({[`applied-theme`]:theme});
+
+    const bodyElement = document.querySelector(`body`);
+
+    bodyElement.classList = ``;
+
+    bodyElement.classList.add(theme);
+}
+
+const applyCurrentTheme = async () => {
+    
+    console.log(`apply current theme`);
+
+    const currentTheme = await getCurrentTheme()
+    
+    const bodyElement = document.querySelector(`body`);
+
+    if(!arrayIsEmpty(bodyElement.classList)
+        && bodyElement.classList.contains(currentTheme)){
+        return;
+    }
+
+    await applyTheme(currentTheme);
+}
+
+export { themes, applyCurrentTheme, applyTheme }

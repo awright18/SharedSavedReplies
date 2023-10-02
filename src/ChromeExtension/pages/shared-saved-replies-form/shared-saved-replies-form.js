@@ -1,4 +1,5 @@
 import { setupValidation, validateForm } from "./shared-saved-replies-form.validation.js";
+import { applyCurrentTheme } from "../../js/modules/theme.js";
 
 const isEmpty = (obj) => {
     for(var i in obj){
@@ -70,10 +71,6 @@ const setValues = (values) => {
     document.getElementById(`refreshRateInMinutes`).value = Number(values.refreshRateInMinutes);
 }
 
-const filterResults = async () => {
-    document.getElementById
-}
-
 const close = async () => {
 
     window.close();
@@ -131,6 +128,7 @@ const loadForm = async () => {
     document.getElementById(`save`)
         .addEventListener(`click`, async () => await save());
 
+    await applyCurrentTheme();
 }
 
 await loadForm();
