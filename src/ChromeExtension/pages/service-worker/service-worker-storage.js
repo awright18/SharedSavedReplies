@@ -1,16 +1,3 @@
-const isNullOrEmpty = (obj) => {
-
-    if (!obj) {
-        return true;
-    }
-
-    for (var i in obj) {
-        return false;
-    }
-
-    return true;
-}
-
 const getConfigFromLocalStorage = async (name) => {
     
     const configKey = `${name}-config`;

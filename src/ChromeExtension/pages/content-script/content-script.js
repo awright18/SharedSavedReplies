@@ -1,12 +1,3 @@
-const arrayIsNotEmpty = (array) => {
-        
-    if(Array.isArray(array) && array.length){
-        return true; 
-    }
-
-    return false;
-}
-
 const main = async () => {
 
     console.log("main called");

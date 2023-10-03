@@ -7,7 +7,7 @@
 
 .default {
     --background-main: #F2F4F5;
-    --background-secondary: #FFFFFF;
+    --background-secondary: #cccccc;
     --color-main: #00a3c4;
     --color-secondary: #00729c;
 }

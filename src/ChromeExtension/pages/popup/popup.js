@@ -1,18 +1,10 @@
 
+import { arrayIsEmpty} from "../../js/modules/null.js";
 import { createConfigButton } from "./saved-replies-button-element.js";
 import { getSharedSavedReplyConfigurationsFromLocalStorage } from "./popup-storage.js";
 import { applyCurrentTheme } from "../../js/modules/theme.js";
 
 let configs = [];
-
-const arrayIsEmpty = (array) => {
-
-    if (Array.isArray(array) && !array.length) {
-        return true;
-    }
-
-    return false;
-}
 
 const showNoRepliesIfNoConfigs = () =>{
     
@@ -24,17 +16,13 @@ const showNoRepliesIfNoConfigs = () =>{
 
     if(arrayIsEmpty(configs)){                   
 
-        noRepliesElement.classList.remove(`hide`);
-        
-        footerContainerElement.classList.add(`hide`);
+        noRepliesElement.classList.remove(`hide`);            
 
         savedRepliesListElement.classList.add(`hide`);
 
     }else{
 
-        noRepliesElement.classList.add(`hide`);
-        
-        footerContainerElement.classList.remove(`hide`);
+        noRepliesElement.classList.add(`hide`);       
 
         savedRepliesListElement.classList.remove(`hide`);
     }
@@ -47,7 +35,7 @@ const hideConfig = (config) => {
     configElement.style.display = `none`;
 }
 
-const showConfig = () => {
+const showConfig = (config) => {
 
     let configElement = document.querySelector(`[data-saved-replies-name="${config.name}"]`);
 
@@ -170,6 +158,10 @@ const initialize = async () => {
     const searchBox = document.querySelector(`.search`);
 
     searchBox.addEventListener(`keyup`, (event) => filterItems(event.target.value));
+
+    const settingsLink = document.querySelector(`.inner-footer`);
+
+    settingsLink.addEventListener(`click`, async () => await chrome.runtime.openOptionsPage());
 
     await loadItems();
 

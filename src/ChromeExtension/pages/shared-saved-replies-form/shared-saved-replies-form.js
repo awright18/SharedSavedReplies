@@ -1,31 +1,10 @@
+import { isNullOrEmpty, arrayIsNullOrEmpty } from "../../js/modules/null.js";
 import { setupValidation, validateForm } from "./shared-saved-replies-form.validation.js";
+import { getSettings } from "../../js/modules/settings.js";
 import { applyCurrentTheme } from "../../js/modules/theme.js";
 
-const isEmpty = (obj) => {
-    for(var i in obj){
-        return false;
-    }
-
-    return true; 
-}
-
-const createDefaultValues = () => {
-    return {
-        url: ``,
-        name: ``,
-        allowEverywhere: true,
-        limitToGitHubOwner: ``,
-        includeIssues: true,
-        includePullRequests: true,
-        refreshRateInMinutes: 30,
-    }
-}
 
 const getFromLocalStorage = async (name) => {
-
-    if (!name) {
-        return createDefaultValues();
-    }
 
     const configKey = `${name}-config`;
 
@@ -33,12 +12,17 @@ const getFromLocalStorage = async (name) => {
 
     const config = result[configKey];
 
+    if(arrayIsNullOrEmpty(result) || isNullOrEmpty(config)){
+        
+        return null;
+    }
+
     return config;
 }
 
 const saveToLocalStorage = async (values) => {
 
-    if (!values || isEmpty(values) || !values.name) {
+    if (isNullOrEmpty(values)) {
         throw new Error("Cannot save null or empty shared saved replies.");
     }
 
@@ -56,24 +40,24 @@ const getFormValues = () => {
         limitToGitHubOwner: document.getElementById('limitToGitHubOwner').value,
         includeIssues: document.getElementById(`includeIssues`).checked,
         includePullRequests: document.getElementById(`includePullRequests`).checked,
-        refreshRateInMinutes: document.getElementById(`refreshRateInMinutes`).value,       
+        refreshRateInMinutes: document.getElementById(`refreshRateInMinutes`).value       
     };
 }
 
-const setValues = (values) => {
-    console.log(values);
-    document.getElementById(`url`).value = values.url;
-    document.getElementById(`name`).value = values.name;
-    document.getElementById(`allowEverywhere`).checked = values.allowEverywhere;
-    document.getElementById('limitToGitHubOwner').value = values.limitToGitHubOwner;
-    document.getElementById(`includeIssues`).checked = values.includeIssues;
-    document.getElementById(`includePullRequests`).checked = values.includePullRequests;
-    document.getElementById(`refreshRateInMinutes`).value = Number(values.refreshRateInMinutes);
+const setFormValues = (values) => {
+
+    document.getElementById(`url`).value = values?.url ?? '' ;
+    document.getElementById(`name`).value = values?.name ?? '' ;
+    document.getElementById(`allowEverywhere`).checked = values?.allowEverywhere;
+    document.getElementById('limitToGitHubOwner').value = values?.limitToGitHubOwner;
+    document.getElementById(`includeIssues`).checked = values?.includeIssues;
+    document.getElementById(`includePullRequests`).checked = values?.includePullRequests;
+    document.getElementById(`refreshRateInMinutes`).value = Number(values?.refreshRateInMinutes);
 }
 
 const close = async () => {
 
-    window.close();
+    await chrome.tabs.getCurrent((tab) => chrome.tabs.remove(tab.id));
 }
 
 const save = async () => {
@@ -100,30 +84,39 @@ const loadForm = async () => {
 
     const name = urlParams.get('name');
 
-    const defaultValues = createDefaultValues();
+    let settings = await getSettings();
+
+    console.log(`settings`,settings);
 
     const localStorageValues = await getFromLocalStorage(name);
 
+    if(localStorageValues){
+               
+        settings = localStorageValues;
+    }
+
     const headerTitleElement = document.querySelector(`.dialogHeaderTitle`);
 
-    if (localStorageValues.name) {
+    if (localStorageValues?.name) {
 
         headerTitleElement.innerText = "Edit Saved Replies";
-
-        setValues(localStorageValues);
+       
     } else {
-        headerTitleElement.innerText = "Add Saved Replies";
 
-        setValues(defaultValues);
+        headerTitleElement.innerText = "Add Saved Replies";       
     }
+
+    console.log(`settings`,settings);
+
+    setFormValues(settings);
 
     setupValidation();
 
     document.getElementById(`close`)
-        .addEventListener(`click`, close);
+        .addEventListener(`click`, async () => await close());
 
     document.getElementById(`cancel`)
-        .addEventListener(`click`, async () => close());
+        .addEventListener(`click`, async () => await close());
 
     document.getElementById(`save`)
         .addEventListener(`click`, async () => await save());

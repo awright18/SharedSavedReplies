@@ -1,27 +1,6 @@
+import { isNullOrEmpty, arrayIsNullOrEmpty } from "./null.js";
 
 console.log(`themes loaded`);
-
-const isNullOrEmpty = (obj) => {
-
-    if (!obj) {
-        return true;
-    }
-
-    for (var i in obj) {
-        return false;
-    }
-
-    return true;
-}
-
-const arrayIsEmpty = (array) => {
-        
-    if(Array.isArray(array) && !array.length){
-        return true; 
-    }
-
-    return false;
-}
 
 const defautTheme = `peach`;
 
@@ -56,13 +35,11 @@ const applyTheme = async (theme) => {
         console.log(`Cannot apply theme. ${theme} is not a valid theme.`);
     }
 
-    await chrome.storage.local.set({[`applied-theme`]:theme});
-
     const bodyElement = document.querySelector(`body`);
 
     bodyElement.classList = ``;
 
-    bodyElement.classList.add(theme);
+    bodyElement.classList.add(theme.toLowerCase());
 }
 
 const applyCurrentTheme = async () => {
@@ -70,15 +47,8 @@ const applyCurrentTheme = async () => {
     console.log(`apply current theme`);
 
     const currentTheme = await getCurrentTheme()
-    
-    const bodyElement = document.querySelector(`body`);
-
-    if(!arrayIsEmpty(bodyElement.classList)
-        && bodyElement.classList.contains(currentTheme)){
-        return;
-    }
 
     await applyTheme(currentTheme);
 }
 
-export { themes, applyCurrentTheme, applyTheme }
+export { themes,getCurrentTheme, applyCurrentTheme, applyTheme }

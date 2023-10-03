@@ -65,7 +65,7 @@ const fetchSavedRepliesFromUrl = async (savedRepliesUrl) => {
 
         if(savedReplyBody){
 
-            savedReplies.push({name:h2.innerText,bodh:savedReplyBody});
+            savedReplies.push({name:h2.innerText,body:savedReplyBody});
         }
     }
 

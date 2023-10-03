@@ -117,8 +117,6 @@ const tryEnableLimitToGitHubOwner = () => {
     }
 }
 
-
-
 const addDialogInputEventhandlers = () => {
     document.querySelectorAll(`.dialogInput`)
         .forEach(element => {

@@ -18,6 +18,7 @@
       ],
       "js": [
         "js/time.js",
+        "js/null.js",
         "pages/content-script/content-script-urls.js",
         "pages/content-script/content-script-storage.js",
         "pages/content-script/content-script-elements.js",
