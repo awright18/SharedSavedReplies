@@ -36,6 +36,7 @@
     "64": "icons/icon64.png",
     "128": "icons/icon128.png"
   },
+  "key":"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArGi8r21wWmiQLmrqIEf+MHVXwGCE0hF/3MdAbRlDAYka4rDFIZAp+fPu5R79jgm5/WQsMfBtluGl3hELB4xWVoXQEOUEp1jEHIEsDWyh61zlDT92+KS5z+73R1sdJA0V5uEvcBuTl6B/zSqCfLNrycu+9VDZkFYSZzsMfX+ClJYbqJ89ZRS48Jh8cqlGWZ49Ukjjt+VdZAl8PqQMg2IC2KSSQxKssWaGMKX0AVVfymKxT+eC4TFs9HyP82FRBNsq/c46yKP2q+vfx/9iNQra/CpZ46k4nq4SDZ1pJJ5LZIAn1+Et4qMklU0/Yqe8VPGqRCqivfxEJPmkcntFwfC3qQIDAQAB",
   "options_ui":{
     "page":"pages/options/options.html",
     "open_in_tab":true
