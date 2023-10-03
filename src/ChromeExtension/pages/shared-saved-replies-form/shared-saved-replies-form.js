@@ -62,19 +62,24 @@ const close = async () => {
 
 const save = async () => {
 
-    if (validateForm()) {
+    const formIsValid = await validateForm();
+
+    if (formIsValid) {
 
         const formValues = getFormValues();
 
         await saveToLocalStorage(formValues);
+        
+        console.log("save config");
 
         await chrome.tabs.getCurrent(function (tab) {
             chrome.tabs.remove(tab.id, function () { });
         });
 
-        console.log("save stuff");
+        
     } else {
-        console.log("invalid");
+        
+        console.log("invalid config");
     }
 }
 

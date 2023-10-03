@@ -29,10 +29,10 @@ const setNameElementValidationMessage = async () => {
     }
 }
 
-const validateElement = async (elementToValidate) => {
+const validateForm = async (elementToValidate) => {
 
     //reset the state 
-    let isValid = true;
+    let formIsValid = true;
 
     let domChanged = false;
 
@@ -69,7 +69,7 @@ const validateElement = async (elementToValidate) => {
 
                 errorLabelTextElement.innerText = ` ${errorMessage}`;
 
-                isValid = false;
+                formIsValid = false;
 
             } else {
 
@@ -88,7 +88,7 @@ const validateElement = async (elementToValidate) => {
         addDialogInputEventhandlers();
     }
 
-    return isValid;
+    return formIsValid;
 }
 
 const focusOnParentElement = (event) => {
@@ -133,9 +133,6 @@ const addDialogInputEventhandlers = () => {
         });
 }
 
-const validateForm = () => {
-    return validateElement();
-}
 
 const setupValidation = () => {
 
