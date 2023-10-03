@@ -24,6 +24,11 @@ const isLocalhostUrl = () => {
     return pattern.test(url);
 }
 
+const shouldLoadContentScript = () => {
+
+    return isLocalhostUrl() || isGitHubIssueUrl() || isGitHubPullRequestUrl();
+}   
+
 const getGitHubOwner = () => {
     const url = window.location.href;
 
@@ -59,3 +64,4 @@ const canLoadRepliesForUrl = (config) => {
 
     return false;
 }
+

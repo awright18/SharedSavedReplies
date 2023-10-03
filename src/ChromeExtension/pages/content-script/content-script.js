@@ -2,7 +2,7 @@ const main = async () => {
 
     console.log("main called");
 
-    if (!canLoadRepliesForUrl()) {
+    if (!shouldLoadContentScript()) {
         return;
     }
 

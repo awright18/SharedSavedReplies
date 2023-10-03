@@ -85,9 +85,15 @@ const save = async () => {
 
 const loadForm = async () => {
 
+    let editting = false;
+
     const urlParams = new URLSearchParams(window.location.search);
 
     const name = urlParams.get('name');
+
+    if(name){
+        editting = true;
+    }
 
     let settings = await getSettings();
 
@@ -115,7 +121,7 @@ const loadForm = async () => {
 
     setFormValues(settings);
 
-    setupValidation();
+    setupValidation(editting);
 
     document.getElementById(`close`)
         .addEventListener(`click`, async () => await close());

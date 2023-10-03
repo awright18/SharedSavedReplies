@@ -8,11 +8,19 @@ using System.Threading.Tasks;
 [TestFixture]
 public class ExtensionTests : ChromeExtensionTestServerPageTest
 {
+    private string _chromeExtensionUrl;
+    private string _addSavedRepliesFormUrl; 
+    
     public ExtensionTests()
     {
         PathToExtension = Path.GetFullPath(@"./ChromeExtension");
     }
-    
+
+    public async Task AddFakeSavedReplies(IPage page)
+    {
+            new Uri(new Uri())
+    }
+
     [Test]
     public async Task Can_add_saved_replies_to_github_issue()
     {

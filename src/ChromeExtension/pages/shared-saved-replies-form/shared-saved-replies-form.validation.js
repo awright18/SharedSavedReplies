@@ -29,7 +29,7 @@ const setNameElementValidationMessage = async () => {
     }
 }
 
-const validateForm = async (elementToValidate) => {
+const validateForm = async (elementToValidate = null) => {
 
     //reset the state 
     let formIsValid = true;
@@ -100,7 +100,7 @@ const removeFocusFromParentElement = async (event) => {
 
     event.target.parentElement?.classList.remove("focus");
 
-    await validateElement(event.target);
+    await validateForm(event.target);
 }
 
 const tryEnableLimitToGitHubOwner = () => {
@@ -117,7 +117,7 @@ const tryEnableLimitToGitHubOwner = () => {
     }
 }
 
-const addDialogInputEventhandlers = () => {
+const addDialogInputEventhandlers = (forEditing = false) => {
     document.querySelectorAll(`.dialogInput`)
         .forEach(element => {
 
@@ -127,6 +127,14 @@ const addDialogInputEventhandlers = () => {
                 })
             }
 
+            if(forEditing){
+
+                if(element.id === `name`){
+                    element.setAttribute(`disabled`,``);
+                    return;
+                }
+            }
+
             element.addEventListener('focus', (event) => focusOnParentElement(event));
 
             element.addEventListener('blur', async (event) => await removeFocusFromParentElement(event));
@@ -134,9 +142,9 @@ const addDialogInputEventhandlers = () => {
 }
 
 
-const setupValidation = () => {
+const setupValidation = (forEditing = false) => {
 
-    addDialogInputEventhandlers();
+    addDialogInputEventhandlers(forEditing);
 
     tryEnableLimitToGitHubOwner();
 

@@ -10,4 +10,6 @@ public class ChromeExtensionTestServerPageTest : ChromeExtensionPageTest
     }
 
     public string ServerAddress => _testFactory.ServerAddress;
+
+    public string ChromeExtensionBaseUrl = "chrome-extension://fogjjpafpjilbpgheicoddlakkbooiah";
 }
