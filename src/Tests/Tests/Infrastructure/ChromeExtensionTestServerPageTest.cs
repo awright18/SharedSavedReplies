@@ -1,4 +1,4 @@
-﻿namespace ParticularSavedReplies.Tests;
+﻿namespace Tests;
 
 public class ChromeExtensionTestServerPageTest : ChromeExtensionPageTest
 {
@@ -10,5 +10,4 @@ public class ChromeExtensionTestServerPageTest : ChromeExtensionPageTest
     }
 
     public string ServerAddress => _testFactory.ServerAddress;
-
 }

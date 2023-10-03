@@ -36,4 +36,4 @@ jobs:
         uses: coactions/setup-xvfb@v1
         with: 
           run: dotnet test
-          working-directory: ./src/Tests/ParticularSavedReplies.Tests
+          working-directory: ./src/Tests/Tests

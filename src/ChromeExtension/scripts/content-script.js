@@ -17,7 +17,7 @@ const main = async () => {
         }
 
         if (!repliesDiv) {
-            repliesDiv = await createParticularRepliesDiv(replies);
+            repliesDiv = await createSavedRepliesDiv(replies);
         }
     }
     
@@ -67,7 +67,7 @@ const main = async () => {
         });
 
     //Watch (observe) the savedReplyContainer until it contains a <fuzzy-list> element 
-    //only then will it be possible to add the particular saved replies.
+    //only then will it be possible to add the saved replies.
     
     const savedReplyContainer =
         document.querySelector(`details-menu.js-saved-reply-menu.hx_rsm-modal`);

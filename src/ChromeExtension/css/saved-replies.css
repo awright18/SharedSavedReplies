@@ -1,4 +1,4 @@
-.refresh-particular-replies{
+.refresh-replies{
     border: none;
     cursor: pointer;
     appearance: none;
@@ -6,7 +6,7 @@
     transition: transform 0.7s ease-in-out;
 }
 
-.particular-refresh-image {    
+.refresh-image {    
     display: block;
     margin-left: auto;
     margin-right: auto;

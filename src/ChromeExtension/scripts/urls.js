@@ -1,9 +1,9 @@
 ﻿
-const isParticularGitHubIssueUrl = () => {
+const isGitHubIssueUrl = () => {
 
     let url = window.location.href;
 
-    let pattern = /^(https?:\/\/)github\.com\/particular\/[\dA-z\.-]+\/issues\/\d+/i;
+    let pattern = /^(https?:\/\/)github\.com\/.+\/.+\/issues\/\d+/i;
 
     return pattern.test(url);
 }
@@ -11,28 +11,9 @@ const isParticularGitHubIssueUrl = () => {
 const isLocalhostUrl = () => {
     let url = window.location.href;
 
-    let pattern = /^(https?:\/\/)localhost(:\d+)?\/?([\dA-z\-]+)?(\.[A-z]+)?$/i;
+    let pattern = /^(https?:\/\/)localhost(:\d+).*/i;
 
     return pattern.test(url);
-}
-
-const gitHubDataUrl = "https://github.com/Particular/StaffSuccess/blob/master/github/saved-reply-templates.md";
-
-const localDataUrl = () => {
-    var url = window.location;
-    var dataUrl = `${url.protocol}//localhost:${url.port}/fake-response.json`;
-    return dataUrl;
-}
-
-const getTemplateDataUrl = () => {
-    
-    if(isLocalhostUrl()){
-       return localDataUrl(); 
-    }
-    
-    if(isParticularGitHubIssueUrl){
-        return gitHubDataUrl;
-    }
 }
 
 const isValidIssueUrl = () => {
@@ -41,7 +22,7 @@ const isValidIssueUrl = () => {
         return true;
     }
     
-    if(isParticularGitHubIssueUrl()){
+    if(isGitHubIssueUrl()){
         return true; 
     }
     

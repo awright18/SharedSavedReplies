@@ -26,16 +26,11 @@
     <None Include="..\..\ChromeExtension\**\*.*">
       <Link>ChromeExtension\%(RecursiveDir)%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Remove="ApprovalFiles\ExtensionTests.Can_add_particular_saved_replies_to_github_issue.verified.png" />
+    </None>   
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\ParticularSavedReplies.WebHost\ParticularSavedReplies.WebHost.csproj" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="ApprovalFiles\" />
-  </ItemGroup>
+    <ProjectReference Include="..\WebHost\WebHost.csproj" />
+  </ItemGroup> 
   
 </Project>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/popup.css">
+    <title>Shared Saved Replies</title>
+</head>
+<body>
+<div class="header">
+    <img class="icon" src="icons/icon32.png" alt="replies icon">
+    <p class="title">Shared Saved Replies</p>
+</div>
+
+<div class="needs-url">
+    <form id="saved-replies-form">
+        <p>Enter the url of a GitHub markdown file that contains your shared replies.</p>
+        <p>
+            <label for="saved-replies-url">Saved Reply Templates Url:</label>
+            <input id="saved-replies-url" type="url" required/>
+
+        </p>
+        <p>
+            <input class="button" type="submit" id="save" value="Save"/>
+        </p>
+        <p><a id="options-link" href="#">Options</a></p>
+    </form>
+</div>
+<div class="has-url hidden">
+    <a id="saved-replies-url-link">View Saved Replies</a>
+</div>
+<script src="scripts/messaging.js"></script>
+<script src="scripts/storage.js"></script>
+<script src="scripts/popup.js"></script>
+</body>
+</html>

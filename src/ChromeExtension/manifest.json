@@ -1,27 +1,34 @@
 {
   "manifest_version": 3,
-  "name": "Particular Saved Replies",
-  "description": "Adds Particular's saved replies to GitHub's saved replies list",
-  "version": "0.0.0.0",
+  "name": "Shared Saved Replies",
+  "description": "Adds saved replies to GitHub's saved replies list when commenting on issues.",
+  "version": "0.0.1",
+  "action":{
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "scripts/service-worker.js"
+  },
   "content_scripts": [
     {
       "matches": [
-        "https://github.com/particular/*/issues/*",
+        "https://github.com/*",
         "https://*:*/*"
       ],
       "css": [
-        "css/particular-replies.css"
+        "css/saved-replies.css"
       ],
       "js": [
         "scripts/urls.js",
         "scripts/storage.js",
+        "scripts/saved-replies.js",
         "scripts/elements.js",
         "scripts/content-script.js"
       ],
       "all_frames": false,
       "runat": "document_start"
     }
-  ],
+  ], 
   "icons": {
     "16": "icons/icon16.png",
     "32": "icons/icon32.png",
@@ -29,16 +36,24 @@
     "64": "icons/icon64.png",
     "128": "icons/icon128.png"
   },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false
+  },
   "permissions": [
     "storage",
-    "tabs"
+    "activeTab"
   ],
   "web_accessible_resources": [
     {
       "resources": [
-        "images/refresh-particular-replies.png",
-        "images/refresh-particular-replies-2.png",
-        "css/particular-replies.css"
+        "images/refresh-saved-replies.png",
+        "images/refresh-saved-replies-2.png",
+        "css/saved-replies.css",
+        "css/popup.css",
+        "scripts/popup.js",
+        "scripts/saved-replies.js",
+        "scripts/storage.js"
       ],
       "matches": [
         "https://github.com/*",

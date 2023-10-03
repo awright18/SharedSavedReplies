@@ -26,22 +26,22 @@ const onRefreshRepliesButtonClick = async (event) => {
 
     event.preventDefault();
 
-    const refreshImages = document.querySelectorAll(".particular-refresh-image");
+    const refreshImages = document.querySelectorAll(".refresh-image");
 
     if (refreshImages) {
 
         for (let refreshImage of refreshImages) {
-            const refreshImageSrc = chrome.runtime.getURL("images/refresh-particular-replies-2.png");
+            const refreshImageSrc = chrome.runtime.getURL("images/refresh-replies-2.png");
             refreshImage.src = refreshImageSrc;
 
         }
     }
 
-    const existingRepliesDivs = document.querySelectorAll(".particular-replies");
+    const existingRepliesDivs = document.querySelectorAll(".saved-replies");
 
     const savedReplies = await getSavedReplies(false);
 
-    const updatedRepliesDiv = createParticularRepliesDiv(savedReplies);
+    const updatedRepliesDiv = createSavedRepliesDiv(savedReplies);
 
     if (existingRepliesDivs) {
 
@@ -53,26 +53,26 @@ const onRefreshRepliesButtonClick = async (event) => {
     if (refreshImages) {
 
         for (let refreshImage of refreshImages) {
-            const refreshImageSrc = chrome.runtime.getURL("images/refresh-particular-replies.png");
+            const refreshImageSrc = chrome.runtime.getURL("images/refresh-replies.png");
             refreshImage.src = refreshImageSrc;
         }
     }
 }
 
-const createParticularRepliesDivider = () => {
+const createSavedRepliesDivider = () => {
 
     const refershImage = createElement("img", {
         children: [],
-        className: "particular-refresh-image"
+        className: "refresh-image"
     });
 
-    const refreshImageSrc = chrome.runtime.getURL("images/refresh-particular-replies.png");
+    const refreshImageSrc = chrome.runtime.getURL("images/refresh-replies.png");
 
     refershImage.src = refreshImageSrc;
 
     const refreshRepliesButton = createElement("button", {
         children: [refershImage],
-        className: "refresh-particular-replies"
+        className: "refresh-replies"
     });
 
     refreshRepliesButton.addEventListener(
@@ -81,16 +81,16 @@ const createParticularRepliesDivider = () => {
     );
 
     const repliesDivider = createElement("div", {
-        children: ["Particular Replies", refreshRepliesButton],
+        children: ["Saved Replies", refreshRepliesButton],
         className: "select-menu-divider js-divider",
     })
 
     return repliesDivider;
 }
 
-const createParticularRepliesDiv = (savedReplies) => {
+const createSavedRepliesDiv = (savedReplies) => {
 
-    const repliesDivider = createParticularRepliesDivider();
+    const repliesDivider = createSavedRepliesDivider();
 
     const repliesUl = createElement("ul", {
         children: [],
@@ -99,7 +99,7 @@ const createParticularRepliesDiv = (savedReplies) => {
 
     const repliesDiv = createElement("div", {
         children: [repliesDivider, repliesUl],
-        className: "select-menu-list particular-replies"
+        className: "select-menu-list saved-replies"
     });
 
     for (const [i, reply] of savedReplies.entries()) {

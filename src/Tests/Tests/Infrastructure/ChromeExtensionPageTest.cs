@@ -1,9 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Playwright;
 using Microsoft.Playwright.NUnit;
-using VerifyTests.Playwright;
 
-namespace ParticularSavedReplies.Tests;
+namespace Tests;
 
 public class ChromeExtensionPageTest : BrowserTest
 {
