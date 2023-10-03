@@ -6,26 +6,38 @@
 <body>
 
 <h1>Fake Page</h1>
-<textarea id="new_comment_field">
+
+<details-menu class="js-saved-reply-container">
+    <textarea id="saved-reply-new_comment_field" style="width: 500px; height: 200px;">
       
-</textarea>
-<details-menu class="js-saved-reply-menu hx_rsm-modal">
+    </textarea>
 </details-menu>
 <script type="text/javascript">
+    
     document.addEventListener('keydown', (event) => {
         
-        let controlDotPressed = event.ctrlKey === true && event.key === ".";
+        let controlDotPressed = (event.key === "." ||  event.ctrlKey === true && event.key === ".");
+
+        console.log(`${event.key} pressed!`)
         
         if(!controlDotPressed){
+            console.log(`returning`);  
             return;
         }
+
+        let fuzzyList = document.querySelector("fuzzy-list");
         
-        let replyModal = document.querySelector(".js-saved-reply-menu.hx_rsm-modal");
-        let fuzzyList = document.createElement("fuzzy-list");
-        let selectMenuFilter = document.createElement("div");
-        selectMenuFilter.className = "select-menu-filters";
-        fuzzyList.appendChild(selectMenuFilter);
-        replyModal.appendChild(fuzzyList);
+        let replyModal = document.querySelector(".js-saved-reply-container");
+        
+        if(!fuzzyList) {
+            fuzzyList = document.createElement("fuzzy-list");
+            let selectMenuFilter = document.createElement("div");
+            selectMenuFilter.className = "select-menu-filters";
+            fuzzyList.appendChild(selectMenuFilter);
+            replyModal.appendChild(fuzzyList);
+        }
+        
+        replyModal.setAttribute(`open`,'');
     });
 </script>
 </body>

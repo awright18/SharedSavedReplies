@@ -14,7 +14,8 @@
       "matches": [
         "https://github.com/*/pull/*",
         "https://github.com/*/issues/*",
-        "https://*:*/*"
+        "https://*:*/*",
+        "http://*:*/*"
       ],
       "js": [
         "js/time.js",

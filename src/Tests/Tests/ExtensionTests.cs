@@ -12,7 +12,6 @@ public class ExtensionTests : ChromeExtensionTestServerPageTest
     {
         PathToExtension = Path.GetFullPath(@"./ChromeExtension");
     }
-
     
     [Test]
     public async Task Can_add_saved_replies_to_github_issue()
@@ -29,13 +28,13 @@ public class ExtensionTests : ChromeExtensionTestServerPageTest
         
         Console.WriteLine($"FakeIssueUrl:{fakeIssueUrl}");
         
-        await Page.Locator("#new_comment_field").FocusAsync();
-        
-        await Page.Keyboard.PressAsync("Control+.");
+        await Page.Locator("#saved-reply-new_comment_field").FocusAsync();
+
+        await Page.Keyboard.PressAsync(".");
 
         await Page.Locator(".saved-replies").WaitForAsync(new()
         {
-            Timeout = 1000
+            Timeout = 500
         });
     }
 }

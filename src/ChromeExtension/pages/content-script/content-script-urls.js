@@ -1,5 +1,4 @@
-﻿
-const isGitHubIssueUrl = () => {
+﻿const isGitHubIssueUrl = () => {
 
     let url = window.location.href;
 
@@ -37,9 +36,12 @@ const getGitHubOwner = () => {
     return owner;
 }
 
-
-
 const canLoadRepliesForUrl = (config) => {
+
+    //this if for unit tests
+    if(isLocalhostUrl()){
+        return true;
+    }
 
     const gitHubOwner = getGitHubOwner();
 
@@ -52,16 +54,6 @@ const canLoadRepliesForUrl = (config) => {
     if (validOwner
         && (validForIssue || validForPullRequest)) {
 
-        return true;
-    }
-
-    return false;
-}
-
-
-const isValidIssueUrl = () => {
-
-    if (isLocalhostUrl() || isGitHubIssueUrl() || isGitHubPullRequestUrl()) {
         return true;
     }
 
