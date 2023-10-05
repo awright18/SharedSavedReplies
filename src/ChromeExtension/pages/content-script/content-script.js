@@ -18,21 +18,21 @@ const main = async () => {
 
         if (repliesExist) {
 
-            repliesDiv = await createSavedRepliesDiv(replies);           
+            repliesDiv = await createSavedRepliesDiv(replies);
         }
     }
 
     const tryUpdateSavedRepliesDiv = () => {
 
         let savedRepliesDiv = document.querySelector(`.saved-replies`);
-        
+
         const repliesExist = arrayIsNotEmpty(replies);
 
         if (repliesExist && savedRepliesDiv) {
 
             savedRepliesDiv.replaceWith(repliesDiv);
 
-            return true; 
+            return true;
 
         } else if (savedRepliesDiv) {
 
@@ -68,34 +68,35 @@ const main = async () => {
 
             savedReplyFilter.insertAdjacentElement("afterend", repliesDiv);
 
-            return true; 
+            return true;
 
         } else if (savedRepliesDiv) {
-        
+
             savedRepliesDiv.remove();
 
-            return true; 
+            return true;
         }
 
-        return false; 
+        return false;
     }
 
     const onSavedRepliesOpened = async (node) => {
 
         await prepareRepliesDiv();
 
-        if(tryUpdateSavedRepliesDiv()){
-            return; 
+        if (tryUpdateSavedRepliesDiv()) {
+            return;
         }
 
-        if(tryUpdateFuzzyList(node)){
+        if (tryUpdateFuzzyList(node)) {
             return;
         }
     }
 
-
     observer = new MutationObserver(
         async (mutationList, obs) => {
+
+            console.log(`mutation happened`);
 
             for (const mutation of mutationList) {
 
@@ -122,8 +123,11 @@ const main = async () => {
         childList: false,
         subtree: false
     });
+
 }
 
+document.addEventListener("soft-nav:end", main);
+
 main().catch((error) => {
-    console.error("Oh no!", error);
+	console.error("Oh no!", error);
 });

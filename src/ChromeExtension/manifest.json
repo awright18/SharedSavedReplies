@@ -12,8 +12,7 @@
   "content_scripts": [
     {
       "matches": [
-        "https://github.com/*/pull/*",
-        "https://github.com/*/issues/*",
+        "https://github.com/*",
         "https://*:*/*",
         "http://*:*/*"
       ],
@@ -24,9 +23,7 @@
         "pages/content-script/content-script-storage.js",
         "pages/content-script/content-script-elements.js",
         "pages/content-script/content-script.js"
-      ],
-      "all_frames": false,
-      "runat": "document_start"
+      ]
     }
   ], 
   "icons": {
@@ -42,9 +39,14 @@
     "open_in_tab":true
   },
   "permissions": [
-    "activeTab",
+    "tabs",
+    "scripting",
+    "webNavigation",
     "alarms",
     "storage",
     "offscreen"
+  ],
+  "host_permissions":[
+    "https://github.com/*"
   ]
 }
