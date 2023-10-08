@@ -61,10 +61,11 @@ These replies are to be used by our team to facilitate consistent communication.
 
 ![Popup Screen](https://github.com/awright18/SharedSavedReplies/blob/main/src/ChromeExtension/images/popup.png)
 
-1. Enter the GitHub url of the the saved replies .md file that was created prevoulsy. (This should not be the raw url).
-1. Provide a unique name for the configuration. 
-1. Decide if the saved replies should be used across all of GitHub or limited to a user or organization's repos. 
-1. Decide if the saved replies should show be used in only issues only prs or both. 
+1. For "Saved Replies Url": Enter the GitHub url of the the saved replies .md file that was created prevoulsy. (This should not be the raw url).
+1. For "Name", Provide a unique name for the configuration. 
+1. For "Use with all GitHub repositories" If the saved replies should be used across all of GitHub then switch the toggle to on. If not switch it off and enter the name of a github organization or user that you want to limit the replies to in "Limit to this GitHub organization or user" 
+1. For "Applies to Issues" If the saved replies should show for issues switch the toggle on, if they shouldn't be shown for issues switch the toggle to off. 
+2. For "Applies to Pull Request" If the saved replies should show for pull requests switch the toggle on, if they shouldn't be shown for pull requests switch the toggle to off. 
 1. Set the refresh rate of how often the saved replies will be updated. The default is every 30 minutes. (This process only takes a few hundred milliseconds to perform.)
 1. Click save.
 
