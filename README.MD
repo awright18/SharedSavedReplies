@@ -76,3 +76,4 @@ These replies are to be used by our team to facilitate consistent communication.
 
 1. Navigate to either an issue or pull request and clicked the "saved replies" icon on the new comment menu and see your saved replies appear. 
 
+![Click on Save Replies Icon](https://github.com/awright18/SharedSavedReplies/blob/main/docs/images/click_saved_replies_icon.png)
