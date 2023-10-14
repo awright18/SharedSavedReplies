@@ -89,16 +89,17 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
 onAlarm(async (name) =>
     await sendUpdateSharedSavedRepliesMessageToOffScreen(name));
 
-chrome.webNavigation.onHistoryStateUpdated.addListener( async (details) =>  {
+chrome.webNavigation.onHistoryStateUpdated.addListener( 
+    async (details) =>  {
 
-    //This seems to force the content-script to be reloaded.
-    const getCurrentTab = async () => {
-        let queryOptions = { active: true, lastFocusedWindow: true };     
-        let [tab] = await chrome.tabs.query(queryOptions);
-        return tab;
-      }
-    
-    let tab = await getCurrentTab();
+        //This seems to force the content-script to be reloaded.
+        const getCurrentTab = async () => {
+            let queryOptions = { active: true, lastFocusedWindow: true };     
+            let [tab] = await chrome.tabs.query(queryOptions);
+            return tab;
+        }
+        
+        let tab = await getCurrentTab();
 
     chrome.scripting.executeScript({
         target: {tabId: tab.id},
