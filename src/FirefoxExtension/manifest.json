@@ -44,10 +44,11 @@
     "tabs",
     "scripting",
     "webNavigation",
+    "webRequest",
     "alarms",
     "storage"
   ],
   "host_permissions":[
-    "https://github.com/*"
+    "*://*.github.com/*"
   ]
 }

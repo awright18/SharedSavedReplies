@@ -1,35 +1,21 @@
 ﻿import { fetchSavedRepliesFromUrl } from "../../js/modules/fetch-saved-replies.js";
-import { createCommand, send } from "../../js/modules/messaging.js"; 
-// import {} from "../../js/modules/time.js";
 import { isNullOrEmpty } from "../../js/modules/null.js";
-import { handleUpdateSharedSavedRepliesCommand, sendSaveSharedSavedRepliesCommand } from "../offscreen/offscreen-messaging.js";
-import { handleSaveSharedSavedRepliesCommand } from "./service-worker-messaging.js";
 import { getUrlForShareSavedRepliesName, removeDataFromLocalStorage, saveRepliesInLocalStorage, getConfigFromLocalStorage  } from "./service-worker-storage.js";
 import { clearAlarm, onAlarm} from "./service-worker-alarms.js";
 
 
-const OFFSCREEN = "offscreen";
-
-const sendUpdateSharedSavedRepliesCommand = async (name, url) => {
-
-    const command = createCommand(`UpdateSharedSavedReplies`, OFFSCREEN, { name: name, url: url });
-
-    await send(command);
-
-    return true;
-}
-
-const sendUpdateSharedSavedRepliesMessageToOffScreen = async (name) => {
-
-    // await setupOffscreenDocument();
+const updateSharedSavedReplies = async (name) => {
 
     const url = await getUrlForShareSavedRepliesName(name);
 
-    await sendUpdateSharedSavedRepliesCommand(name, url);
+    const replies = await fetchSavedRepliesFromUrl(url);
 
-    // await closeOffscreenDocument();
+    await saveRepliesInLocalStorage(name, replies);
+
+     const config = await getConfigFromLocalStorage(name);
+
+    await createAlarm(name, config.refreshRateInMinutes);    
 }
-
 
 browser.storage.onChanged.addListener(async (changes, area) => {
 
@@ -50,7 +36,7 @@ browser.storage.onChanged.addListener(async (changes, area) => {
 
         if (name && !isNullOrEmpty(newValue)) {
 
-            await sendUpdateSharedSavedRepliesMessageToOffScreen(name);
+            await updateSharedSavedReplies(name);
 
             return;
         }
@@ -67,42 +53,8 @@ browser.storage.onChanged.addListener(async (changes, area) => {
     }
 });
 
-browser.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
 
-    await handleSaveSharedSavedRepliesCommand(request, async (name, replies) => {
-
-        console.log(`saving replies for ${name}.`);
-
-        await saveRepliesInLocalStorage(name, replies);
-
-        const config = await getConfigFromLocalStorage(name);
-
-        await createAlarm(name, config.refreshRateInMinutes);
-    });
-
-    await handleUpdateSharedSavedRepliesCommand(
-        request,       
-        async (name,url) => {
-            try {                                    
-
-                console.log("offscreen-savedRepliesUrl", url);
-
-                const replies = await fetchSavedRepliesFromUrl(url);
-    
-                await sendSaveSharedSavedRepliesCommand(name, replies);    
-            }
-            catch (error){                
-                
-                console.log("offscreen",error);               
-            }
-
-            return true;
-    }); 
-});
-
-
-onAlarm(async (name) =>
-    await sendUpdateSharedSavedRepliesMessageToOffScreen(name));
+onAlarm(async (name) => await updateSharedSavedReplies(name));
 
 browser.webNavigation.onHistoryStateUpdated.addListener(
     async (details) =>  {
@@ -121,8 +73,5 @@ browser.webNavigation.onHistoryStateUpdated.addListener(
             func: () => {}
         });
     },
-    { url: [{ urlMatches: "https://github.com/" }] }
+    { url: [{ urlMatches: "https://github.com/*" }] }
 );
-
-
-export {sendUpdateSharedSavedRepliesMessageToOffScreen, sendUpdateSharedSavedRepliesCommand}

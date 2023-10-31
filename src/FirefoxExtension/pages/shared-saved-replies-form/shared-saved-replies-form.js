@@ -29,6 +29,8 @@ const saveToLocalStorage = async (values) => {
     const configKey = `${values.name}-config`;    
 
     await chrome.storage.local.set({ [configKey]: values, });
+
+    console.log(`saved ${configKey}` );
 }
 
 const getFormValues = () => {
@@ -69,10 +71,12 @@ const save = async () => {
         
         console.log("save config");
 
-        await chrome.tabs.getCurrent(async (tab) => {
-            const formValues = getFormValues();
+        const formValues = getFormValues();
 
-            await saveToLocalStorage(formValues);
+        await saveToLocalStorage(formValues);
+
+        await chrome.tabs.getCurrent(async (tab) => {
+         
         
            // chrome.tabs.remove(tab.id, function () { });
         });

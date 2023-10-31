@@ -41,6 +41,8 @@ const fetchSavedRepliesFromUrl = async (savedRepliesUrl) => {
     
     const url = new URL(savedRepliesUrl);
 
+    console.log(`fetching from ${url}`);
+
     if(!url){
         throw new Error("savedRepliesUrl does not exist");
     }
