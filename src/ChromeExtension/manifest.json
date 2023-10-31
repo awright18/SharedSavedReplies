@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Shared Saved Replies",
   "description": "Adds saved replies to GitHub's saved replies list when commenting on issues or pull requests.",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "action":{
     "default_popup": "pages/popup/popup.html"
   },
@@ -12,9 +12,7 @@
   "content_scripts": [
     {
       "matches": [
-        "https://github.com/*",
-        "https://*:*/*",
-        "http://*:*/*"
+        "https://github.com/*"
       ],
       "js": [
         "js/time.js",

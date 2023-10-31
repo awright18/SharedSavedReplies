@@ -22,73 +22,68 @@ const createElement = (tagName, { children, className, ...attributes } = {}) => 
     return element;
 }
 
-const createSavedRepliesDivider = () => {
-   
-    const repliesDivider = createElement("div", {
-        children: ["Saved Replies"],
-        className: "select-menu-divider js-divider",
-    })
-
-    return repliesDivider;
-}
-
-const createSavedRepliesDiv = (savedReplies) => {
-
-    const repliesDivider = createSavedRepliesDivider();
+const createSavedRepliesUl = (savedReplies) => {
 
     const repliesUl = createElement("ul", {
         children: [],
-        role: "none"
-    });
-
-    const repliesDiv = createElement("div", {
-        children: [repliesDivider, repliesUl],
-        className: "select-menu-list saved-replies"
+        className:"js-saved-reply-menu ActionListWrap shared-saved-replies",
+        "aria-label":"Shared saved replies",
+        "id": `action-list-c91b88da-b2d0-424b-b824-7a08b4be375c`,
+        role:"list",
+        "data-view-component":"true"
     });
 
     for (const [i, reply] of savedReplies.entries()) {
         const button = createElement("button", {
             children: [
-                createElement("div", {
-                    children: [
-                        createElement("div", {
-                            children: [
-                                createElement("span", {
-                                    children: [reply.name],
-                                    className:
-                                        "select-menu-item-heading css-truncate css-truncate-target",
-                                }),
-                                createElement("span", {
-                                    children: [reply.body],
-                                    className:
-                                        "description css-truncate css-truncate-target js-saved-reply-body",
-                                }),
-                            ],
-                            className: "flex-auto col-9",
+                createElement("span", {    
+                    children:[
+                        createElement("span",{
+                            children:[reply.name],
+                            className:"ActionListItem-label ActionListItem-label--truncate",
+                            "data-view-component":"true"
                         }),
-                        createElement("div", {
-                            children: [
-                                createElement("code", {
-                                    children: [
-                                        createElement("span", {
-                                            children: [
-                                                `ctrl ${i+1}`
-                                            ],
-                                            className: "border rounded-2 p-1 no-wrap"
+                        createElement("span",{
+                            children:[
+                                createElement("span",{
+                                    children:[
+                                        createElement("span",{
+                                            children:[reply.body],
+                                            className:"Truncate-text",
+                                            "data-view-component":"true"
                                         })
-                                    ]
+                                    ],
+                                    className:"Truncate js-saved-reply-body",
+                                    "id":`saved-reply-item-description-${i}`,
+                                    "aria-hidden":"true",
+                                    "data-view-component":"true"
                                 })
                             ],
-                            className: "col-3 text-right"
+                            className:"ActionListItem-descrtiption",
                         })
                     ],
-                    className: "select-menu-item-text d-flex flex-items-center",
+                    className:"ActionListItem-descriptionWrap",
+                    "data-view-component":"true"                    
+                }),
+                createElement("span",{
+                    children:[
+                        createElement("span",{
+                            children:[`ctrl ${i+1}`],
+                            className:'Label',
+                            "data-view-component":"true"
+                        }),          
+                    ],
+                    className: "ActionListItem-visual ActionListItem-visual--trailing"
                 })
             ],
-            className: "select-menu-item width-full",
-            "data-ga-click": "Saved Replies, click, saved reply number 3",
+            className: "ActionListContent",
             role: "menuitem",
             type: "button",
+            "id":`item-{i}`,
+            "data-shortcut":`"${i}"`,
+            "aria-describedby":`saved-reply-item-description-${i}`,
+            "data-view-component":"true",
+            tabIndex:"0"
         });
 
         // It looks like GitHub's built-in clicking logic already sets up this listener.
@@ -98,12 +93,13 @@ const createSavedRepliesDiv = (savedReplies) => {
 
         var replyButtonLi = createElement("li", {
             children: [button],
-            role: "none",
-            "data-value": reply.name
+            className:"ActionListItem",
+            "data-targets":"action-list.items",
+            "data-view-component":"true"
         });
 
         repliesUl.appendChild(replyButtonLi);
     }
 
-    return repliesDiv;
+    return repliesUl;
 }

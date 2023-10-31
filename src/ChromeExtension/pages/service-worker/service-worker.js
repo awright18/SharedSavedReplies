@@ -7,7 +7,6 @@ importScripts(["service-worker-storage.js"]);
 importScripts(["service-worker-alarms.js"]);
 importScripts(["service-worker-settings.js"]);
 
-
 const OFFSCREEN = "offscreen";
 
 const sendUpdateSharedSavedRepliesCommand = async (name, url) => {
@@ -105,4 +104,4 @@ chrome.webNavigation.onHistoryStateUpdated.addListener( async (details) =>  {
         target: {tabId: tab.id},
         func: () => {}
       });
-});
+}, {url: [{hostSuffix: 'github.com'}]});
