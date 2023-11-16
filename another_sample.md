@@ -4,7 +4,7 @@ These replies are to be used by our team to facilitate consistent communication.
 
 ## Work Started
 
-```
+```markdown
 ## 🚀 Work Started
 
 ### 📝 High level plan
@@ -14,7 +14,7 @@ These replies are to be used by our team to facilitate consistent communication.
 ### ⏲ Update schedule
 
 
-```
+```markdown
 
 ## Work Completed
 
