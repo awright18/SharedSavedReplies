@@ -40,7 +40,7 @@ const getFormValues = () => {
         limitToGitHubOwner: document.getElementById('limitToGitHubOwner').value,
         includeIssues: document.getElementById(`includeIssues`).checked,
         includePullRequests: document.getElementById(`includePullRequests`).checked,
-        refreshRateInMinutes: document.getElementById(`refreshRateInMinutes`).value       
+        refreshRateInMinutes: document.getElementById(`refreshRateInMinutes`).value,        
     };
 }
 
@@ -53,6 +53,7 @@ const setFormValues = (values) => {
     document.getElementById(`includeIssues`).checked = values?.includeIssues;
     document.getElementById(`includePullRequests`).checked = values?.includePullRequests;
     document.getElementById(`refreshRateInMinutes`).value = Number(values?.refreshRateInMinutes);
+    document.getElementById(`lastUpdatedAt`).value = values?.lastUpdatedAt;   
 }
 
 const close = async () => {
