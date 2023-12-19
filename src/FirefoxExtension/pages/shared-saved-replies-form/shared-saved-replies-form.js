@@ -59,7 +59,7 @@ const setFormValues = (values) => {
 
 const close = async () => {
 
-    await chrome.tabs.getCurrent((tab) => chrome.tabs.remove(tab.id));
+    await browser.tabs.getCurrent((tab) => browser.tabs.remove(tab.id));
 }
 
 const save = async () => {
@@ -75,11 +75,7 @@ const save = async () => {
 
         await saveToLocalStorage(formValues);
 
-        await chrome.tabs.getCurrent(async (tab) => {
-         
-        
-           // chrome.tabs.remove(tab.id, function () { });
-        });
+        await browser.tabs.getCurrent((tab) => browser.tabs.remove(tab.id));     
 
         
     } else {

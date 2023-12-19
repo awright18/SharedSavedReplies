@@ -7,36 +7,42 @@ const main = async () => {
     }
 
     let observer;
-    let repliesDiv;
+    let repliesUl;
     let replies;
 
-    const prepareRepliesDiv = async () => {
+    const prepareRepliesUl = async () => {
+
+        console.log("preparingRepliesUl");
 
         replies = await getMatchingSavedReplyConfigsFromLocalStorage();
+
+        console.log(replies);
 
         const repliesExist = arrayIsNotEmpty(replies);
 
         if (repliesExist) {
 
-            repliesDiv = await createSavedRepliesDiv(replies);
+            console.log(`replies exist`, replies);
+
+            repliesUl = await createSavedRepliesUl(replies);
         }
     }
 
-    const tryUpdateSavedRepliesDiv = () => {
+    const tryUpdateSavedRepliesUl = () => {
 
-        let savedRepliesDiv = document.querySelector(`.saved-replies`);
+        let savedRepliesUl = document.querySelector(`.shared-saved-replies`);
 
         const repliesExist = arrayIsNotEmpty(replies);
 
-        if (repliesExist && savedRepliesDiv) {
+        if (repliesExist && savedRepliesUl) {
 
-            savedRepliesDiv.replaceWith(repliesDiv);
+            savedRepliesUl.replaceWith(repliesUl);
 
             return true;
 
-        } else if (savedRepliesDiv) {
+        } else if (savedRepliesUl) {
 
-            savedRepliesDiv.remove();
+            savedRepliesUl.remove();
 
             return true;
         }
@@ -48,7 +54,7 @@ const main = async () => {
 
         let savedReplyFilter;
 
-        let savedRepliesDiv;
+        let savedRepliesUl;
 
         const repliesExist = arrayIsNotEmpty(replies);
 
@@ -56,23 +62,23 @@ const main = async () => {
             let fuzzyList = node;
 
             const savedReplyMenuFilterSelector =
-                `div.select-menu-filters`;
+                `div[data-view-component="true"]`;
 
             savedReplyFilter =
                 fuzzyList.querySelector(savedReplyMenuFilterSelector);
 
-            savedRepliesDiv = savedReplyFilter.querySelector(`.saved-replies`);;
+            savedRepliesUl = savedReplyFilter.querySelector(`.shared-saved-replies`);
         }
 
         if (repliesExist && savedReplyFilter) {
 
-            savedReplyFilter.insertAdjacentElement("afterend", repliesDiv);
+            savedReplyFilter.insertBefore(repliesUl, savedReplyFilter.firstChild);
 
             return true;
 
-        } else if (savedRepliesDiv) {
+        } else if (savedRepliesUl) {
 
-            savedRepliesDiv.remove();
+            savedRepliesUl.remove();
 
             return true;
         }
@@ -82,9 +88,9 @@ const main = async () => {
 
     const onSavedRepliesOpened = async (node) => {
 
-        await prepareRepliesDiv();
+        await prepareRepliesUl();
 
-        if (tryUpdateSavedRepliesDiv()) {
+        if (tryUpdateSavedRepliesUl()) {
             return;
         }
 
@@ -102,7 +108,7 @@ const main = async () => {
 
                 if (mutation.type === "attributes" && mutation.attributeName == "open") {
 
-                    let replyContainer = document.querySelector(`#saved-reply-new_comment_field`).closest(`.js-saved-reply-container`);
+                    let replyContainer = document.querySelector(`#saved_replies_menu_new_comment_field-dialog`).closest(`.js-saved-reply-container`);
 
                     if (replyContainer.attributes.open) {
                         console.log(`open`);
@@ -116,7 +122,7 @@ const main = async () => {
             }
         });
 
-    let savedReplyContainer = document.querySelector(`#saved-reply-new_comment_field`).closest(`.js-saved-reply-container`);
+    let savedReplyContainer = document.querySelector(`#saved_replies_menu_new_comment_field-dialog`);
 
     observer.observe(savedReplyContainer, {
         attributes: true,

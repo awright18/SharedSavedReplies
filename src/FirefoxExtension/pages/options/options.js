@@ -73,7 +73,7 @@ const loadForm = async () => {
 
         option.value = theme;
 
-        option.innerHTML = capiatlizeWord(theme);
+        option.textContent = capiatlizeWord(theme);
 
         themesElement.appendChild(option);
     }

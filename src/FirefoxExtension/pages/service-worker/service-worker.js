@@ -1,8 +1,7 @@
 ﻿import { fetchSavedRepliesFromUrl } from "../../js/modules/fetch-saved-replies.js";
 import { isNullOrEmpty } from "../../js/modules/null.js";
 import { getUrlForShareSavedRepliesName, removeDataFromLocalStorage, saveRepliesInLocalStorage, getConfigFromLocalStorage  } from "./service-worker-storage.js";
-import { clearAlarm, onAlarm} from "./service-worker-alarms.js";
-
+import { clearAlarm, onAlarm, createAlarm} from "./service-worker-alarms.js";
 
 const updateSharedSavedReplies = async (name) => {
 
@@ -17,8 +16,13 @@ const updateSharedSavedReplies = async (name) => {
     await createAlarm(name, config.refreshRateInMinutes);    
 }
 
+browser.runtime.onInstalled.addListener( async(details) => {
+    console.log(browser.permissions);
+});
+
 browser.storage.onChanged.addListener(async (changes, area) => {
 
+    console.log("on storage changed");
     //if changes contains saved replies updates then send command
 
     const configKeyRegEx = /(?<name>.+)-config/;

@@ -53,21 +53,26 @@ const fetchSavedRepliesFromUrl = async (savedRepliesUrl) => {
 
     var parser = new DOMParser();
 
-    var doc = parser.parseFromString(html, "text/html");
-
-    let h2s = Array.from(doc.querySelectorAll(`h2[tabindex='-1']`));
-
     let savedReplies = [];
 
-    for (let i = 0; i < h2s.length; i++) {
+    if(parser){
 
-        let h2 = h2s[i];
+        console.log("created parser");
 
-        let savedReplyBody = getSavedReplyBody(h2);
+        var doc = parser.parseFromString(html, "text/html");
 
-        if(savedReplyBody){
+        let h2s = Array.from(doc.querySelectorAll(`h2[tabindex='-1']`));       
 
-            savedReplies.push({name:h2.innerText,body:savedReplyBody});
+        for (let i = 0; i < h2s.length; i++) {
+
+            let h2 = h2s[i];
+
+            let savedReplyBody = getSavedReplyBody(h2);
+
+            if(savedReplyBody){
+
+                savedReplies.push({name:h2.innerText,body:savedReplyBody});
+            }
         }
     }
 
