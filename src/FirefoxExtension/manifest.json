@@ -6,6 +6,12 @@
   "action":{
     "default_popup": "pages/popup/popup.html"
   },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{15e48600-9a54-4abd-94bd-407a2551c976}",
+      "strict_min_version": "121.0"
+    }
+  },
   "background": {
     "scripts": [
       "pages/service-worker/service-worker-settings.js",

@@ -2,7 +2,7 @@ import { isNullOrEmpty, arrayIsNullOrEmpty } from "../../js/modules/null.js";
 import { setupValidation, validateForm } from "./shared-saved-replies-form.validation.js";
 import { getSettings } from "../../js/modules/settings.js";
 import { applyCurrentTheme } from "../../js/modules/theme.js";
-
+import { isGitHubPermissionEnabled } from "../../js/modules/github-permissions.js";
 
 const getFromLocalStorage = async (name) => {
 
@@ -136,4 +136,21 @@ const loadForm = async () => {
     await applyCurrentTheme();
 }
 
-await loadForm();
+const initialize = async () => {
+
+    console.log('')
+    const gitHubPermissionEnabled = await isGitHubPermissionEnabled();
+
+    console.log('githubpermissions', gitHubPermissionEnabled);
+
+    if(!gitHubPermissionEnabled){
+        chrome.tabs.create({
+            url: `/pages/github-permissions/github-permissions.html`
+        });
+    }else{
+        await loadForm();
+    }
+}
+
+await initialize();
+

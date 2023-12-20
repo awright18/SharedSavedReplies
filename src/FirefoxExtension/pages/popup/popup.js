@@ -10,8 +10,6 @@ const showNoRepliesIfNoConfigs = () =>{
     
     const noRepliesElement = document.querySelector(`.no-replies`);
 
-    const footerContainerElement = document.querySelector(`.footer-container`);
-
     const savedRepliesListElement = document.querySelector(`.saved-replies-list`);
 
     if(arrayIsEmpty(configs)){                   
@@ -103,7 +101,7 @@ const deleteItem = async (name) => {
 
     configs = configs.filter((config) => config.name !== name);
 
-    showNoRepliesIfNoConfigs();
+    await showNoRepliesIfNoConfigs();
 }
 
 const navigateToSharedSavedReplies = async (url) => {

@@ -17,7 +17,6 @@ const updateSharedSavedReplies = async (name) => {
 }
 
 browser.runtime.onInstalled.addListener( async(details) => {
-    console.log(browser.permissions);
 });
 
 browser.storage.onChanged.addListener(async (changes, area) => {

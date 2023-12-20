@@ -1,7 +1,6 @@
 import { themes, getCurrentTheme, applyTheme, applyCurrentTheme } from "../../js/modules/theme.js";
 import { getSettings, saveSettings } from "../../js/modules/settings.js";
 
-
 const getFormValues = () => {
 
     return {
