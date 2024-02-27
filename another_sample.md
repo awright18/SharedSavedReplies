@@ -7,19 +7,15 @@ These replies are to be used by our team to facilitate consistent communication.
 ```markdown
 ## 🚀 Work Started
 
-### 📝 High level plan
-
-
+### 📝 High-level plan
 
 ### ⏲ Update schedule
 
-
-```markdown
-
+```
 ## Work Completed
 
-```
-## 🎉Work Complete
+```markdown
+## 🎉Work Completed
 
 
 ```
