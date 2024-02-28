@@ -4,9 +4,8 @@ These replies are to be used by our team to facilitate consistent communication.
 
 ## Work Started
 ```markdown 
-<!-- Fill out the following information -->
-
 ## 🚀 Work Started 
+<!-- Fill out the following information -->
 
 ### 📝 High level plan
 
