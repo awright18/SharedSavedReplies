@@ -8,7 +8,7 @@ const getInitalSettings = () => {
         limitToGitHubOwnerDefault: ``,
         includeIssuesDefault: true,
         includePullRequestsDefault: true,
-        refreshRateInMinutesDefault: `30`,
+        refreshRateInMinutesDefault: `5`,
     }
 }
 
