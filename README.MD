@@ -62,7 +62,7 @@ These replies are to be used by our team to facilitate consistent communication.
 
 #### Install and configure the extension
 
-1. Install the [Shared Saved Replies extension](https://chrome.google.com/webstore/detail/shared-saved-replies/lgfgefhgbpjhebeljngbobdehmldmjfc) from the chrome web store
+1. Install the Shared Saved Replies [chrome extension](https://chrome.google.com/webstore/detail/shared-saved-replies/lgfgefhgbpjhebeljngbobdehmldmjfc) or the [firefox addon](https://addons.mozilla.org/en-US/firefox/addon/shared-saved-replies/)
 1. Pin the extension.
 1. Click on the pinned extension icon.
 1. Click the plus button. 
