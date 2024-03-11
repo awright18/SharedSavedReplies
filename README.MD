@@ -1,8 +1,16 @@
 ## What is Shared Saved Replies
 
-Shared Saved Replies is a chrome extension that allows teams to create `saved replies` for use on GitHub.com. It will populate the saved replies list when adding a new comment to an issue or pull request in a GitHub repository. For teams that are continuously evolving the structure and requirements of their saved replies templates this extension will keep the saved replies up to date, by updating and caching them on a schedule set up the user.
+Shared Saved Replies is a browser extension that allows teams to create `saved replies` for use on GitHub.com. It will populate the saved replies list when adding a new comment to an issue or pull request in a GitHub repository. For teams continuously evolving the structure and requirements of their saved replies templates this extension will keep the saved replies up to date, by updating and caching them on a schedule set up the user.
 
 ![Saved Replies Example](https://github.com/awright18/SharedSavedReplies/blob/main/src/ChromeExtension/images/main_screen_shot.png)
+
+## Where do I get it? 
+
+For Chrome or Edge users:
+- [Chrome WebStore](https://chromewebstore.google.com/detail/shared-saved-replies/lgfgefhgbpjhebeljngbobdehmldmjfc)
+
+For Firefox users: 
+- [Firefox Addons](https://addons.mozilla.org/en-US/firefox/addon/shared-saved-replies/)
 
 ## How do I use it? 
 
