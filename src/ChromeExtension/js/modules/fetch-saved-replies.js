@@ -32,13 +32,10 @@ const tryParseReplies = async (response) => {
         return false;
     }
 
-    const json = await response.json();
-
-    if(response.ok && json){
-        return json.payload.blob.richText;
+    if(response.ok){
+    
+        return await response.text();
     }
-
-    throw new Error("Problem parsing response");
 }
 
 const fetchSavedRepliesFromUrl = async (savedRepliesUrl) => {
