@@ -7,7 +7,9 @@ const main = async () => {
     }
 
     let observer;
+    let betaObserver;
     let repliesUl;
+    let repliesForNestedIssuesDivs;
     let replies;
 
     const prepareRepliesUl = async () => {
@@ -115,15 +117,96 @@ const main = async () => {
                 }
             }
         });
-
+    
+    
     let savedReplyContainer = document.querySelector(`#saved_replies_menu_new_comment_field-dialog`);
 
-    observer.observe(savedReplyContainer, {
-        attributes: true,
-        childList: false,
-        subtree: false
-    });
+    if(savedReplyContainer){
 
+        observer.observe(savedReplyContainer, {
+            attributes: true,
+            childList: false,
+            subtree: false
+        });
+    }
+
+    const prepareSavedRepliesForNestedIssues = async () => {
+        
+        replies = await getMatchingSavedReplyConfigsFromLocalStorage();
+
+        const repliesExist = arrayIsNotEmpty(replies);
+
+        if (repliesExist) {
+            repliesForNestedIssuesDivs = createSavedRepliesUIForNestedIssues(replies);
+        }
+    }
+
+    
+    const tryUpdateSavedRepliesForNestedIssues = () => {
+
+        let saveRepliesContainer = getsSavedRepliesForNestedIssuesContainer();
+
+        const repliesExist = arrayIsNotEmpty(repliesForNestedIssuesDivs);
+
+        if (repliesExist && saveRepliesContainer) {
+
+            addNewSavedRepliesToNestedIssuesContainer(
+                repliesForNestedIssuesDivs,
+                saveRepliesContainer);
+
+            return true;
+
+        } else if (saveRepliesContainer) {
+
+
+            return true;
+        }
+    }
+
+    const onSavedRepliesDialogIsVisible = async () => {
+        
+        await prepareSavedRepliesForNestedIssues();
+
+        if(tryUpdateSavedRepliesForNestedIssues()){
+            
+            return;
+        }
+    }
+
+
+    let addSavedReplyButton = document.querySelector(`button[aria-label="Add saved reply (Ctrl + .)"]`);
+
+    betaObserver =  new MutationObserver(
+        async (mutationList, obs) => {
+
+            console.log(`beta mutation happened`);
+
+            for (const mutation of mutationList) {
+                
+                if (mutation.type === "attributes" && mutation.attributeName == "aria-expanded"){
+
+                    let savedRepliesDialogIsVisible = addSavedReplyButton.getAttribute("aria-expanded")  === "true";
+
+                    if(savedRepliesDialogIsVisible)
+                    {
+                       console.log("beta open")
+                       await onSavedRepliesDialogIsVisible()
+                    }else{
+                        console.log("beta closed")
+                    }
+                }
+            }
+        }
+    );
+
+    if(addSavedReplyButton){
+
+        betaObserver.observe(addSavedReplyButton, {
+            attributes: true,
+            childList: false,
+            subtree: false
+        });
+    }
 }
 
 document.addEventListener("soft-nav:end", main);

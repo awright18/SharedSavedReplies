@@ -103,6 +103,12 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(
 
     chrome.scripting.executeScript({
         target: {tabId: tab.id},
-        func: () => {}
+        func: () => { 
+            console.log("fired");
+            chrome.runtime.lastError }
       });
+
+    //chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+    //});
+
 }, {url: [{hostSuffix: 'github.com'}]});
