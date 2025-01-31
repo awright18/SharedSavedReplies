@@ -86,6 +86,21 @@ const send = async (command) => {
     }
 }
 
+const sendNonAsync = (command) => {
+
+    if (isCommand(command)) {
+
+        console.log(`sent`, command);
+
+        chrome.runtime.sendMessage(command);
+
+        return true;
+    }
+    else {
+        throw new Error(`message: ${command.messageName} is not a command.`);
+    }
+}
+
 const createEvent = (messageName, data) => {
 
     if (!messageName) {

@@ -1,0 +1,269 @@
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+.saved-replies-list {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    flex: 1 1 0px;
+    background: var(--background-main);
+}
+
+div[data-saved-replies-name] {
+    border-bottom: solid 1px lightgrey;
+}
+
+.saved-replies-container {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    height: 64px;
+    border-radius: 1px;
+    background: #ffffff;
+}
+
+.saved-replies-container:has(.saved-replies-template.visible){
+    height:auto;
+}
+
+.saved-replies-button-container {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-flex: 2;
+    flex-grow: 2;
+    overflow: hidden;
+}
+
+.saved-replies-button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    padding: 0px;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+    font: inherit;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.saved-replies-button-icon-container {
+    margin: 12px;
+    width: 40px;
+    height: 40px;
+}
+
+.saved-replies-button-icon-inner-container {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    overflow: hidden;
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+}
+
+.saved-replies-button-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 0px;
+}
+
+.saved-replies-button-content-outer-container {
+    -webkit-box-flex: 2;
+    flex-grow: 2;
+    flex-basis: auto;
+    overflow: hidden;
+    line-height: 24px;
+    position: relative;
+}
+
+.saved-replies-button-content-inner-container {
+    -webkit-box-flex: 2;
+    flex-grow: 2;
+    flex-basis: auto;
+    overflow: hidden;
+    line-height: 24px;
+    position: relative;
+}
+
+.saved-replies-button-header {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: rgba(64, 82, 109, 0.7);
+    display: flex;
+    font-size: 21px;
+    line-height: 21px;
+    overflow: hidden;
+    height: 24px;
+}
+
+.saved-replies-button-header-text {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    bottom: 0px;
+    opacity: 1;
+    transition: top 225ms cubic-bezier(0.25, 0.8, 0.25, 1) 0s, opacity 225ms cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
+}
+
+.saved-replies-button-header-text-tooltip {
+    color: rgb(0, 122, 255);
+    font-weight: 600;
+    top: -24px;
+    transition: top 225ms cubic-bezier(0.25, 0.8, 0.25, 1) 0s, opacity 225ms cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
+    position: absolute;
+    opacity: 0;
+}
+
+.saved-replies-button-subheader {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    color: rgb(27, 40, 60);
+    font-size: 16px;
+    line-height: 24px;
+}
+.saved-replies-action-items-container {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    margin-right: 16px;
+    line-height: 0px;
+}
+
+.saved-replies-action-items-inner-container {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.saved-replies-copy-button,
+.saved-replies-expand-button {
+    border: none;
+    outline: none;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+    font: inherit;
+    display: flex;
+    flex-direction: row;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    border-radius: 4px;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0);
+}
+
+.saved-replies-copy-button:hover,
+.saved-replies-expand-button:hover {
+    background: rgba(27, 40, 60, 0.1);
+}
+
+.saved-replies-template-container {
+  visibility:hidden;
+  height:0px;
+}
+
+.saved-replies-template-container.visible {
+    visibility:visible;
+    height:auto;
+  }
+
+.saved-replies-template-body {
+ padding:0px 0px 0px; 
+ font-size: small;
+}
+
+

@@ -1,212 +1,232 @@
 const main = async () => {
 
     console.log("main called");
-
-    if (!shouldLoadContentScript()) {
+    
+    const url = window.location.href;
+ 
+    if (!shouldLoadContentScript(url)) {
         return;
     }
 
-    let observer;
-    let betaObserver;
-    let repliesUl;
-    let repliesForNestedIssuesDivs;
-    let replies;
+    // let observer;
+    // let betaObserver;
+    // let repliesUl;
+    // let repliesForNestedIssuesDivs;
+    // let replies;
 
-    const prepareRepliesUl = async () => {
+    // const prepareRepliesUl = async (url) => {
 
-        replies = await getMatchingSavedReplyConfigsFromLocalStorage();
+    //     replies = await getMatchingSavedReplyConfigsFromLocalStorage(url);
 
-        const repliesExist = arrayIsNotEmpty(replies);
+    //     const repliesExist = arrayIsNotEmpty(replies);
 
-        if (repliesExist) {
+    //     if (repliesExist) {
 
-            repliesUl = await createSavedRepliesUl(replies);
-        }
-    }
+    //         repliesUl = await createSavedRepliesUl(replies);
+    //     }
+    // }
 
-    const tryUpdateSavedRepliesUl = () => {
+    // const tryUpdateSavedRepliesUl = () => {
 
-        let savedRepliesUl = document.querySelector(`.shared-saved-replies`);
+    //     let savedRepliesUl = document.querySelector(`.shared-saved-replies`);
 
-        const repliesExist = arrayIsNotEmpty(replies);
+    //     const repliesExist = arrayIsNotEmpty(replies);
 
-        if (repliesExist && savedRepliesUl) {
+    //     if (repliesExist && savedRepliesUl) {
 
-            savedRepliesUl.replaceWith(repliesUl);
+    //         savedRepliesUl.replaceWith(repliesUl);
 
-            return true;
+    //         return true;
 
-        } else if (savedRepliesUl) {
+    //     } else if (savedRepliesUl) {
 
-            savedRepliesUl.remove();
+    //         savedRepliesUl.remove();
 
-            return true;
-        }
-    }
+    //         return true;
+    //     }
+    // }
 
-    const tryUpdateFuzzyList = (node) => {
+    // const tryUpdateFuzzyList = (node) => {
 
-        let isFuzzyList = node.nodeName === "FUZZY-LIST";
+    //     let isFuzzyList = node.nodeName === "FUZZY-LIST";
 
-        let savedReplyFilter;
+    //     let savedReplyFilter;
 
-        let savedRepliesUl;
+    //     let savedRepliesUl;
 
-        const repliesExist = arrayIsNotEmpty(replies);
+    //     const repliesExist = arrayIsNotEmpty(replies);
 
-        if (isFuzzyList) {
-            let fuzzyList = node;
+    //     if (isFuzzyList) {
+    //         let fuzzyList = node;
 
-            const savedReplyMenuFilterSelector =
-                `div[data-view-component="true"]`;
+    //         const savedReplyMenuFilterSelector =
+    //             `div[data-view-component="true"]`;
 
-            savedReplyFilter =
-                fuzzyList.querySelector(savedReplyMenuFilterSelector);
+    //         savedReplyFilter =
+    //             fuzzyList.querySelector(savedReplyMenuFilterSelector);
 
-            savedRepliesUl = savedReplyFilter.querySelector(`.shared-saved-replies`);
-        }
+    //         savedRepliesUl = savedReplyFilter.querySelector(`.shared-saved-replies`);
+    //     }
 
-        if (repliesExist && savedReplyFilter) {
+    //     if (repliesExist && savedReplyFilter) {
 
-            savedReplyFilter.insertBefore(repliesUl, savedReplyFilter.firstChild);
+    //         savedReplyFilter.insertBefore(repliesUl, savedReplyFilter.firstChild);
 
-            return true;
+    //         return true;
 
-        } else if (savedRepliesUl) {
+    //     } else if (savedRepliesUl) {
 
-            savedRepliesUl.remove();
+    //         savedRepliesUl.remove();
 
-            return true;
-        }
+    //         return true;
+    //     }
 
-        return false;
-    }
+    //     return false;
+    // }
 
-    const onSavedRepliesOpened = async (node) => {
+    // const onSavedRepliesOpened = async (node) => {
 
-        await prepareRepliesUl();
+    //     const url = window.location.href;
 
-        if (tryUpdateSavedRepliesUl()) {
-            return;
-        }
+    //     await prepareRepliesUl(url);
 
-        if (tryUpdateFuzzyList(node)) {
-            return;
-        }
-    }
+    //     if (tryUpdateSavedRepliesUl()) {
+    //         return;
+    //     }
 
-    observer = new MutationObserver(
-        async (mutationList, obs) => {
+    //     if (tryUpdateFuzzyList(node)) {
+    //         return;
+    //     }
+    // }
 
-            console.log(`mutation happened`);
+    // observer = new MutationObserver(
+    //     async (mutationList, obs) => {
 
-            for (const mutation of mutationList) {
+    //         console.log(`mutation happened`);
 
-                if (mutation.type === "attributes" && mutation.attributeName == "open") {
+    //         for (const mutation of mutationList) {
 
-                    let replyContainer = document.querySelector(`#saved_replies_menu_new_comment_field-dialog`).closest(`.js-saved-reply-container`);
+    //             if (mutation.type === "attributes" && mutation.attributeName == "open") {
 
-                    if (replyContainer.attributes.open) {
-                        console.log(`open`);
+    //                 let replyContainer = document.querySelector(`#saved_replies_menu_new_comment_field-dialog`).closest(`.js-saved-reply-container`);
 
-                        let node = replyContainer.querySelector('FUZZY-LIST');
+    //                 if (replyContainer.attributes.open) {
+    //                     console.log(`open`);
 
-                        await onSavedRepliesOpened(node);
+    //                     let node = replyContainer.querySelector('FUZZY-LIST');
 
-                    }
-                }
-            }
-        });
+    //                     await onSavedRepliesOpened(node);
+
+    //                 }
+    //             }
+    //         }
+    //     });
     
     
-    let savedReplyContainer = document.querySelector(`#saved_replies_menu_new_comment_field-dialog`);
+    // let savedReplyContainer = document.querySelector(`#saved_replies_menu_new_comment_field-dialog`);
 
-    if(savedReplyContainer){
+    // if(savedReplyContainer){
 
-        observer.observe(savedReplyContainer, {
-            attributes: true,
-            childList: false,
-            subtree: false
-        });
-    }
+    //     observer.observe(savedReplyContainer, {
+    //         attributes: true,
+    //         childList: false,
+    //         subtree: false
+    //     });
+    // }
 
-    const prepareSavedRepliesForNestedIssues = async () => {
+    // const prepareSavedRepliesForNestedIssues = async (url) => {
         
-        replies = await getMatchingSavedReplyConfigsFromLocalStorage();
+    //     replies = await getMatchingSavedReplyConfigsFromLocalStorage(url);
 
-        const repliesExist = arrayIsNotEmpty(replies);
+    //     const repliesExist = arrayIsNotEmpty(replies);
 
-        if (repliesExist) {
-            repliesForNestedIssuesDivs = createSavedRepliesUIForNestedIssues(replies);
-        }
-    }
+    //     if (repliesExist) {
+    //         repliesForNestedIssuesDivs = createSavedRepliesUIForNestedIssues(replies);
+    //     }
+    // }
 
-    
-    const tryUpdateSavedRepliesForNestedIssues = () => {
+    // const tryUpdateSavedRepliesForNestedIssues = () => {
 
-        let saveRepliesContainer = getsSavedRepliesForNestedIssuesContainer();
+    //     let saveRepliesContainer = getsSavedRepliesForNestedIssuesContainer();
 
-        const repliesExist = arrayIsNotEmpty(repliesForNestedIssuesDivs);
+    //     const repliesExist = arrayIsNotEmpty(repliesForNestedIssuesDivs);
 
-        if (repliesExist && saveRepliesContainer) {
+    //     if (repliesExist && saveRepliesContainer) {
 
-            addNewSavedRepliesToNestedIssuesContainer(
-                repliesForNestedIssuesDivs,
-                saveRepliesContainer);
+    //         addNewSavedRepliesToNestedIssuesContainer(
+    //             repliesForNestedIssuesDivs,
+    //             saveRepliesContainer);
 
-            return true;
+    //         return true;
 
-        } else if (saveRepliesContainer) {
+    //     } else if (saveRepliesContainer) {
 
+    //         return true;
+    //     }
+    // }
 
-            return true;
-        }
-    }
-
-    const onSavedRepliesDialogIsVisible = async () => {
+    // const onSavedRepliesDialogIsVisible = async () => {
         
-        await prepareSavedRepliesForNestedIssues();
+    //     const tab = await chrome.tabs.get(activeInfo.tabId);
 
-        if(tryUpdateSavedRepliesForNestedIssues()){
+    //     await prepareSavedRepliesForNestedIssues(tab.url);
+
+    //     if(tryUpdateSavedRepliesForNestedIssues()){
             
-            return;
-        }
-    }
+    //         return;
+    //     }
+    // }
 
 
-    let addSavedReplyButton = document.querySelector(`button[aria-label="Add saved reply (Ctrl + .)"]`);
+    // let addSavedReplyButton = document.querySelector(`button[aria-label="Add saved reply (Ctrl + .)"]`);
 
-    betaObserver =  new MutationObserver(
-        async (mutationList, obs) => {
+    // betaObserver = new MutationObserver(
+    //     async (mutationList, obs) => {
 
-            console.log(`beta mutation happened`);
+    //         console.log(`beta mutation happened`);
 
-            for (const mutation of mutationList) {
+    //         for (const mutation of mutationList) {
                 
-                if (mutation.type === "attributes" && mutation.attributeName == "aria-expanded"){
+    //             if (mutation.type === "attributes" && mutation.attributeName == "aria-expanded"){
 
-                    let savedRepliesDialogIsVisible = addSavedReplyButton.getAttribute("aria-expanded")  === "true";
+    //                 let savedRepliesDialogIsVisible = addSavedReplyButton.getAttribute("aria-expanded")  === "true";
 
-                    if(savedRepliesDialogIsVisible)
-                    {
-                       console.log("beta open")
-                       await onSavedRepliesDialogIsVisible()
-                    }else{
-                        console.log("beta closed")
-                    }
-                }
-            }
-        }
-    );
+    //                 if(savedRepliesDialogIsVisible)
+    //                 {
+    //                    console.log("beta open")
+                       
+    //                   await onSavedRepliesDialogIsVisible();
 
-    if(addSavedReplyButton){
+    //                 }else{
+    //                     console.log("beta closed")
+    //                 }
+    //             }
+    //         }
+    //     }
+    // );
 
-        betaObserver.observe(addSavedReplyButton, {
-            attributes: true,
-            childList: false,
-            subtree: false
-        });
-    }
+    // if(addSavedReplyButton){
+
+    //     betaObserver.observe(addSavedReplyButton, {
+    //         attributes: true,
+    //         childList: false,
+    //         subtree: false
+    //     });
+
+    //     console.log("observer connected.");
+    // }
+  
+    const showSavedRepliesButton = createShowSavedRepliesButton();
+    
+    await addShowSavedRepliesClickHandler(showSavedRepliesButton);
+
+    document.body.appendChild(showSavedRepliesButton);
+
+    const hideSavedRepliesButton = createHideSavedRepliesButton();
+    
+    await addHideSavedRepliesClickHandler(hideSavedRepliesButton);
+
+    document.body.appendChild(hideSavedRepliesButton);
 }
 
 document.addEventListener("soft-nav:end", main);
