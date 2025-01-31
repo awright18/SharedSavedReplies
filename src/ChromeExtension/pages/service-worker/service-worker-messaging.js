@@ -1,4 +1,3 @@
-const SERVICE_WORKER = "service-worker";
 
 const handleSaveSharedSavedRepliesCommand = async (message, handleMessage) => {
 
@@ -7,4 +6,13 @@ const handleSaveSharedSavedRepliesCommand = async (message, handleMessage) => {
     }
 
     await handleMessage(message.data.name, message.data.replies);
+}
+
+const handleOpenSharedSavedRepliesPanel = (message, handleMessage) => {
+    
+    if (!canHandleCommand(message, SERVICE_WORKER, `OpenSharedSavedRepliesPanel`)) {
+        return;
+    }
+
+    handleMessage(message.windowId);
 }

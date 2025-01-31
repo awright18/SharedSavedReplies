@@ -1,5 +1,12 @@
 
-const getMatchingSavedReplyConfigsFromLocalStorage = async () => {
+const getMatchingSavedReplyConfigsFromLocalStorage = async (url) => {
+
+    console.log("getting matchingconfig from storage");
+    console.log("url",url);
+
+    if(url === null){
+        url = window.location.href;
+    }
 
     const results = await chrome.storage.local.get();
 
@@ -11,11 +18,17 @@ const getMatchingSavedReplyConfigsFromLocalStorage = async () => {
 
     for(let result of resultsArray)
     {
+        console.log("results not empty ");
+        
         if (configExpression.test(result[0])) {
 
             const config = result[1];
 
-            if (canLoadRepliesForUrl(config)) {
+            console.log("found matching config");
+
+            if (canLoadRepliesForUrl(config, url)) {
+
+                console.log("can load replies from url");
 
                 const configKey = `${config.name}-replies`;
 
@@ -24,6 +37,8 @@ const getMatchingSavedReplyConfigsFromLocalStorage = async () => {
                 let configReplies = repliesResult[configKey];
 
                 replies = replies.concat(configReplies)
+            }else{
+                console.log("can not load replies from url");
             }
         }
     }
@@ -42,7 +57,15 @@ const getSavedRepliesLastUpdatedAt = async (name) => {
     return lastUpdateAt;
 }
 
-const getSavedRepliesLastUpdatedAtFromLocalStorage = async () => {
+const getSavedRepliesLastUpdatedAtFromLocalStorage = async (url) => {
+
+    console.log("getting matchingconfig from storage");
+    
+    console.log("url",url);
+
+    if(url === null){
+        url = window.location.href;
+    }
 
     const results = await chrome.storage.local.get();
 
@@ -54,15 +77,16 @@ const getSavedRepliesLastUpdatedAtFromLocalStorage = async () => {
 
     for(let result of resultsArray)
     {
-
         if (configExpression.test(result[0])) {
 
             let config = result[1];
-            if (canLoadRepliesForUrl(config)) {
+
+            if (canLoadRepliesForUrl(config, url)) {
 
                 let nextLastUpdatedAt = await getSavedRepliesLastUpdatedAt(config.name);
 
                 if (dateIsBefore(currentLastUpdatedAt, nextLastUpdatedAt)) {
+                    
                     currentLastUpdatedAt = nextLastUpdatedAt;
                 }
             }

@@ -33,33 +33,60 @@ const calculateSavedReplyId = (lastId, savedReplyIndex) => {
    }
 }
 
+
+
+const setElementSavedReplyName = (element, name) =>{
+
+    element.setAttribute(`saved-reply-name`, name);
+}
+
+
 const setSavedReplyId = (element,calculatedId) => {
  
     element.id = calculatedId;
 }
 
-const setSavedReplyTitle = (titleSpan, title) => {
+const setSavedReplyName = (nameSpan, name) => {
      
-    titleSpan.innerText = title;
+    nameSpan.innerText = name;
+}
+
+
+const encodeSavedReplyBody = (body) => {
+   
+   let updatedBody = 
+        body.replace(/\r\n/gi, '\\uFFFD')
+            .replace(/\n/gi,'\\uFFFD');
+
+   return updatedBody;
 }
 
 const setSavedReplyBody = (bodySpan, body) => {
 
-    bodySpan.innerText = body;
+    let encodedBody = encodeSavedReplyBody(body);
+
+    bodySpan.innerText = encodedBody;
 }
 
 const createNewSavedReplyElementFromExistingElment = (templateElement, savedReply, index) => {
+
+    let spans = templateElement.querySelectorAll(`span`);
+    console.log("bodyspan", spans[1]);
+    console.log("bodyspanInnerText", spans[1].innerText);
+    console.log("savereplybody", savedReply.body);
 
     let newSavedReplyElement = templateElement.cloneNode(true);
     
     let savedReplySpans = newSavedReplyElement.querySelectorAll(`span`);
 
-    let titleSpan = savedReplySpans[0];
+    let nameSpan = savedReplySpans[0];
 
     let bodySpan = savedReplySpans[1];
 
-    setSavedReplyTitle(titleSpan, savedReply.name);
-    
+    setElementSavedReplyName(newSavedReplyElement, savedReply.name);
+
+    setSavedReplyName(nameSpan, savedReply.name);
+
     setSavedReplyBody(bodySpan, savedReply.body);
 
     let id = calculateSavedReplyId(templateElement.id, index);
@@ -93,10 +120,64 @@ const addNewSavedReplyElementToContainer = (savedRepliesContainer,savedReplyElem
     savedRepliesContainer.appendChild(savedReplyElement);
 }
 
-const addNewSavedRepliesToNestedIssuesContainer = (savedRepliesDivs, savedRepliesContainer) =>{
+const getElementSavedReplyName = (element) =>{
+
+    return element.getAttribute(`saved-reply-name`);
+}
+
+const getSavedReplyTitleSpan = (savedReplyDiv) => {
+
+}
+
+const getSavedReplyTemplateString = (savedReplyDiv) =>{
     
+    let bodySpan = savedReplyDiv.querySelectorAll(`span`)[1]
+    
+    let decodedTemplate = bodySpan.innerText
+        .replace(/(\\uFFFD)+/gi,'<br />');
+
+    return decodedTemplate;
+}
+
+const addEventListenerToSavedReplyDiv = (savedReplyDiv, textAreaElement) =>{
+    
+    let templateString = getSavedReplyTemplateString(savedReplyDiv, textAreaElement);
+       
+    savedReplyDiv.addEventListener(`click`, function(e){
+
+        textAreaElement.innerHtml = templateString;
+
+        console.log("text area value", textAreaElement.value);
+
+    });
+
+}
+
+const getCommentTextAreaElement = () => {
+
+    let textAreaElement =
+    document.querySelector(
+        `div[data-testid="markdown-editor-comment-composer"] textarea`);
+
+    return textAreaElement;
+}
+
+const addNewSavedRepliesToNestedIssuesContainer = (savedRepliesDivs, savedRepliesContainer) =>{
+   
+    let textAreaElement = getCommentTextAreaElement();
+
     for (const savedReplyDiv of savedRepliesDivs){
-        savedRepliesContainer.appendChild(savedReplyDiv);
+
+        let savedReplyName = savedReplyDiv.getAttribute(`saved-reply-name`);
+
+        let matchingDiv = savedRepliesContainer.querySelector(`div[saved-reply-name="${savedReplyName}"]`);
+
+        if(!matchingDiv){
+
+            addEventListenerToSavedReplyDiv(savedReplyDiv, textAreaElement);
+
+            savedRepliesContainer.appendChild(savedReplyDiv);
+        }
      }
 }
 

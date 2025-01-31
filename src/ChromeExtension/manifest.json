@@ -9,18 +9,30 @@
   "background": {
     "service_worker": "pages/service-worker/service-worker.js"
   },
+  "side_panel":{
+    "default_path": "pages/sidepanel/saved-replies-sidepanel.html"
+  },
   "content_scripts": [
     {
       "matches": [
         "https://github.com/*"
       ],
+      "css":["pages/sidepanel/saved-replies-sidepanel.css"],
       "js": [
         "js/time.js",
         "js/null.js",
+        "js/create-element.js",
+        "js/elements.js",
+        "js/messaging.js",
+        "js/message-receivers.js",
+        "js/tabs.js",
+        "js/saved-replies-storage.js",
+        "js/sidepanel.js",
+        "js/urls.js",
+
         "pages/content-script/content-script-copy-saved-reply-element.js",
         "pages/content-script/content-script-urls.js",
-        "pages/content-script/content-script-storage.js",
-        "pages/content-script/content-script-elements.js",
+        "pages/sidepanel/saved-replies-sidepanel-toggle-button.js",
         "pages/content-script/content-script.js"
       ]
     }
@@ -37,6 +49,8 @@
     "open_in_tab":true
   },
   "permissions": [
+    "sidePanel",
+    "activeTab",
     "tabs",
     "scripting",
     "webNavigation",

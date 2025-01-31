@@ -1,6 +1,10 @@
 ﻿importScripts(["../../js/messaging.js"]);
+importScripts(["../../js/message-receivers.js"]);
 importScripts(["../../js/time.js"]);
 importScripts(["../../js/null.js"]);
+importScripts(["../../js/tabs.js"]);
+importScripts(["../../js/elements.js"]);
+importScripts(["../../js/saved-replies-storage.js"]);
 importScripts(["offscreen-document.js"]);
 importScripts(["service-worker-messaging.js"]);
 importScripts(["service-worker-storage.js"]);
@@ -8,6 +12,20 @@ importScripts(["service-worker-alarms.js"]);
 importScripts(["service-worker-settings.js"]);
 
 const OFFSCREEN = "offscreen";
+
+//set the activeTabId
+let activeTabId;
+let sidePanelOpen = false;
+
+setInterval(chrome.runtime.getPlatformInfo, 25e3);
+
+chrome.runtime.onStartup.addListener(async () => {
+    activeTabId = (await chrome.tabs.query({ active: true, currentWindow: true }))[0]?.id;
+  });
+
+chrome.tabs.onActivated.addListener(info => {
+    activeTabId = info.tabId;
+  });
 
 const sendUpdateSharedSavedRepliesCommand = async (name, url) => {
 
@@ -74,6 +92,11 @@ chrome.storage.onChanged.addListener(async (changes, area) => {
 
 chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
 
+    handleOpenSharedSavedRepliesPanel(request, () =>{  
+        
+        chrome.sidePanel.open({ tabId: activeTabId });
+    });
+
     await handleSaveSharedSavedRepliesCommand(request, async (name, replies) => {
 
         console.log(`saving replies for ${name}.`);
@@ -107,8 +130,5 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(
             console.log("fired");
             chrome.runtime.lastError }
       });
-
-    //chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-    //});
 
 }, {url: [{hostSuffix: 'github.com'}]});
