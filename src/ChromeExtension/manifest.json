@@ -17,7 +17,10 @@
       "matches": [
         "https://github.com/*"
       ],
-      "css":["pages/sidepanel/saved-replies-sidepanel.css"],
+      "css":[
+            "pages/sidepanel/saved-replies-sidepanel.css",
+            "pages/sidepanel/sidepanel-button.css"
+      ],
       "js": [
         "js/time.js",
         "js/null.js",
@@ -29,10 +32,10 @@
         "js/saved-replies-storage.js",
         "js/sidepanel.js",
         "js/urls.js",
-
         "pages/content-script/content-script-copy-saved-reply-element.js",
         "pages/content-script/content-script-urls.js",
         "pages/sidepanel/saved-replies-sidepanel-toggle-button.js",
+        "pages/sidepanel/saved-replies-items.js",    
         "pages/content-script/content-script.js"
       ]
     }
@@ -48,6 +51,14 @@
     "page":"pages/options/options.html",
     "open_in_tab":true
   },
+  "web_accessible_resources":[{
+    "resources":[
+      "pages/sidepanel/*.svg"
+    ],
+    "matches":[
+      "<all_urls>"
+    ]
+  }],
   "permissions": [
     "sidePanel",
     "activeTab",

@@ -26,40 +26,15 @@ const createSavedRepliesSidePanelDiv = (savedReplies) => {
                                                             children:[
                                                                 createElement("button",{
                                                                     children:[
-                                                                        createElement("svg",{
-                                                                            children:[
-                                                                                createElement("rect",{
-                                                                                    children:[],
-                                                                                    width:"24",
-                                                                                    height:"24",
-                                                                                    stroke:"none",
-                                                                                    fill:"#000000",
-                                                                                    opacity:"0"
-                                                                                }),
-                                                                                createElement("g",{
-                                                                                    children:[
-                                                                                        createElement("path",{
-                                                                                            children:[],
-                                                                                            style:"stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;",
-                                                                                            transform:"translate(-12, -12)",
-                                                                                            d:copySvgPath,
-                                                                                            "stroke-linecap":"round"
-                                                                                        })
-                                                                                    ],
-                                                                                    transform:"matrix(1 0 0 1 12 12)"
-                                                                                })
-                                                                            ],
-                                                                            width:"20",
-                                                                            height:"20",
-                                                                            viewBox:"0 0 24 24",
-                                                                            xmlns:"http://www.w3.org/2000/svg",
-                                                                            "xlmns:xlink":"http://www.w3.org/1999/xlink"
+                                                                        createElement("img",{
+                                                                            children:[],
+                                                                            className:"copy-icon-image",
+                                                                            src:"copy.svg"
                                                                         })
                                                                     ],
                                                                     className:"saved-replies-copy-button",
                                                                     type:"button",
-                                                                    tabindex:"-1",
-                                                                    onclick:"copySavedReplyTemplate(this)"
+                                                                    tabindex:"-1"
                                                                 })
                                                             ],
                                                             className:"saved-replies-button-icon-inner-container"
@@ -100,28 +75,15 @@ const createSavedRepliesSidePanelDiv = (savedReplies) => {
                                                     children:[
                                                         createElement("button",{
                                                             children:[
-                                                                createElement("svg",{
-                                                                    children:[
-                                                                        createElement("path",{
-                                                                            children:[],
-                                                                            id:"XMLID_102_",
-                                                                            d:expandSvgPath
-                                                                        })
-                                                                    ],
-                                                                    fill:"#000000",
-                                                                    height:"16",
-                                                                    width:"16",
-                                                                    version:"1.1",
-                                                                    id:"expand",
-                                                                    xlmns:"http://www.w3.org/2000/svg",
-                                                                    "xmlns:link":"http://www.w3.org/1999/xlink",
-                                                                    viewBox:"0 0 330 300"
+                                                                createElement("img",{
+                                                                    children:[],
+                                                                    className:"expand-icon-image",
+                                                                    src:"expand.svg"
                                                                 })
                                                             ],
                                                             className:"saved-replies-expand-button",
                                                             type:"button",
                                                             tabindex:"-1",
-                                                            onclick:"toggleTemplateVisibility(this)"
                                                         })
                                                     ]
                                                 })
@@ -153,7 +115,8 @@ const createSavedRepliesSidePanelDiv = (savedReplies) => {
                             className:"saved-replies-template-container"
                         })
                     ],
-                    "data-saved-replies-name":reply.name
+                    "data-saved-replies-name":reply.name,
+                    style:"position:relative"
                 });
        
          repliesDiv.append(savedReplyButton)
