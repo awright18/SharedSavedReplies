@@ -86,6 +86,62 @@ video {
     vertical-align: baseline;
 }
 
+ .container {
+    display: block;
+}
+
+.inner-container {
+    position: relative;
+    background: radial-gradient(100% 100% at 91.87% 0%, rgb(251, 235, 235) 3.29%, rgb(249, 250, 251) 9.64%, rgb(249, 250, 251) 100%);
+    display: flex;
+    flex-direction: column;
+}
+
+ .inner-subcontainer {
+    display: block;
+
+} 
+
+.top-section {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: start;
+    -webkit-box-pack: center;
+    justify-content: center;
+    padding: 12px;
+    gap: 16px;
+    border-bottom: 0.5px solid rgb(215, 219, 224);
+    background: var(--color-main);
+}
+.search-box {
+    position: relative;
+    display: flex;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    -webkit-box-align: start;
+    align-items: start;
+}
+
+.search-icon {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    left: 14px;
+    top: 12px;
+}
+
+.search {
+    border-radius: 4px;
+    border: 1px solid rgb(186, 192, 202);
+    background-color: rgb(255, 255, 255);
+    color: rgb(27, 40, 60);
+    font-size: 16px;
+    line-height: 24px;
+    height: 36px;
+    padding-left: 44px;
+    width: 250px;
+}
+
 .saved-replies-list {
     display: flex;
     flex-direction: column;
@@ -243,7 +299,28 @@ div[data-saved-replies-name] {
     align-items: center;
     border-radius: 4px;
     padding: 8px;
+    color:black;
     background: rgba(255, 255, 255, 0);
+}
+
+.copy-icon-image{
+    width: 24px;
+    height: 24px;
+}
+
+.copy-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.expand-icon-image{
+    width:24px;
+    height:24px;
+}
+
+.expand-icon {
+    width: 16px;
+    height: 16px;
 }
 
 .saved-replies-copy-button:hover,
@@ -252,13 +329,21 @@ div[data-saved-replies-name] {
 }
 
 .saved-replies-template-container {
-  visibility:hidden;
+  visibility: hidden;
   height:0px;
+  width:0px;
+  overflow: hidden;
 }
 
 .saved-replies-template-container.visible {
-    visibility:visible;
+    visibility: visible;
     height:auto;
+    width:auto;
+    background-color: gainsboro;
+    overflow:auto;
+    margin:10px 5px 10px;
+    padding:10px;
+    font-size: xx-large;
   }
 
 .saved-replies-template-body {

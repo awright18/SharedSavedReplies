@@ -1,212 +1,47 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <link rel="stylesheet" href="../../css/prism.css"/>
-   <link rel="stylesheet" href="saved-replies-sidepanel.css"/>
-   <!--<style>
-    
-.saved-replies-list {
-  display: flex;
-  flex-direction: column;
-  overflow: auto;
-  flex: 1 1 0px;
-  background: var(--background-main);
-}
 
-div[data-saved-replies-name] {
-  border-bottom: solid 1px lightgrey;
-}
+<head>
+  <link rel="stylesheet" href="../../css/themes.css" />
+  <link rel="stylesheet" href="saved-replies-sidepanel.css" />
+  <link rel="stylesheet" href="../../css/prism.css" />
+</head>
 
-.saved-replies-container {
-  display: flex;
-  -webkit-box-align: center;
-  align-items: center;
-  height: 64px;
-  border-radius: 1px;
-  background: #ffffff;
-}
-
-.saved-replies-container:has(.saved-replies-template.visible){
-  height:auto;
-}
-
-.saved-replies-button-container {
-  display: flex;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-flex: 2;
-  flex-grow: 2;
-  overflow: hidden;
-}
-
-.saved-replies-button {
-  background-color: transparent;
-  border: none;
-  outline: none;
-  padding: 0px;
-  text-align: left;
-  width: 100%;
-  cursor: pointer;
-  font: inherit;
-  display: flex;
-  -webkit-box-align: center;
-  align-items: center;
-}
-
-.saved-replies-button-icon-container {
-  margin: 12px;
-  width: 40px;
-  height: 40px;
-}
-
-.saved-replies-button-icon-inner-container {
-  display: flex;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  justify-content: center;
-  overflow: hidden;
-  width: 40px;
-  height: 40px;
-  border-radius: 4px;
-}
-
-.saved-replies-button-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 0px;
-}
-
-.saved-replies-button-content-outer-container {
-  -webkit-box-flex: 2;
-  flex-grow: 2;
-  flex-basis: auto;
-  overflow: hidden;
-  line-height: 24px;
-  position: relative;
-}
-
-.saved-replies-button-content-inner-container {
-  -webkit-box-flex: 2;
-  flex-grow: 2;
-  flex-basis: auto;
-  overflow: hidden;
-  line-height: 24px;
-  position: relative;
-}
-
-.saved-replies-button-header {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  color: rgba(64, 82, 109, 0.7);
-  display: flex;
-  font-size: 21px;
-  line-height: 21px;
-  overflow: hidden;
-  height: 24px;
-}
-
-.saved-replies-button-header-text {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  bottom: 0px;
-  opacity: 1;
-  transition: top 225ms cubic-bezier(0.25, 0.8, 0.25, 1) 0s, opacity 225ms cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
-}
-
-.saved-replies-button-header-text-tooltip {
-  color: rgb(0, 122, 255);
-  font-weight: 600;
-  top: -24px;
-  transition: top 225ms cubic-bezier(0.25, 0.8, 0.25, 1) 0s, opacity 225ms cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
-  position: absolute;
-  opacity: 0;
-}
-
-.saved-replies-button-subheader {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  color: rgb(27, 40, 60);
-  font-size: 16px;
-  line-height: 24px;
-}
-.saved-replies-action-items-container {
-  display: flex;
-  -webkit-box-align: center;
-  align-items: center;
-  margin-right: 16px;
-  line-height: 0px;
-}
-
-.saved-replies-action-items-inner-container {
-  display: flex;
-  -webkit-box-align: center;
-  align-items: center;
-}
-
-.saved-replies-copy-button,
-.saved-replies-expand-button {
-  border: none;
-  outline: none;
-  text-align: left;
-  width: 100%;
-  cursor: pointer;
-  font: inherit;
-  display: flex;
-  flex-direction: row;
-  -webkit-box-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  align-items: center;
-  border-radius: 4px;
-  padding: 8px;
-  background: rgba(255, 255, 255, 0);
-}
-
-.saved-replies-copy-button:hover,
-.saved-replies-expand-button:hover {
-  background: rgba(27, 40, 60, 0.1);
-}
-
-.saved-replies-template-container {
-visibility:hidden;
-height:0px;
-}
-
-.saved-replies-template-container.visible {
-  visibility:visible;
-  height:auto;
-}
-
-.saved-replies-template-body {
-padding:0px 0px 0px; 
-font-size: small;
-}
-
-
-
-   </style>  -->
-  </head>
-  <body>
-    This is the saved replies side panel.
-
-    <div id="SharedSavedReplies" class="saved-replies-list">
-
+<body>
+  <div class="container">
+    <div class="inner-container">
+      <div class="inner-subcontainer">
+        <div class="top-section">
+          <div class="search-box">
+            <div class="search-box">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"
+                class="search-icon">
+                <path
+                  d="M15.6092 13.7282L12.5125 10.6315C13.4554 9.22007 13.8396 7.50839 13.5903 5.82939C13.341 4.1504 12.4762 2.62414 11.1639 1.54751C9.85167 0.470872 8.18586 -0.0791649 6.49052 0.00438852C4.79518 0.087942 3.19153 0.799111 1.99151 1.99956C0.791479 3.20002 0.0808763 4.80392 -0.00207777 6.49928C-0.0850318 8.19465 0.465594 9.86026 1.54269 11.1721C2.61979 12.484 4.14635 13.3483 5.82544 13.597C7.50452 13.8457 9.21607 13.4609 10.6272 12.5175L13.7238 15.6135C13.976 15.8595 14.3143 15.9971 14.6665 15.9971C15.0187 15.9971 15.357 15.8595 15.6092 15.6135C15.8591 15.3635 15.9995 15.0244 15.9995 14.6708C15.9995 14.3173 15.8591 13.9782 15.6092 13.7282ZM6.83316 2.00416C7.7891 2.00416 8.72358 2.28763 9.51842 2.81873C10.3133 3.34982 10.9328 4.10468 11.2986 4.98786C11.6644 5.87104 11.7601 6.84286 11.5736 7.78043C11.3871 8.71801 10.9268 9.57922 10.2508 10.2552C9.57489 10.9311 8.71367 11.3915 7.7761 11.578C6.83852 11.7645 5.8667 11.6687 4.98352 11.3029C4.10035 10.9371 3.34548 10.3176 2.81439 9.52275C2.2833 8.72791 1.99983 7.79344 1.99983 6.8375C2.00124 5.55605 2.51091 4.32749 3.41703 3.42137C4.32315 2.51525 5.55171 2.00557 6.83316 2.00416Z"
+                  fill="#40526D"></path>
+              </svg>
+              <input type="text" class="search">
+            </div>
+          </div>
+        </div>
+        <div id="SharedSavedReplies" class="saved-replies-list">
+        </div>
+      </div>
     </div>
-    <script src="../../js/create-element.js"></script>
-    <script src="../../js/messaging.js"></script>
-    <script src="../../js/message-receivers.js"></script> 
-    <script src="../../js/null.js"></script> 
-    <script src="../../js/time.js"></script>
-    <script src="../../js/urls.js"></script>
-    <script src="../../js/elements.js"></script>
-    <script src="../../js/saved-replies-storage.js"></script>
-    <script src="../../js/prism.js"></script>
-    <script src="../../js/sidepanel.js"></script>
-    <script src="./sidepanel-elements.js"></script>
-    <script src="./saved-replies-sidepanel.js"></script>
-    <script src="./saved-replies-sidepanel.js"></script>
-  </body>
+  </div>
+  <script src="../../js/create-element.js"></script>
+  <script src="../../js/messaging.js"></script>
+  <script src="../../js/message-receivers.js"></script>
+  <script src="../../js/null.js"></script>
+  <script src="../../js/time.js"></script>
+  <script src="../../js/urls.js"></script>
+  <script src="../../js/elements.js"></script>
+  <script src="../../js/saved-replies-storage.js"></script>
+  <script src="../../js/sidepanel.js"></script>
+  <script src="./sidepanel-elements.js"></script>
+  <script src="./saved-replies-items.js"></script>
+  <script src="./saved-replies-sidepanel.js"></script>
+  <script src="../../js/prism.js"></script>
+</body>
+
 </html>

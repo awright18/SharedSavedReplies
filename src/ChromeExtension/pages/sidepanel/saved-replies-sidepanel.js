@@ -47,6 +47,17 @@ document.onreadystatechange = async function() {
 
             sharedSavedRepliesDiv.append(repliesUi);
 
+            let copyButtons = document.querySelectorAll(".saved-replies-copy-button");
+
+            copyButtons.forEach(
+                (button) => 
+                    button.addEventListener("click", copySavedReplyTemplate));
+
+            let expandButtons = document.querySelectorAll(".saved-replies-expand-button");
+
+            expandButtons.forEach(
+                    (button) => 
+                        button.addEventListener("click", toggleTemplateVisibility));
         })()
         
     }
