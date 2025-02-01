@@ -42,8 +42,7 @@ const copySavedReplyTemplate = async (event) => {
                            width:175px;
                            background-color:rgba(0, 0, 0, 0.7); 
                            color:white; 
-                           padding:10p; 
-                           border-radius:10px 5px;
+                           border-radius:5px;
                            transform:translate(-50%,-50%);
                            z-index: 9999;
                            position:absolute;

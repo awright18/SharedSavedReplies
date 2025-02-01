@@ -18,7 +18,6 @@
         "https://github.com/*"
       ],
       "css":[
-            "pages/sidepanel/saved-replies-sidepanel.css",
             "pages/sidepanel/sidepanel-button.css"
       ],
       "js": [
@@ -32,8 +31,11 @@
         "js/saved-replies-storage.js",
         "js/sidepanel.js",
         "js/urls.js",
+        "js/events.js",
+        "js/can-load-saved-replies.js",
         "pages/content-script/content-script-copy-saved-reply-element.js",
         "pages/content-script/content-script-urls.js",
+        "pages/content-script/content-script-messaging.js",
         "pages/sidepanel/saved-replies-sidepanel-toggle-button.js",
         "pages/sidepanel/saved-replies-items.js",    
         "pages/content-script/content-script.js"
