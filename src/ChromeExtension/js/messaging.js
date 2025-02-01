@@ -45,7 +45,11 @@ const canHandleEvent = async (message, messageName) => {
     if (isEvent(message)
         && message.messageName === messageName) {
         console.log(`handling event`, message);
+        
+        return true;
     }
+
+    return false;
 }
 
 const createCommand = (messageName, target, data) => {
@@ -131,5 +135,23 @@ const publish = async (event) => {
     else {
 
         throw new Error(`message: ${event.messageName} is not a event.`);
+    }
+}
+
+const tryPublish = async (event) =>{
+    try{
+       await publish(event);
+    }
+    catch(error){
+        console.log(error.message);
+    }
+}
+
+const trySendMessageToContentScript =  async (tabId, event) =>{
+    try{
+        chrome.tabs.sendMessage(tabId, event);
+    }
+    catch(error){
+        console.log("Failed to send to message to content script",error.message);
     }
 }

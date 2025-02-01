@@ -10,21 +10,37 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     });
 });
 
-
 //update url for actviated tab
 chrome.tabs.onActivated.addListener(async (activeInfo) => {
     const tab = await chrome.tabs.get(activeInfo.tabId);
     if (tab.active) {
-      console.log("======= active tab url", tab.url);
-      setCurrentActiveURL(tab.url);
+        
+        const canLoadReplies = await canLoadSavedRepliesForURL(tab.url);
+
+        if(!canLoadReplies){
+            
+            if(window !== undefined){
+
+                window.close();
+            }
+        }
+
     }
 });
   
-  //update current url for updated tab when url in a tab changes
+//   //update current url for updated tab when url in a tab changes
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
     if (tab.active) {
-      console.log("======= active tab url", tab.url);
-      setCurrentActiveURL(tab.url);
+      
+        const canLoadReplies = await canLoadSavedRepliesForURL(tab.url);
+
+        if(!canLoadReplies){
+            
+            if(window !== undefined){
+
+                window.close();
+            }
+        }
     }
 });
 
@@ -35,9 +51,9 @@ document.onreadystatechange = async function() {
         (async () => {
             const [tab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
 
-            setCurrentActiveURL(tab.url);
+            const currentActiveUrl = await getCurrentActiveURL();
 
-            const repliesUi = await prepareRepliesUI(currentUrl);
+            const repliesUi = await prepareRepliesUI(currentActiveUrl);
     
             const sharedSavedRepliesDiv = document.querySelector(`#SharedSavedReplies`);
             

@@ -20,10 +20,10 @@ const createShowSavedRepliesButton = () => {
                        background-repeat: no-repeat;
                        border: none;`
             })],
+        className:"show-saved-replies-button-container",
         style:`position:fixed;z-index:9999;bottom:50%; 
                right:50px;
                cursor: move;
-                
                `
     });
 

@@ -5,6 +5,9 @@ importScripts(["../../js/null.js"]);
 importScripts(["../../js/tabs.js"]);
 importScripts(["../../js/elements.js"]);
 importScripts(["../../js/saved-replies-storage.js"]);
+importScripts(["../../js/urls.js"]);
+importScripts(["../../js/events.js"]);
+importScripts(["../../js/can-load-saved-replies.js"])
 importScripts(["offscreen-document.js"]);
 importScripts(["service-worker-messaging.js"]);
 importScripts(["service-worker-storage.js"]);
@@ -15,17 +18,50 @@ const OFFSCREEN = "offscreen";
 
 //set the activeTabId
 let activeTabId;
-let sidePanelOpen = false;
+let currentActiveTabUrl;
 
 setInterval(chrome.runtime.getPlatformInfo, 25e3);
 
 chrome.runtime.onStartup.addListener(async () => {
     activeTabId = (await chrome.tabs.query({ active: true, currentWindow: true }))[0]?.id;
-  });
+});
 
-chrome.tabs.onActivated.addListener(info => {
-    activeTabId = info.tabId;
-  });
+const tryPublishCanLoadSavedRepliesChangedEvent = async (tabId, url) =>{
+
+    const canLoadSavedReplies = await canLoadSavedRepliesForURL(url);
+
+    const canLoadSavedRepliesChangedEvent = 
+        createCanLoadSavedRepliesChangedEvent(canLoadSavedReplies);
+
+   // await tryPublish(canLoadSavedRepliesChangedEvent);
+
+    await trySendMessageToContentScript(tabId, canLoadSavedRepliesChangedEvent);
+}
+
+chrome.tabs.onActivated.addListener(async (activeInfo) => {
+    
+    activeTabId = activeInfo.tabId;
+
+    const tab = await chrome.tabs.get(activeInfo.tabId);
+    if (tab.active) {
+       
+      setCurrentActiveURL(tab.url);
+
+    //   tryPublishCanLoadSavedRepliesChangedEvent(activeInfo.tabId,tab.url);
+    }
+});
+
+//update current url for updated tab when url in a tab changes
+chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+    if (tab.active) {
+        
+        if(changeInfo.url !== undefined){
+            setCurrentActiveURL(tab.url);
+
+            // tryPublishCanLoadSavedRepliesChangedEvent(tabId, tab.url);
+        }
+    }
+});
 
 const sendUpdateSharedSavedRepliesCommand = async (name, url) => {
 
@@ -112,23 +148,36 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
 onAlarm(async (name) =>
     await sendUpdateSharedSavedRepliesMessageToOffScreen(name));
 
+
+
 chrome.webNavigation.onHistoryStateUpdated.addListener( 
     async (details) =>  {
 
         //This seems to force the content-script to be reloaded.
+        
         const getCurrentTab = async () => {
             let queryOptions = { active: true, lastFocusedWindow: true };     
             let [tab] = await chrome.tabs.query(queryOptions);
             return tab;
         }
-        
+
         let tab = await getCurrentTab();
 
-    chrome.scripting.executeScript({
-        target: {tabId: tab.id},
-        func: () => { 
-            console.log("fired");
-            chrome.runtime.lastError }
-      });
+        console.log("history updated details",details);
+
+        if(currentActiveTabUrl != details.url){
+            tryPublishCanLoadSavedRepliesChangedEvent(details.tabId, details.url);
+        }
+
+        currentActiveTabUrl = details.url;
+
+        
+
+    // chrome.scripting.executeScript({
+    //     target: {tabId: tab?.id},
+    //     func: () => { 
+    //         console.log("fired");
+    //         chrome.runtime.lastError }
+    //   });
 
 }, {url: [{hostSuffix: 'github.com'}]});

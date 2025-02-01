@@ -1,6 +1,16 @@
+
+.show-saved-replies-button-container{
+    display:block;
+}
+
+.show-saved-replies-button-container.hide{
+    display:none;
+}
+
+
 .show-saved-replies-icon-button{   
     background-color: lightgray;
-    border-radius: 451%;
+    border-radius: 45%;
     height:60px;
     width:60px;
 }

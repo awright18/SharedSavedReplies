@@ -1,4 +1,25 @@
 
+const getConfigsFromLocalStorage = async () => {
+    const results = await chrome.storage.local.get();
+
+    const resultsArray = Object.entries(results);
+
+    let configExpression = new RegExp(".+-config");
+
+    let configs = [];
+
+    for(let result of resultsArray){
+
+        if (configExpression.test(result[0])) {
+            const config = result[1];
+
+            configs.push(config);
+        }   
+    }
+    
+    return configs;
+}
+
 const getMatchingSavedReplyConfigsFromLocalStorage = async (url) => {
 
     console.log("getting matchingconfig from storage");

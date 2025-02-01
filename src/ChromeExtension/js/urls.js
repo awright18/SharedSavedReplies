@@ -1,9 +1,23 @@
 var currentUrl;
 
-const setCurrentActiveURL = (url) =>{  
-    currentUrl = url;
-     console.log("currentUrl changed", currentUrl);
+const setCurrentActiveURL = async (url, callback) =>{  
+    
+    await chrome.storage.local.set({ [`currentActiveUrl`]: url });
+    
+    console.log("currentUrl changed", currentUrl);
+    
+    if(callback !== undefined){
+
+        callback();
+    }
 } 
+
+const getCurrentActiveURL = async () =>{
+
+    const results =  await chrome.storage.local.get([`currentActiveUrl`]);
+
+    return results[`currentActiveUrl`];
+}
 
 const isGitHubIssueUrl = (url) => {
 
@@ -38,8 +52,11 @@ const isLocalhostUrl = (url) => {
     return pattern.test(url);
 }
 
-const getGitHubOwner = () => {
-    const url = window.location.href;
+const getGitHubOwner = (url) => {
+    
+    if(url === null){
+        url = window.location.href;
+    }
 
     const expression = /https:\/\/github.com\/(?<owner>[^\/]+)?(.*)/i
 
@@ -63,7 +80,11 @@ const canLoadRepliesForUrl = (config,url) => {
         return true;
     }
 
-    const gitHubOwner = getGitHubOwner();
+    const gitHubOwner = getGitHubOwner(url);
+
+    if(gitHubOwner === undefined){
+        return false;
+    }
 
     const validOwner = config.allowEverywhere || gitHubOwner.localeCompare(config.limitToGitHubOwner,undefined,{ sensitivity : `base`}) === 0 ? true : false;
 
@@ -85,3 +106,4 @@ const canLoadRepliesForUrl = (config,url) => {
 
     return false;
 }
+
