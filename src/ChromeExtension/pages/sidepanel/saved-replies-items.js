@@ -37,21 +37,12 @@ const copySavedReplyTemplate = async (event) => {
                        // Create the overlay element
                 const overlay = createElement('div',{
                     children:["Template copied!"],
-                    style:`font-size:16px;
-                           text-align:center;
-                           width:175px;
-                           background-color:rgba(0, 0, 0, 0.7); 
-                           color:white; 
-                           border-radius:5px;
-                           transform:translate(-50%,-50%);
-                           z-index: 9999;
-                           position:absolute;
-                           top:80%;
-                           left:50%;
-                           `
+                    className:"text-copied-indicator"
                 });  
+
+
                 // Add the overlay to the body
-                savedRepliesDiv.appendChild(overlay);
+                savedRepliesDiv.insertBefore(overlay,templateContainerElement);
                 // Remove the overlay after a short delay
                 setTimeout(() => {
                  savedRepliesDiv.removeChild(overlay);
@@ -61,4 +52,39 @@ const copySavedReplyTemplate = async (event) => {
     } catch (err) {
             console.error('Failed to copy: ', err);
     }
+}
+
+const filterVisibleSavedReplies = (text) => {
+    
+    const savedReplyElements =
+      document.querySelectorAll(`div[data-saved-replies-name]`);
+    
+    for(savedReplyElement of savedReplyElements){
+       
+        const elementWithTitle = 
+                savedReplyElement.querySelector(`.saved-replies-button-header-text`);
+
+        if(text === undefined || text === null || text === "" ){
+            savedReplyElement?.classList?.remove("hide");
+            continue;
+        }
+        
+        if(!elementWithTitle?.innerText?.toLowerCase()?.includes(text?.toLowerCase())){
+            savedReplyElement?.classList?.add("hide");
+        }
+    }
+}
+
+const onfilterVisibleSavedReplies = (event) => 
+    filterVisibleSavedReplies(event.target.value);
+
+const clearSearch = (event) =>{
+   const searchBoxDiv = event.target.closest("div");
+   
+   const searchInputElement = searchBoxDiv.querySelector(".search");
+
+   searchInputElement.value = "";
+
+   filterVisibleSavedReplies("");
+
 }

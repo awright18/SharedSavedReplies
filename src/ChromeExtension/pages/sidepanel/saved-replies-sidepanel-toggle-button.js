@@ -1,5 +1,7 @@
 
 let savedRepliesVisible = false;
+let savedRepliesButtonIsDragging = false;
+let savedRepliesButtonOffsetX, savedRepliesButtonOffsetY;
 
 const createShowSavedRepliesButton = () => {
    
@@ -32,7 +34,7 @@ const createShowSavedRepliesButton = () => {
    
 const addShowSavedRepliesClickHandler = (showSavedRepliesButton) =>{
     
-    showSavedRepliesButton.addEventListener(`mousedown`, () =>{
+    showSavedRepliesButton.addEventListener(`dblclick`, () =>{
     
         if(!savedRepliesVisible){
             const openSavedRepliesPanelMessage = "OpenSharedSavedRepliesPanel";
@@ -55,6 +57,32 @@ const addShowSavedRepliesClickHandler = (showSavedRepliesButton) =>{
         } 
     }) 
 }
+
+const addShowSavedRepliesMouseMoveHandlers = (showSavedRepliesButton) =>{
+    
+    showSavedRepliesButton.addEventListener(`click`, (event) =>{
+        if( savedRepliesButtonIsDragging){
+            savedRepliesButtonIsDragging = false;
+        }else{
+            savedRepliesButtonIsDragging = true;
+            savedRepliesButtonOffsetX = event.clientX - showSavedRepliesButton.offsetLeft;
+            savedRepliesButtonOffsetY = event.clientY - showSavedRepliesButton.offsetTop;
+        }
+    });
+
+    showSavedRepliesButton.addEventListener(`mousemove`, (event) =>{
+        if (savedRepliesButtonIsDragging) {
+            showSavedRepliesButton.style.left = (event.clientX - savedRepliesButtonOffsetX) + 'px';
+            showSavedRepliesButton.style.top = (event.clientY - savedRepliesButtonOffsetY) + 'px';
+          }
+    });
+
+//     showSavedRepliesButton.addEventListener(`mouseup`,(event) => {
+//         savedRepliesButtonIsDragging = false;
+//         //save position to storage
+//     });
+ }
+
 
 
 
