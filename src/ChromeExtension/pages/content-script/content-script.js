@@ -42,7 +42,7 @@ const main = async () => {
 
         await addShowSavedRepliesClickHandler(showSavedRepliesButton);
 
-        addShowSavedRepliesMouseMoveHandlers(showSavedRepliesButton)
+        // addShowSavedRepliesMouseMoveHandlers(showSavedRepliesButton)
 
         document.body.appendChild(showSavedRepliesButton);
     }
