@@ -74,6 +74,15 @@ document.onreadystatechange = async function() {
             expandButtons.forEach(
                     (button) => 
                         button.addEventListener("click", toggleTemplateVisibility));
+
+            let searchElement = document.querySelector(`.search`);
+
+            searchElement.addEventListener(`keyup`, onfilterVisibleSavedReplies);
+
+            let clearTextIcon = document.querySelector(".clear-text-icon");
+
+            clearTextIcon.addEventListener(`click`, clearSearch);
+
         })()
         
     }

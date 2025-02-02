@@ -86,8 +86,14 @@ video {
     vertical-align: baseline;
 }
 
+.hide{
+    display:none;
+}
+
  .container {
     display: block;
+    height:100vh;
+    background-color: var(--background-main);
 }
 
 .inner-container {
@@ -130,6 +136,14 @@ video {
     top: 12px;
 }
 
+.clear-text-icon {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    right: 14px;
+    top: 12px;
+}
+
 .search {
     border-radius: 4px;
     border: 1px solid rgb(186, 192, 202);
@@ -140,6 +154,11 @@ video {
     height: 36px;
     padding-left: 44px;
     width: 250px;
+}
+
+.search::placeholder {
+    color:black;
+    opacity: 0.3;
 }
 
 .saved-replies-list {
@@ -339,7 +358,7 @@ div[data-saved-replies-name] {
     visibility: visible;
     height:auto;
     width:auto;
-    background-color: gainsboro;
+    background-color:var(--background-main);
     overflow:auto;
     margin:10px 5px 10px;
     padding:10px;
@@ -349,6 +368,25 @@ div[data-saved-replies-name] {
 .saved-replies-template-body {
  padding:0px 0px 0px; 
  font-size: small;
+}
+
+.text-copied-indicator {
+    font-size:16px;
+    text-align:center;
+    width:175px;
+    background-color:rgba(0, 0, 0, 0.7); 
+    color:white; 
+    border-radius:5px;
+    transform:translate(-50%,-50%);
+    z-index: 9999;
+    position:absolute;
+    top:80%;
+    left:50%;
+}
+
+.text-copied-indicator:has(~ .saved-replies-template-container.visible){
+    position:relative;
+    top:-10px;
 }
 
 

@@ -50,7 +50,7 @@ const createSavedRepliesSidePanelDiv = (savedReplies) => {
                                                                     children:[
                                                                         createElement("div",{
                                                                             children:[reply.name],
-                                                                             className:"saved-replies-button-heder-text"
+                                                                             className:"saved-replies-button-header-text"
                                                                         }),                                                 
                                                                     ],
                                                                     className:"saved-replies-button-header"
