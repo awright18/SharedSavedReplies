@@ -171,13 +171,4 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(
 
         currentActiveTabUrl = details.url;
 
-        
-
-    // chrome.scripting.executeScript({
-    //     target: {tabId: tab?.id},
-    //     func: () => { 
-    //         console.log("fired");
-    //         chrome.runtime.lastError }
-    //   });
-
 }, {url: [{hostSuffix: 'github.com'}]});
