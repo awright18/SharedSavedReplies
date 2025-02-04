@@ -1,8 +1,12 @@
+
 :root {
     --background-main: #F2F4F5;
     --background-secondary: #FFFFFF;
     --color-main: #00a3c4;
     --color-secondary: #00729c;
+    --item-background-main:#FFFFFF;
+    --text-color-main:#000000;
+    --text-color-secondary:gray;
 }
 
 .default {
@@ -11,6 +15,12 @@
     --color-main: #00a3c4;
     --color-secondary: #00729c;
 }
+
+/* .dark{
+    --item-background-main:#000000;
+    --text-color-main:#FFFFFF;
+    --text-color-secondary:rgba(255,255,255,.075)
+} */
 
 .peach {
     --background-main: #FFECAF;
@@ -52,4 +62,25 @@
     --background-secondary: #8B9A46;
     --color-main: #541212;
     --color-secondary: #0F0E0E;
+}
+
+@media (prefers-color-scheme: dark) {
+    
+    
+    :root {
+        --background-main: #F2F4F5;
+        --background-secondary: #FFFFFF;
+        --color-main: #00a3c4;
+        --color-secondary: #00729c;
+        --item-background-main:#FFFFFF;
+        --text-color-main:#000000;
+        --text-color-secondary:gray;
+    }
+
+    .default {
+        --background-main: #F2F4F5;
+        --background-secondary: #cccccc;
+        --color-main: #00729c;
+        --color-secondary: #00a3c4;
+    }
 }

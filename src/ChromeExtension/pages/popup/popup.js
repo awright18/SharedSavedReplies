@@ -2,7 +2,7 @@
 import { arrayIsEmpty} from "../../js/modules/null.js";
 import { createConfigButton } from "./saved-replies-button-element.js";
 import { getSharedSavedReplyConfigurationsFromLocalStorage } from "./popup-storage.js";
-import { applyCurrentTheme } from "../../js/modules/theme.js";
+import { applyCurrentTheme} from "../../js/modules/theme.js";
 
 let configs = [];
 

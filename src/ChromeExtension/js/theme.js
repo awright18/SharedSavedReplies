@@ -1,5 +1,3 @@
-import { isNullOrEmpty, arrayIsNullOrEmpty } from "./null.js";
-
 console.log(`themes loaded`);
 
 const defautTheme = `default`;
@@ -97,5 +95,3 @@ const applyCurrentTheme = async () => {
 
     applyDarkMode(darkModeEnabled);
 }
-
-export {themes, getCurrentTheme, applyCurrentTheme, applyTheme, setDarkMode }

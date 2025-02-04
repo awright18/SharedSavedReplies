@@ -83,6 +83,7 @@ document.onreadystatechange = async function() {
 
             clearTextIcon.addEventListener(`click`, clearSearch);
 
+            await applyCurrentTheme();
         })()
         
     }

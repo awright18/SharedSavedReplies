@@ -90,10 +90,11 @@ video {
     display:none;
 }
 
- .container {
+.container {
     display: block;
     height:100vh;
     background-color: var(--background-main);
+    color: var(--color-main);
 }
 
 .inner-container {

@@ -13,6 +13,7 @@ const getSettings = async () => {
 
     return {       
         theme: settings.theme,
+        enableDarkMode: settings.enableDarkMode,
         allowEverywhere: settings.allowEverywhereDefault,
         limitToGitHubOwner: settings.limitToGitHubOwnerDefault,
         includeIssues: settings.includeIssuesDefault,
@@ -30,7 +31,8 @@ const saveSettings = async (settings) => {
    
     await chrome.storage.local.set({
         [`settings`]: settings,
-        [`applied-theme`]:settings.theme
+        [`applied-theme`]:settings.theme,
+        [`enable-dark-mode`]:settings.enableDarkMode
     });
 }
 

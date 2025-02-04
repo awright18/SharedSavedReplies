@@ -1,4 +1,4 @@
-import { themes, getCurrentTheme, applyTheme, applyCurrentTheme } from "../../js/modules/theme.js";
+import { themes, getCurrentTheme, applyTheme, applyCurrentTheme, setDarkMode } from "../../js/modules/theme.js";
 import { getSettings, saveSettings } from "../../js/modules/settings.js";
 
 
@@ -6,6 +6,7 @@ const getFormValues = () => {
 
     return {
         theme: document.getElementById(`theme`).value,
+        enableDarkMode: document.getElementById(`darkMode`).checked,
         allowEverywhereDefault: document.getElementById(`allowEverywhere`).checked,
         limitToGitHubOwnerDefault: document.getElementById('limitToGitHubOwner').value,
         includeIssuesDefault: document.getElementById(`includeIssues`).checked,
@@ -42,8 +43,7 @@ const tryEnableLimitToGitHubOwner = () => {
 }
 
 const capiatlizeWord = (word) =>{
-
-    
+ 
     const firstLetter = word.charAt(0)
 
     const firstLetterCap = firstLetter.toUpperCase()
@@ -59,6 +59,7 @@ const loadForm = async () => {
 
     const settings = await getSettings();
    
+    document.getElementById(`darkMode`).checked = settings.enableDarkMode;
     document.getElementById(`allowEverywhere`).checked = settings.allowEverywhere;
     document.getElementById('limitToGitHubOwner').value = settings.limitToGitHubOwner;
     document.getElementById(`includeIssues`).checked = settings.includeIssues;
@@ -66,6 +67,8 @@ const loadForm = async () => {
     document.getElementById(`refreshRateInMinutes`).value = Number(settings.refreshRateInMinutes);
 
     const themesElement = document.querySelector(`select`);
+
+    const darkModeElement = document.querySelector(`#darkMode`);
 
     for (let theme of themes) {
 
@@ -80,7 +83,13 @@ const loadForm = async () => {
 
     document.getElementById(`theme`).value = await getCurrentTheme();
 
-    themesElement.addEventListener(`change`, async (event) => await applyTheme(event.target.value));
+    themesElement.addEventListener(`change`, async (event) => {
+        await applyTheme(themesElement.value, darkModeElement.checked);
+    });
+
+    document.getElementById(`darkMode`)
+        .addEventListener(`click`, 
+            (event) => applyTheme(themesElement.value, darkModeElement.checked));
 
     document.getElementById(`allowEverywhere`)
         .addEventListener(`click`, () => tryEnableLimitToGitHubOwner());
