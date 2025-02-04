@@ -33,8 +33,6 @@ const tryPublishCanLoadSavedRepliesChangedEvent = async (tabId, url) =>{
     const canLoadSavedRepliesChangedEvent = 
         createCanLoadSavedRepliesChangedEvent(canLoadSavedReplies);
 
-   // await tryPublish(canLoadSavedRepliesChangedEvent);
-
     await trySendMessageToContentScript(tabId, canLoadSavedRepliesChangedEvent);
 }
 
@@ -47,7 +45,6 @@ chrome.tabs.onActivated.addListener(async (activeInfo) => {
        
       setCurrentActiveURL(tab.url);
 
-    //   tryPublishCanLoadSavedRepliesChangedEvent(activeInfo.tabId,tab.url);
     }
 });
 
@@ -57,8 +54,6 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
         
         if(changeInfo.url !== undefined){
             setCurrentActiveURL(tab.url);
-
-            // tryPublishCanLoadSavedRepliesChangedEvent(tabId, tab.url);
         }
     }
 });
@@ -148,22 +143,16 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
 onAlarm(async (name) =>
     await sendUpdateSharedSavedRepliesMessageToOffScreen(name));
 
-
-
 chrome.webNavigation.onHistoryStateUpdated.addListener( 
     async (details) =>  {
 
         //This seems to force the content-script to be reloaded.
-        
         const getCurrentTab = async () => {
             let queryOptions = { active: true, lastFocusedWindow: true };     
             let [tab] = await chrome.tabs.query(queryOptions);
             return tab;
         }
-
         let tab = await getCurrentTab();
-
-        console.log("history updated details",details);
 
         if(currentActiveTabUrl != details.url){
             tryPublishCanLoadSavedRepliesChangedEvent(details.tabId, details.url);
