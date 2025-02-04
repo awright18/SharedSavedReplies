@@ -29,7 +29,9 @@ const copySavedReplyTemplate = async (event) => {
         .replaceAll(`<span class="token comment">`,"")
         .replaceAll(`</span>`,"")
         .replaceAll(`&lt;!--`,`<!--`)
-        .replaceAll(`--&gt;`,`-->`);
+        .replaceAll(`--&gt;`,`-->`)
+        .replaceAll(`&lt;`,`<`)
+        .replaceAll(`&gt;`,`>`);
     
     try {
             await navigator.clipboard.writeText(updatedTemplate);
