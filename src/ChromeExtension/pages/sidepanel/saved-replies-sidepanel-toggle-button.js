@@ -9,7 +9,7 @@ const createShowSavedRepliesButton = () => {
    
     const showSavedReliesButton = createElement("div",{
         children:[
-            createElement("button", {
+            createElement("div", {
                 children:[
                     createElement("img",{
                         children:[],
@@ -22,11 +22,7 @@ const createShowSavedRepliesButton = () => {
                        background-repeat: no-repeat;
                        border: none;`
             })],
-        className:"show-saved-replies-button-container",
-        style:`position:fixed;z-index:9999;bottom:50%; 
-               right:50px;
-               cursor: move;
-               `
+        className:"show-saved-replies-button-container"
     });
 
     return showSavedReliesButton;
@@ -57,34 +53,6 @@ const addShowSavedRepliesClickHandler = (showSavedRepliesButton) =>{
         } 
     }) 
 }
-
-
-const addShowSavedRepliesMouseMoveHandlers = (showSavedRepliesButton) =>{
-    
-    showSavedRepliesButton.addEventListener(`click`, (event) =>{
-        if( savedRepliesButtonIsDragging){
-            savedRepliesButtonIsDragging = false;
-        }else{
-            savedRepliesButtonIsDragging = true;
-            savedRepliesButtonOffsetX = event.clientX - showSavedRepliesButton.offsetLeft;
-            savedRepliesButtonOffsetY = event.clientY - showSavedRepliesButton.offsetTop;
-        }
-    });
-
-
-    showSavedRepliesButton.addEventListener(`scroll`, (event) =>{
-        if (savedRepliesButtonIsDragging) {
-            showSavedRepliesButton.style.left = (event.clientX - savedRepliesButtonOffsetX) + 'px';
-            showSavedRepliesButton.style.top = (event.clientY - savedRepliesButtonOffsetY) + 'px';
-          }
-    });
-
-//     showSavedRepliesButton.addEventListener(`mouseup`,(event) => {
-//         savedRepliesButtonIsDragging = false;
-//         //save position to storage
-//     });
- }
-
 
 
 

@@ -1,16 +1,20 @@
 .show-saved-replies-button-container{
     display:block;
+    position:fixed;
+    z-index:9999;
+    bottom:50vh; 
+    right:0;
 }
 
 .show-saved-replies-button-container.hide{
     display:none;
 }
 
-.show-saved-replies-icon-button{   
+.show-saved-replies-icon-button {    
     background-color: lightgray;
-    border-radius: 50%;
-    height:48px;
-    width:48px;
+    border-radius: 25% 0% 0% 25%;
+    height:36px;
+    width:36px;
 }
 
 .show-saved-replies-icon-button:active{
