@@ -22,12 +22,14 @@ const getCurrentActiveURL = async () =>{
 const isGitHubIssueUrl = (url) => {
 
     if(url === null){
-       url = window.location.href;
-    }
-
-    let pattern = /^(https?:\/\/)github\.com\/.+\/.+\/issues\/\d+/i;
-
-    return pattern.test(url);
+        url = window.location.href;
+     }
+ 
+     const issueUrlPattern = /^(https?:\/\/)github\.com\/.+\/.+\/issues\/\d+/i;
+ 
+     const projectIssueUrlPattern = /^https:\/\/github.com\/(orgs|users)\/(?<owner>\w+)\/projects\/\d+(?:.*)(?:[?|&]pane=\S+&*)(?:issue=\S+)/i;
+ 
+     return issueUrlPattern.test(url) || projectIssueUrlPattern.test(url);
 }
 
 const isGitHubPullRequestUrl = (url) => {
@@ -58,13 +60,23 @@ const getGitHubOwner = (url) => {
         url = window.location.href;
     }
 
-    const expression = /https:\/\/github.com\/(?<owner>[^\/]+)?(.*)/i
+    const issueOrPrOwnerPattern = /https:\/\/github.com\/(?<owner>[\w]+)\/\w+\/(pull|issues)\/.+/i
 
-    const matches = url.match(expression);
+    if(issueOrPrOwnerPattern.test(url)){
+       
+        const matches = url.match(issueOrPrOwnerPattern);
 
-    const owner = matches?.groups['owner'];
+        return matches?.groups['owner'];
+    }
 
-    return owner;
+    const projectIssuetOwnerPattern = /https:\/\/github.com\/(orgs|users)\/(?<owner>\w+)\/projects\/\d+(?:.*)(?:[?|&]pane=\S+&*)(?:issue=\S+)/i
+    
+    if(projectIssuetOwnerPattern.test(url)){
+       
+        const matches = url.match(projectIssuetOwnerPattern);
+
+        return matches?.groups['owner'];
+    }
 }
 
 const canLoadRepliesForUrl = (config,url) => {

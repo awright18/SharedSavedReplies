@@ -1,10 +1,20 @@
 
 const showHideSavedRepliesButton = async (showButton) => {
 
-    const showSavedRepliesButton =
+    var showSavedRepliesButton =
         document.querySelector(".show-saved-replies-button-container");
 
+    if (showSavedRepliesButton === undefined || showSavedRepliesButton == null) {
+
+        showSavedRepliesButton = createShowSavedRepliesButton();
+
+        await addShowSavedRepliesClickHandler(showSavedRepliesButton);
+
+        document.body.appendChild(showSavedRepliesButton);
+    }
+
     if (showSavedRepliesButton !== undefined) {
+
         if (showButton !== undefined && showButton) {
             showSavedRepliesButton?.classList?.remove("hide");
         } else {
@@ -31,7 +41,7 @@ const main = async () => {
         const showSavedRepliesButton = createShowSavedRepliesButton();
 
         await addShowSavedRepliesClickHandler(showSavedRepliesButton);
-        
+
         document.body.appendChild(showSavedRepliesButton);
     }
 }
