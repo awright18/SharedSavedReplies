@@ -46,13 +46,4 @@ const saveInitialSettings = async () => {
 }
 
 
-browser.runtime.onInstalled.addListener(async (details) => {
-
-    console.log("On Installed")
-    
-    if (details.reason !== "install" && details.reason !== "update") return;
-
-    await saveInitialSettings();
-});
-
 export { saveInitialSettings, getSettings, getInitalSettings}

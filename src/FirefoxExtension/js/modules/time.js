@@ -59,4 +59,4 @@ const calculateMinutes = (count, interval) => {
     }
 }
 
-export { dateIsInThePast, utcNowTicks, dateIsBefore }
+export { dateIsInThePast, utcNowTicks, dateIsBefore, calculateMinutes, utcStartTicks };

@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Shared Saved Replies",
   "description": "Adds saved replies to GitHub's saved replies list when commenting on issues or pull requests.",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "action":{
     "default_popup": "pages/popup/popup.html"
   },
@@ -14,22 +14,45 @@
   },
   "background": {
     "scripts": [
-      "pages/service-worker/service-worker-settings.js",
       "pages/service-worker/service-worker.js"
     ],
     "type":"module"
+  },
+  "sidebar_action":{
+    "default_panel": "pages/sidepanel/saved-replies-sidepanel.html"
+  },
+  "commands": {
+   "_execute_sidebar_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Y"
+      }
+    }
   },
   "content_scripts": [
     {
       "matches": [
         "https://github.com/*"
       ],
+      "css":[
+            "pages/sidepanel/sidepanel-button.css"
+      ],
       "js": [
         "js/time.js",
         "js/null.js",
+        "js/create-element.js",
+        "js/elements.js",
+        "js/messaging.js",
+        "js/message-receivers.js",
+        "js/tabs.js",
+        "js/saved-replies-storage.js",
+        "js/sidepanel.js",
+        "js/urls.js",
+        "js/events.js",
+        "js/can-load-saved-replies.js",
+        "js/saved-replies-sidepanel-toggle-button.js",
+        "pages/content-script/content-script-copy-saved-reply-element.js",
+        "pages/content-script/content-script-messaging.js",
         "pages/content-script/content-script-urls.js",
-        "pages/content-script/content-script-storage.js",
-        "pages/content-script/content-script-elements.js",
         "pages/content-script/content-script.js"
       ]
     }
@@ -45,6 +68,14 @@
     "page":"pages/options/options.html",
     "open_in_tab":true
   },
+  "web_accessible_resources":[{
+    "resources":[
+      "pages/sidepanel/*.svg"
+    ],
+    "matches":[
+      "<all_urls>"
+    ]
+  }],
   "permissions": [
     "activeTab",
     "tabs",
@@ -52,7 +83,8 @@
     "webNavigation",
     "webRequest",
     "alarms",
-    "storage"
+    "storage",
+    "menus"
   ],
   "host_permissions":[
     "*://*.github.com/*"
